@@ -1,16 +1,10 @@
 ﻿<#
   tools/check_release.ps1
-  Перевіряє, що GitHub Release має всі потрібні ассети,
-  і (опційно) звіряє SHA256 з локальними файлами.
+  Перевіряє, що GitHub Release має потрібні ассети,
+  і (опційно) звіряє SHA256, скачуючи файли з релізу.
 
-  Використання:
+  Приклад:
     .\tools\check_release.ps1 -Tag symbols-2025-08-31_1200 -RequireMP4 -VerifyChecksums
-
-  Параметри:
-    -Tag               тег релізу (напр. symbols-YYYY-MM-DD_HHMM, або symbols_next)
-    -RequireMP4        вимагати 8 MP4 (C02 radial/wave × light/dark)
-    -RequireChecksums  вимагати CHECKSUMS.txt (за замовчуванням УВІМКНЕНО)
-    -VerifyChecksums   завантажити CHECKSUMS.txt і звірити з локальними файлами
 #>
 
 param(
@@ -31,22 +25,25 @@ Require-Cli gh
 
 Write-Host "ℹ️  Перевіряю реліз '$Tag'…" -ForegroundColor Cyan
 try {
-  $json = gh release view $Tag --json assets,tagName,isPrerelease --jq .
+  $info = gh release view $Tag --json assets,tagName,isPrerelease | ConvertFrom-Json
 } catch {
   Write-Error "Реліз '$Tag' не знайдено або немає доступу."
   exit 2
 }
 
-$assets = (gh release view $Tag --json assets --jq ".assets[].name") -split "`r?`n" | Where-Object { $_ }
-$assetSet = [System.Collections.Generic.HashSet[string]]::new([string[]]$assets)
+$assets = @()
+if ($info -and $info.assets) { $assets = $info.assets.name }
 
-# Очікуваний базовий набір
+# формуємо множину імен ассетів
+$assetSet = [System.Collections.Generic.HashSet[string]]::new()
+foreach ($n in $assets) { if ($null -ne $n) { [void]$assetSet.Add([string]$n) } }
+
+# Очікуваний набір
 $expected = @(
   "C01_symbol_extended_pack_v1.1.zip",
   "C02_symbol_pack_v1.0.zip"
 )
 if ($RequireChecksums) { $expected += "CHECKSUMS.txt" }
-
 if ($RequireMP4) {
   $expected += @(
     "C02_radial_anim_light.mp4",
@@ -60,21 +57,13 @@ if ($RequireMP4) {
   )
 }
 
-$missing = @()
-foreach ($name in $expected) {
-  if (-not $assetSet.Contains($name)) { $missing += $name }
-}
-
-# Вивід таблиці
-$rows = @()
-foreach ($name in $expected) {
-  $rows += [pscustomobject]@{
-    Asset  = $name
-    Status = $(if ($assetSet.Contains($name)) { "OK" } else { "MISSING" })
-  }
+# Вивід таблиці стану
+$rows = foreach ($name in $expected) {
+  [pscustomobject]@{ Asset = $name; Status = $(if ($assetSet.Contains($name)) { "OK" } else { "MISSING" }) }
 }
 $rows | Format-Table -AutoSize | Out-String | Write-Host
 
+$missing = $rows | Where-Object { $_.Status -ne "OK" } | Select-Object -ExpandProperty Asset
 $hadError = $false
 if ($missing.Count -gt 0) {
   Write-Warning ("Відсутні ассети: " + ($missing -join ", "))
@@ -83,7 +72,7 @@ if ($missing.Count -gt 0) {
   Write-Host "✅ Базовий набір присутній." -ForegroundColor Green
 }
 
-# Перевірка чекcум (опційно)
+# Перевірка CHECKSUMS (скачуємо з релізу)
 if ($VerifyChecksums) {
   if (-not $assetSet.Contains("CHECKSUMS.txt")) {
     Write-Warning "CHECKSUMS.txt відсутній у релізі — перевірка хешів пропущена."
@@ -92,29 +81,21 @@ if ($VerifyChecksums) {
     $tmp = Join-Path $env:TEMP ("relchk_" + $Tag + "_" + (Get-Random))
     New-Item -ItemType Directory -Path $tmp | Out-Null
     gh release download $Tag -p "CHECKSUMS.txt" -D $tmp --clobber | Out-Null
+
     $checks = Get-Content (Join-Path $tmp "CHECKSUMS.txt")
-
-    # Спроба знайти локальні файли у релізній теці або в пак-фолдерах
-    $baseRel = Join-Path (Get-Location) ("release\release_{0}" -f $Tag)
-    $candidates = @($tmp) "c01_pack"),
-      (Join-Path (Get-Location) "c02_pack")
-    )
-
     $mismatch = @()
+
     foreach ($line in $checks) {
       if ($line -match '^\s*SHA256\s+([A-Fa-f0-9]{64})\s+(.+?)\s*$') {
-        $want = $matches[1].ToLower()
+        $want  = $matches[1].ToLower()
         $fname = $matches[2]
 
-        # Пошук локального файлу
-        $local = $null
-        foreach ($dir in $candidates) {
-          $p = Join-Path $dir $fname
-          if (Test-Path $p) { $local = $p; break }
-        }
+        # скачати конкретний файл для звірки (з релізу)
+        gh release download $Tag -p $fname -D $tmp --clobber | Out-Null
+        $local = Join-Path $tmp $fname
 
-        if (-not $local) {
-          Write-Warning "Локальний файл для '$fname' не знайдено — пропускаю звірку."
+        if (-not (Test-Path $local)) {
+          Write-Warning "Не вдалося завантажити '$fname' для звірки."
           $hadError = $true
           continue
         }
@@ -132,10 +113,9 @@ if ($VerifyChecksums) {
       $mismatch | Format-Table -AutoSize | Out-String | Write-Host
       $hadError = $true
     } else {
-      Write-Host "✅ CHECKSUMS.txt збігається з локальними файлами." -ForegroundColor Green
+      Write-Host "✅ CHECKSUMS.txt збігається з файлами релізу." -ForegroundColor Green
     }
   }
 }
 
 if ($hadError) { exit 1 } else { exit 0 }
-
