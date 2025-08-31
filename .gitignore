@@ -7,3 +7,11 @@ _tmp/
 *.gif
 *.png
 *.svg
+
+# build artefacts
+release/
+c01_pack/*.zip
+c02_pack/*.zip
+*.gif
+*.mp4
+
