@@ -16,3 +16,7 @@ CHECHA_CORE
 - C02_symbol_pack_v1.0.zip — [download](https://github.com/Checha-hub-DAO/checha_core/releases/download/symbols-2025-08-31_1200/C02_symbol_pack_v1.0.zip)
 
 
+
+### MP4 (C02)
+
+
