@@ -1,0 +1,9 @@
+﻿# build artefacts
+c01_pack/C01_symbol_extended_pack_v1.1/
+c02_pack/C02_symbol_pack_v1.0/
+release/
+_tmp/
+*.mp4
+*.gif
+*.png
+*.svg
