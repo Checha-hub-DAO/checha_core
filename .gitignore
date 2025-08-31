@@ -15,3 +15,11 @@ c02_pack/*.zip
 *.gif
 *.mp4
 
+
+# build artefacts
+release/
+c01_pack/*.zip
+c02_pack/*.zip
+*.gif
+*.mp4
+
