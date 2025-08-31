@@ -1,0 +1,74 @@
+﻿name: Pre-Release (symbols_next)
+
+on:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: prerelease-symbols
+  cancel-in-progress: true
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y inkscape ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Build C01 & C02
+        run: |
+          python c01_pack/build_c01_symbol_pack.py
+          python c02_pack/build_c02_symbol_pack.py
+
+      - name: Generate CHECKSUMS
+        run: |
+          mkdir -p release/symbols_next
+          sha256sum c01_pack/C01_symbol_extended_pack_v1.1.zip >  release/symbols_next/CHECKSUMS.txt
+          sha256sum c02_pack/C02_symbol_pack_v1.0.zip       >> release/symbols_next/CHECKSUMS.txt
+
+      - name: Export MP4 from GIF (C02, 800px@24fps)
+        run: |
+          find c02_pack/C02_symbol_pack_v1.0 -name "*.gif" -print0 | \
+            xargs -0 -I{} ffmpeg -y -i "{}" -movflags +faststart -pix_fmt yuv420p \
+              -vf "scale=800:-2:flags=lanczos,fps=24" "$(dirname "{}")/$(basename "{}" .gif).mp4"
+
+      - name: Create/Update pre-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="symbols_next"   # НЕ збігається з шаблоном symbols-* у prod-воркфлоу
+          title="CHECHA_CORE Symbols (pre-release)"
+          notes=$(printf "Automated pre-release from %s\n\nCommit: %s\n" "${{ github.ref_name }}" "${{ github.sha }}")
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Updating existing pre-release..."
+            gh release edit "$tag" --title "$title" --notes "$notes" --prerelease
+          else
+            echo "Creating pre-release..."
+            gh release create "$tag" --title "$title" --notes "$notes" --prerelease
+          fi
+
+          # Upload/overwrite assets
+          gh release upload "$tag" \
+            c01_pack/C01_symbol_extended_pack_v1.1.zip \
+            c02_pack/C02_symbol_pack_v1.0.zip \
+            release/symbols_next/CHECKSUMS.txt \
+            --clobber
+
+          # Upload MP4s if present
+          mp4s=$(find c02_pack/C02_symbol_pack_v1.0 -name "*.mp4" -type f)
+          if [ -n "$mp4s" ]; then
+            gh release upload "$tag" $mp4s --clobber
+          fi
