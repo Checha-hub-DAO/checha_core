@@ -1,0 +1,12 @@
+{
+  "BlockName": "ETHNO",
+  "Tag": "v1.2",
+  "SourceDir": "build/ETHNO",
+  "OutZip": "ETHNO_Block_v1.2.zip",
+  "RequireAssets": true,
+  "GitTag": true,
+  "GitRemote": "origin",
+  "Draft": false,
+  "PreRelease": false,
+  "SignChecksums": false
+}

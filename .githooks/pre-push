@@ -1,0 +1,15 @@
+#!/usr/bin/env pwsh
+# Git pre-push hook: validate release before pushing
+$ErrorActionPreference = "Stop"
+if (-not (Test-Path "release.config.json")) { exit 0 } # nothing to validate
+$cfg = Get-Content "release.config.json" -Raw | ConvertFrom-Json
+$Tag = $cfg.Tag
+if (-not $Tag) { exit 0 }
+Write-Host "pre-push: validating release '$Tag'…"
+$args = @{ Tag = $Tag; ReleaseDir = "." }
+if ($cfg.RequireAssets) { $args["RequireAssets"] = $true }
+& ./tools/check_release.ps1 @args
+if ($LASTEXITCODE -ne 0) {
+  Write-Error "pre-push: validation failed. Aborting push."
+  exit 1
+}

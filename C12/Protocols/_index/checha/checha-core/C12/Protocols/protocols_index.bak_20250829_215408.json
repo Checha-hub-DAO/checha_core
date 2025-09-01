@@ -1,0 +1,69 @@
+﻿{
+    "updated_at":  "2025-08-29T21:44:41.5756294+03:00",
+    "protocols":  [
+                      {
+                          "id":  "C12",
+                          "topic":  "01_Knowledge Vault",
+                          "status":  "active",
+                          "owner":  "С.Ч.",
+                          "version":  "v0.1",
+                          "created_at":  "2025-08-29T21:44:41.5492910+03:00",
+                          "updated_at":  "2025-08-29T21:39:17.8618726+03:00",
+                          "tags":  [
+
+                                   ],
+                          "path":  "active/C12-01_Knowledge-Vault.md",
+                          "links":  {
+
+                                    }
+                      },
+                      {
+                          "id":  "CU",
+                          "topic":  "01_CheCha University Identity",
+                          "status":  "active",
+                          "owner":  "С.Ч.",
+                          "version":  "v0.1",
+                          "created_at":  "2025-08-29T21:44:41.5522911+03:00",
+                          "updated_at":  "2025-08-29T21:39:17.8628714+03:00",
+                          "tags":  [
+
+                                   ],
+                          "path":  "active/CU-01_CheCha-University-Identity.md",
+                          "links":  {
+
+                                    }
+                      },
+                      {
+                          "id":  "G23",
+                          "topic":  "01_Student Activation Odesa",
+                          "status":  "active",
+                          "owner":  "С.Ч.",
+                          "version":  "v0.1",
+                          "created_at":  "2025-08-29T21:44:41.5522911+03:00",
+                          "updated_at":  "2025-08-29T21:39:17.8638723+03:00",
+                          "tags":  [
+
+                                   ],
+                          "path":  "active/G23-01_Student-Activation-Odesa.md",
+                          "links":  {
+
+                                    }
+                      },
+                      {
+                          "id":  "ETH",
+                          "topic":  "01_ETHNO Ancestors",
+                          "status":  "draft",
+                          "owner":  "С.Ч.",
+                          "version":  "v0.1",
+                          "created_at":  "2025-08-29T21:44:41.5532941+03:00",
+                          "updated_at":  "2025-08-29T21:39:17.8648831+03:00",
+                          "tags":  [
+
+                                   ],
+                          "path":  "draft/ETH-01_ETHNO-Ancestors.md",
+                          "links":  {
+
+                                    }
+                      }
+                  ]
+}

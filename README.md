@@ -1,22 +1,27 @@
-﻿[![Build & Release](https://github.com/Checha-hub-DAO/checha_core/actions/workflows/build-release.yml/badge.svg)](https://github.com/Checha-hub-DAO/checha_core/actions/workflows/build-release.yml)
-[![Pre-Release](https://github.com/Checha-hub-DAO/checha_core/actions/workflows/pre-release.yml/badge.svg)](https://github.com/Checha-hub-DAO/checha_core/actions/workflows/pre-release.yml)
-[![Symbols Release](https://img.shields.io/github/v/release/Checha-hub-DAO/checha_core?label=Symbols&sort=semver)](https://github.com/Checha-hub-DAO/checha_core/releases/latest)
+# CHECHA Release Repo Skeleton (v1.0)
 
-[![Downloads](https://img.shields.io/github/downloads/Checha-hub-DAO/checha_core/total?label=Downloads)](https://github.com/Checha-hub-DAO/checha_core/releases)
+Готовий каркас для надійних релізів (ETHNO, C12, ЩИТ-4 тощо). Вже містить:
+- `tools/` — скрипти релізу (з шаблону v1.4)
+- `.github/workflows/release.yml` — GitHub Actions
+- `.githooks/pre-push` — локальна перевірка перед пушем
+- `release.config.json` — типовий конфіг (ETHNO v1.2)
+- `build/ETHNO/` — місце для вмісту, який пакуємо
+- `assets/` — медіа для релізу
+- `logs/` — логи запусків
 
-CHECHA_CORE
+## Швидкий старт
+```powershell
+# 1) Встановити хук (одноразово)
+pwsh tools/install_hooks.ps1
 
-[![Downloads](https://img.shields.io/github/downloads/Checha-hub-DAO/checha_core/total?label=Downloads)](https://github.com/Checha-hub-DAO/checha_core/releases)
+# 2) Перевірити/змінити release.config.json (BlockName/Tag/SourceDir/OutZip)
+# 3) Покласти контент для пакування у build/ETHNO/
+# 4) Запустити реліз
+pwsh tools/release_run.ps1 -Config release.config.json
 
+# 5) (опц.) Створити та завантажити реліз у GitHub
+pwsh tools/gh_release.ps1 -Tag (Get-Content release.config.json | ConvertFrom-Json).Tag -Clobber
 
-
-## Downloads
-
-- C01_symbol_extended_pack_v1.1.zip — [download](https://github.com/Checha-hub-DAO/checha_core/releases/download/symbols-2025-08-31_1200/C01_symbol_extended_pack_v1.1.zip)
-- C02_symbol_pack_v1.0.zip — [download](https://github.com/Checha-hub-DAO/checha_core/releases/download/symbols-2025-08-31_1200/C02_symbol_pack_v1.0.zip)
-
-
-
-### MP4 (C02)
-
-
+# 6) Пост-перевірка
+pwsh tools/verify_release_assets.ps1 -Tag (Get-Content release.config.json | ConvertFrom-Json).Tag -RequireAssets
+```

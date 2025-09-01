@@ -1,0 +1,215 @@
+﻿{
+  "updated_at": "2025-09-01T09:10:02.3767213+03:00",
+  "protocols": [
+    {
+      "id": "{{ID}}",
+      "topic": "{{TOPIC}}",
+      "status": "protocols",
+      "owner": "{{OWNER}}",
+      "version": "{{VERSION}}",
+      "created_at": "2025-08-30T15:47:48.4001665+03:00",
+      "updated_at": "2025-08-30T16:16:30.0435523+03:00",
+      "tags": [
+        "{{TAGS}}"
+      ],
+      "path": "PROTOCOL_TEMPLATE.md",
+      "links": {}
+    },
+    {
+      "id": "C12-01",
+      "topic": "Knowledge Vault__20250831_011814",
+      "status": "active",
+      "owner": [
+        null,
+        null,
+        null,
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        null,
+        null,
+        null,
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-30T16:30:33.9314306+03:00",
+      "updated_at": "2025-08-30T16:30:33.9319377+03:00",
+      "tags": [],
+      "path": "active/C12-01_Knowledge-Vault__20250831_011814.md",
+      "links": {}
+    },
+    {
+      "id": "CU-01",
+      "topic": "CheCha University Identity__20250831_011814",
+      "status": "active",
+      "owner": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-30T16:30:33.9311404+03:00",
+      "updated_at": "2025-08-30T16:30:33.9314306+03:00",
+      "tags": [],
+      "path": "active/CU-01_CheCha-University-Identity__20250831_011814.md",
+      "links": {}
+    },
+    {
+      "id": "ETH-01",
+      "topic": "ETHNO Ancestors__20250831_011814",
+      "status": "draft",
+      "owner": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-30T16:30:33.9337824+03:00",
+      "updated_at": "2025-08-30T16:30:33.9337824+03:00",
+      "tags": [],
+      "path": "draft/ETH-01_ETHNO-Ancestors__20250831_011814.md",
+      "links": {}
+    },
+    {
+      "id": "G23-01",
+      "topic": "Student Activation Odesa__20250831_011814",
+      "status": "archived",
+      "owner": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-30T16:30:33.9337824+03:00",
+      "updated_at": "2025-08-30T16:30:33.9337824+03:00",
+      "tags": [],
+      "path": "archived/G23-01_Student-Activation-Odesa__20250831_011814.md",
+      "links": {}
+    },
+    {
+      "id": "Protocols",
+      "topic": "Report",
+      "status": "protocols",
+      "owner": [
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-30T19:52:36.9172786+03:00",
+      "updated_at": "2025-08-30T19:52:36.9177857+03:00",
+      "tags": [],
+      "path": "Protocols_Report.md",
+      "links": {}
+    },
+    {
+      "id": "XXX-YY",
+      "topic": "...",
+      "status": "draft",
+      "owner": [
+        "С.Ч.",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{OWNER}}"
+      ],
+      "version": [
+        "v0.1",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "{{VERSION}}"
+      ],
+      "created_at": "2025-08-29T22:29:00.0000000",
+      "updated_at": "2025-08-29T22:29:00.0000000",
+      "tags": "...",
+      "path": "draft/XXX-YY___20250831_011805.md",
+      "links": {}
+    }
+  ]
+}

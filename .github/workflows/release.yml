@@ -1,0 +1,112 @@
+name: Release Pack
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '*-v*'
+  workflow_dispatch:
+    inputs:
+      block_name:
+        description: 'Block name (e.g. ETHNO, C12, SHIELD-4)'
+        required: true
+        default: 'ETHNO'
+      tag:
+        description: 'Release tag (e.g. v1.2 or ethno-v1.2)'
+        required: false
+      source_dir:
+        description: 'Directory to zip (relative to repo root)'
+        required: true
+        default: 'build/ETHNO'
+      out_zip:
+        description: 'Output zip file name'
+        required: false
+      require_assets:
+        description: 'Require assets/ folder presence'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve inputs / refs
+        id: vars
+        run: |
+          $ref = "${{ github.ref_name }}"
+          $isTagPush = "${{ github.event_name }}" -eq "push" -and "${{ github.ref_type }}" -eq "tag"
+          if ($isTagPush) {
+            $tag = $ref
+            $block = "AUTO"
+            $src = "build/AUTO"
+            $zip = "AUTO_${ref}.zip"
+            $requireAssets = $true
+          } else {
+            $tag = "${{ inputs.tag }}"
+            if (-not $tag) { $tag = $ref }
+            $block = "${{ inputs.block_name }}"
+            $src = "${{ inputs.source_dir }}"
+            $zip = "${{ inputs.out_zip }}"
+            if (-not $zip) { $zip = "{0}_{1}.zip" -f $block, $tag }
+            $requireAssets = "${{ inputs.require_assets }}" -eq "true"
+          }
+
+          "tag=$tag"           | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "block=$block"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "source_dir=$src"    | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "out_zip=$zip"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "require_assets=$requireAssets" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: List repo
+        run: ls -la
+
+      - name: Prepare tools
+        run: |
+          if (-not (Test-Path "tools")) { throw "tools/ not found. Put template tools into repo root." }
+          Get-ChildItem tools
+
+      - name: Make README
+        run: |
+          & ./tools/make_readme.ps1 -BlockName "${{ steps.vars.outputs.block }}" -Tag "${{ steps.vars.outputs.tag }}" -ZipName "${{ steps.vars.outputs.out_zip }}"
+
+      - name: Pack ZIP
+        run: |
+          if (-not (Test-Path "${{ steps.vars.outputs.source_dir }}")) { throw "Source dir '${{ steps.vars.outputs.source_dir }}' not found" }
+          & ./tools/pack_zip.ps1 -SourceDir "${{ steps.vars.outputs.source_dir }}" -OutZip "${{ steps.vars.outputs.out_zip }}"
+
+      - name: Generate CHECKSUMS
+        run: |
+          & ./tools/make_checksums.ps1 -ReleaseDir .
+
+      - name: Verify release set
+        run: |
+          $args = @{ Tag = "${{ steps.vars.outputs.tag }}"; ReleaseDir = "." }
+          if ("${{ steps.vars.outputs.require_assets }}" -eq "True") { $args["RequireAssets"] = $true }
+          & ./tools/check_release.ps1 @args
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: Release ${{ steps.vars.outputs.tag }}
+          draft: false
+          prerelease: false
+          files: |
+            CHECKSUMS.txt
+            ${{ steps.vars.outputs.out_zip }}
+            assets/**/*
+            README_${{ steps.vars.outputs.tag }}.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+- name: Post-publish verify (gh)
+  run: |
+    & ./tools/verify_release_assets.ps1 -Tag "${{ steps.vars.outputs.tag }}" -RequireAssets

@@ -1,0 +1,18 @@
+{
+  "updated_at": "2025-08-29T22:13:54.3857460+03:00",
+  "protocols": {
+    "id": "C12-01",
+    "topic": "Knowledge Vault (перший реліз)",
+    "status": "active",
+    "owner": "С.Ч.",
+    "version": "v1.0",
+    "created_at": "2025-08-29T22:11:00.0000000",
+    "updated_at": "2025-08-29T22:11:00.0000000",
+    "tags": [
+      "C12",
+      "банк знань"
+    ],
+    "path": "active/C12-01_Knowledge-Vault-перший-реліз.md",
+    "links": {}
+  }
+}
