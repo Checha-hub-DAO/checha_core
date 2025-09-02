@@ -8,3 +8,5 @@
 [2025-09-01 21:58:17] 
 
 [2025-09-02 08:01:30] DAO-Forms Center v1.0 Ч додано Forms_Index.md, CHECKSUMS; ZIP у рел≥зах; main синхрон≥зовано.
+
+[2025-09-02 08:13:05] DAO-Forms Center v1.0 Ч створено рел≥з (ETHNO-releases), контент синхрон≥зовано з C12.
