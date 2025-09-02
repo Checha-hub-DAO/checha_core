@@ -25,3 +25,6 @@ Pop-Location
 
 "`n✅ SOP.md зафіксовано й запушено: $sopPath"
 
+--- 
+## 10) Функція PowerShell Update-GalleryGitBook (packs + changelog + git)
+(Встав тут код із мого повідомлення вище — від `powershell до кінця, з прикладами)
