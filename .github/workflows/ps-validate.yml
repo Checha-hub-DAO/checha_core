@@ -1,0 +1,19 @@
+name: ps-validate
+on:
+  push:
+    paths: ["tools/**/*.ps1", "**/*.ps1"]
+  pull_request:
+    paths: ["tools/**/*.ps1", "**/*.ps1"]
+
+jobs:
+  analyze:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+      - name: Run analyzer (fail on warnings/errors)
+        shell: pwsh
+        run: |
+          $res = Invoke-ScriptAnalyzer -Path . -Recurse -Severity @('Warning','Error') -EnableExit

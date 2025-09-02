@@ -1,0 +1,19 @@
+name: docs-check
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "**/*.md"]
+  pull_request:
+    paths: ["docs/**", "**/*.md"]
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links with lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress --exclude-mail --accept 200,204 --max-redirects 5 "docs/**/*.md" "**/*.md"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
