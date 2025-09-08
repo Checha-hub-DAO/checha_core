@@ -1,0 +1,33 @@
+﻿---
+title: "Назва вашого проєкту"
+description: "Короткий слоган"
+---
+
+# 🧭 CHECHA Vault — Dashboard
+Останнє оновлення: 2025-09-08 17:31
+---
+## Полиці
+| Полиця | Оновлено | DIFF | Посилання |
+|---|---|---|---|
+| 📚 Strategic Reports — Vault | 2025-09-04 15:00 | ✅ 0 | [StrategicReports/](StrategicReports/) |
+| 🗒️ Decisions Journal — Vault | 2025-09-04 13:48 | ✅ 0 | [DecisionsJournal/](DecisionsJournal/) |
+| 🚀 Releases — Vault | 2025-09-04 15:00 | ✅ 0 | [Releases/](Releases/) |
+
+### Останні 3 — 📚 Strategic Reports — Vault
+| Дата | Файл | Дзеркало |
+|---|---|---|
+| 2025-09-08 | [Strateg_Report_2025-09-08.md](StrategicReports/2025/Strateg_Report_2025-09-08.md) | - |
+| 2025-09-07 | [Strateg_Report_2025-09-07.md](StrategicReports/2025/Strateg_Report_2025-09-07.md) | - |
+| 2025-09-01 | [Strateg_Report_2025-09-01.md](StrategicReports/2025/Strateg_Report_2025-09-01.md) | - |
+
+### Останні 5 — 🗒️ Decisions Journal — Vault
+| Дата | Файл | Дзеркало |
+|---|---|---|
+| 2025-09-04 | [Decision_2025-09-04.md](DecisionsJournal/2025/Decision_2025-09-04.md) | OK |
+
+### Останні 5 — 🚀 Releases — Vault
+| Дата | Файл | Дзеркало |
+|---|---|---|
+| 2025-09-04 | [Release_2025-09-04.md](Releases/2025/Release_2025-09-04.md) | OK |
+
+> Автооновлення дашборда: Update-VaultDashboard.ps1
