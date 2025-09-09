@@ -1,53 +1,32 @@
 ﻿name: Weekly Module Matrix
-
 on:
-  schedule:
-    # Щонеділі о 18:10 Europe/Kyiv = 15:10 UTC
+  schedule:   # Щонеділі 18:10 Europe/Kyiv = 15:10 UTC
     - cron: "10 15 * * 0"
   workflow_dispatch:
-
 permissions:
   contents: write
   pull-requests: write
-
-concurrency:
-  group: weekly-module-matrix
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (with submodules)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
-
       - name: Generate MODULE_MATRIX.md
         shell: pwsh
         run: |
-          $ErrorActionPreference = 'Stop'
-          $root   = "$env:GITHUB_WORKSPACE"
-          $script = Join-Path $root 'C11/C11_AUTOMATION/tools/Build-ModuleMatrix.ps1'
-          if(-not (Test-Path $script)){ throw "Missing script: $script" }
-          pwsh -NoProfile -File $script -Root $root
-          Write-Host "Status after generation:" -ForegroundColor Cyan
+          $root = "$env:GITHUB_WORKSPACE"
+          pwsh -NoProfile -File "$root/C11/C11_AUTOMATION/tools/Build-ModuleMatrix.ps1" -Root $root
           git status --porcelain
-
-      - name: Create PR with changes
-        uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          add-paths: |
-            C01_PARAMETERS/MODULE_MATRIX.md
+          add-paths: C01_PARAMETERS/MODULE_MATRIX.md
           commit-message: "chore(C01): weekly refresh MODULE_MATRIX.md"
-          branch: "automation/module-matrix"
+          branch: automation/module-matrix
           delete-branch: true
           title: "chore(C01): weekly refresh MODULE_MATRIX.md"
-          body: |
-            Automated weekly regeneration of the module matrix.
-            - Source: C11/C11_AUTOMATION/tools/Build-ModuleMatrix.ps1
-            - Schedule: Sundays 18:10 Europe/Kyiv (15:10 UTC)
+          body: "Automated weekly regeneration of the module matrix."
           labels: "automation, weekly"
-          signoff: true
