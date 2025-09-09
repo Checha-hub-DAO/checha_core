@@ -1,4 +1,4 @@
-Param(
+﻿Param(
   [string]C:\CHECHA_CORE    = 'C:\CHECHA_CORE',
   [string]  = 'C01_PARAMETERS\MODULE_MATRIX.md',
   [switch]
@@ -43,7 +43,16 @@ function MaturityFrom([string]\,[string]\){
   if(\ -and \ -match '(?i)v?(\d+)'){ \=[int]\[1]; if(\ -ge 3){return 3} elseif(\ -ge 2){return 2} elseif(\ -ge 1){return 1} }
   return 1
 }
-function Def(\,\){ if(\ -eq \ -or "\" -eq ''){ \ } else { \ } }
+function Def(\,\){ if(\ -eq \ -or "\" -eq ''){ \ }
+function EscMd([string]$s){
+  if($null -eq $s){ return '' }
+  $s = $s -replace '\|','\|'              # ескейпимо лише вертикальну риску
+  $s = $s -replace '\\\\n',' '            # прибираємо літеральні \\n
+  $s = $s -replace '\\\\r',' '            # прибираємо літеральні \\r
+  $s = $s -replace '\\n',' '              # прибираємо літеральні \n
+  $s = $s -replace '\\r',' '              # прибираємо літеральні \r
+  $s -replace '\r?\n',' '                 # реальні переноси → пробіл
+} else { \ } }
 
 \ = @()
 
@@ -124,3 +133,4 @@ if(-not (Test-Path \C:\CHECHA_CORE)){ New-Item -ItemType Directory -Force -Path 
 
 Write-Host ("[DBG] CORE={0} DAO={1} TOTAL_ROWS={2}" -f @(\).Count, (@(\).Count + @(\).Count), @(\).Count)
 Write-Host ("Matrix → {0}" -f \C:\CHECHA_CORE\MODULE_MATRIX.md)
+
