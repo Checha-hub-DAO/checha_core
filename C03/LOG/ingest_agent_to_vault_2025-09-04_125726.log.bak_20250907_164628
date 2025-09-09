@@ -1,0 +1,6 @@
+п»ї2025-09-04 12:57:26 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\StrategicReports'; Pattern='Strateg_Report_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 12:57:27 Env: PS=7.5.2; Host=ConsoleHost; OS=РњР°Р№РєСЂРѕСЃРѕС„С‚ Windows 11 Pro
+2025-09-04 12:57:27 SKIP SAME: Strateg_Report_2025-09-03.md (hash=BD6C57F32B2142A43761B8C10DD263AA448A56DD65B74421F4CB57EAF9AD93D6) -> C:\CHECHA_CORE\C12\Vault\StrategicReports\2025\Strateg_Report_2025-09-03.md
+2025-09-04 12:57:27 SKIP SAME: Strateg_Report_2025-09-04.md (hash=54B1253F3E542C5D48B00681D971E412A3E0D17FD5A03DCADB0632ACE27BB71E) -> C:\CHECHA_CORE\C12\Vault\StrategicReports\2025\Strateg_Report_2025-09-04.md
+2025-09-04 12:57:27 SUMMARY: copied=0; moved=0; overwritten=0; skippedSame=2; conflicts=0; errors=0
+2025-09-04 12:57:27 END Ingest

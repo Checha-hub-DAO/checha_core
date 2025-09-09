@@ -1,0 +1,607 @@
+﻿п»ї<# =======================================================================
+  CheCha CONTROL PANEL РІР‚вЂќ Interactive Console Menu
+  Author: Р РЋ.Р В§. (CheCha)
+  Path:   C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Checha-ControlPanel.ps1
+  Requires: PowerShell 7+
+======================================================================= #>
+
+#requires -Version 7.0
+
+param(
+  [string]$ChechaRoot = "C:\CHECHA_CORE",
+  [switch]$Force
+)
+
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$ErrorActionPreference = "Stop"
+$script:Force = [bool]$Force
+
+# --- Paths ---------------------------------------------------------------
+$Paths = [ordered]@{
+  Root                = $ChechaRoot
+  C03_Log             = Join-Path $ChechaRoot "C03\LOG"
+  RhythmDash          = Join-Path $ChechaRoot "RHYTHM_DASHBOARD.md"
+  RunAll              = Join-Path $ChechaRoot "C11\C11_AUTOMATION\Checha-RunAll.ps1"
+  Pipelines           = Join-Path $ChechaRoot "C11\C11_AUTOMATION\Run-ChechaPipelines.ps1"
+  PanelContext        = Join-Path $ChechaRoot "C11\C11_AUTOMATION\tools\Add-CheChaContext.ps1"
+  VaultDashScript     = Join-Path $ChechaRoot "C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1"
+  ShelvesConfig       = Join-Path $ChechaRoot "C11\C11_AUTOMATION\config\checha_shelves.json"
+  VaultRoot           = Join-Path $ChechaRoot "C12\Vault"
+  StrategAgentDir     = Join-Path $ChechaRoot "C11\C11_AUTOMATION\AGENTS\G44_STRATEG"
+  VerifyRelease       = Join-Path $ChechaRoot "tools\verify_release_assets.ps1"
+  CheckRelease        = Join-Path $ChechaRoot "tools\check_release.ps1"
+  Protocols           = Join-Path $ChechaRoot "C12\Protocols"
+  ControlPanelMD      = Join-Path $ChechaRoot "C06_FOCUS\CONTROL_PANEL.md"
+  # G04
+  G04Dir              = Join-Path $ChechaRoot "C11\C11_AUTOMATION\G04"
+  G04Escalation       = Join-Path $ChechaRoot "C11\C11_AUTOMATION\G04\Handle-G04-Escalation.ps1"
+  # Incidents
+  IncidentsRoot       = Join-Path $ChechaRoot "C12\Vault\Incidents"
+  # Strategic Reports
+  StrategicReadme     = Join-Path $ChechaRoot "C12\Vault\StrategicReports\README.md"
+  StrategicIndex      = Join-Path $ChechaRoot "C12\Vault\StrategicReports\_index.md"
+  # Icons
+  ShortcutIconDefault = Join-Path $ChechaRoot "C11\C11_AUTOMATION\tools\assets\checha_dao.ico"
+}
+
+# --- Transcript ----------------------------------------------------------
+try{
+  if(-not (Test-Path $Paths.C03_Log)){ New-Item -ItemType Directory -Path $Paths.C03_Log | Out-Null }
+  $global:__ChechaTranscript = Join-Path $Paths.C03_Log ("control_panel_{0}.log" -f (Get-Date -Format "yyyyMMdd_HHmmss"))
+  Start-Transcript -Path $global:__ChechaTranscript -Append -ErrorAction SilentlyContinue | Out-Null
+} catch {}
+
+# --- Tasks & Agents maps -------------------------------------------------
+$Tasks = @{
+  GitSync       = "ChechaGitSync"
+  StrategWeekly = "Checha-Agent-Strateg-Weekly"
+}
+$Agents = [ordered]@{
+  "G44 Strategic (task)"   = @{ Type="task";   Name=$Tasks.StrategWeekly }
+  "G04 Coordination dir"   = @{ Type="open";   Path=(Join-Path $ChechaRoot "C11\C11_AUTOMATION\AGENTS\G04_COORD") }
+  "G11 Leadership dir"     = @{ Type="open";   Path=(Join-Path $ChechaRoot "C11\C11_AUTOMATION\AGENTS\G11_LEAD") }
+  "G04 Escalation (script)"= @{ Type="script"; Path=$Paths.G04Escalation }
+}
+
+# --- Panel state ---------------------------------------------------------
+$StatePath = Join-Path $ChechaRoot "C11\C11_AUTOMATION\state\panel_state.json"
+function Get-State(){ if(Test-Path $StatePath){ try{ Get-Content $StatePath -Raw | ConvertFrom-Json }catch{ [pscustomobject]@{} } } else { [pscustomobject]@{} } }
+function Save-State($obj){
+  $dir = Split-Path $StatePath -Parent
+  if(-not (Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }
+  ($obj | ConvertTo-Json -Depth 6) | Set-Content -Path $StatePath -Encoding UTF8
+}
+function Prompt-Tag([string]$hint){
+  $st = Get-State
+  $def = $st.lastTag
+  if($def){ Write-Host "[i] Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂ“Р в„- РЎвЂљР ВµР С-: $def" -ForegroundColor DarkGray }
+  $tag = Read-Host $hint
+  if([string]::IsNullOrWhiteSpace($tag)){ return $null }
+  $st.lastTag = $tag; Save-State $st
+  return $tag
+}
+
+# --- Helpers -------------------------------------------------------------
+function Write-Info($m){ Write-Host "[i] $m" -ForegroundColor Cyan }
+function Write-Ok($m){ Write-Host "[OK] $m" -ForegroundColor Green }
+function Write-Warn($m){ Write-Host "[WARN] $m" -ForegroundColor Yellow }
+function Write-Err($m){ Write-Host "[ERR] $m" -ForegroundColor Red }
+
+function Assert-File([string]$p){ if(-not (Test-Path $p -PathType Leaf)){ throw "Р СњР Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• РЎвЂћР В°Р в„-Р В»: $p" } }
+function Assert-Dir([string]$p){ if(-not (Test-Path $p -PathType Container)){ throw "Р СњР Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• РЎвЂљР ВµР С”РЎС“: $p" } }
+
+function Open-Path([string]$p){
+  if(Test-Path $p){ try{ Start-Process $p | Out-Null }catch{ Write-Warn "Р СњР Вµ Р Р†Р Т‘Р В°Р В»Р С•РЎРѓРЎРЏ Р Р†РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘: $p РІР‚вЂќ $($_.Exception.Message)" } }
+  else{ Write-Warn "Р РЃР В»РЎРЏРЎвЂ¦ Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $p" }
+}
+
+function Tail-LastLog([int]$Lines=60){
+  Assert-Dir $Paths.C03_Log
+  $last = Get-ChildItem $Paths.C03_Log -File | Sort-Object LastWriteTime -Desc | Select-Object -First 1
+  if($last){
+    Write-Info "Р вЂєР С•Р С-: $($last.FullName)"
+    Get-Content $last.FullName -Tail $Lines
+  } else { Write-Warn "Р вЂєР С•Р С-Р С‘ Р Р†РЎвЂ“Р Т‘РЎРѓРЎС“РЎвЂљР Р…РЎвЂ“ Р Р† $($Paths.C03_Log)" }
+}
+
+function Run-PS([string]$ScriptPath, [hashtable]$Args){
+  Assert-File $ScriptPath
+  $sb = { param($sp, $argsHash) & $sp @argsHash; if($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0){ throw "ExitCode=$LASTEXITCODE" } }
+  & pwsh -NoProfile -ExecutionPolicy Bypass -Command $sb -Args $ScriptPath, $Args
+  Write-Ok "Р С™Р С•Р СР В°Р Р…Р Т‘Р В° Р Р†Р С‘Р С”Р С•Р Р…Р В°Р Р…Р В°."
+}
+
+function Exists-Task([string]$name){ $null = & schtasks /Query /TN $name 2>$null; return ($LASTEXITCODE -eq 0) }
+function Run-Task([string]$name){
+  if(-not (Exists-Task $name)){ Write-Err "Р -Р В°Р Т‘Р В°РЎвЂЎР В° Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р В°: $name"; return }
+  try{ Write-Info "Р -Р В°Р С-РЎС“РЎРѓР С”Р В°РЎР‹ Р С-Р В»Р В°Р Р…РЎС“Р Р†Р В°Р В»РЎРЉР Р…Р С‘Р С”: $name"; & schtasks /Run /TN $name | Out-Null; Write-Ok "Р РЋР С-РЎР‚Р С•Р В±Р С•Р Р†Р В°Р Р…Р С• Р В·Р В°Р С-РЎС“РЎРѓРЎвЂљР С‘РЎвЂљР С‘ '$name'." }catch{ Write-Err "Р СџР С•Р СР С‘Р В»Р С”Р В°: $($_.Exception.Message)" }
+}
+
+function Backup-File([string]$p){ if(Test-Path $p){ $bak="$p.bak_"+(Get-Date -Format "yyyyMMddHHmmss"); Copy-Item $p $bak -ErrorAction SilentlyContinue } }
+
+function Update-ControlPanelDate(){
+  if(-not (Test-Path $Paths.ControlPanelMD)){ Write-Warn "CONTROL_PANEL.md Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $($Paths.ControlPanelMD)"; return }
+  $content = Get-Content $Paths.ControlPanelMD -Raw
+  $ts = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+  $updated = $content -replace 'Р С›Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С•:\s*\{\{DATE\}\}', "Р С›Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С•: $ts"
+  if($updated -ne $content){
+    Backup-File $Paths.ControlPanelMD
+    $updated | Set-Content -Path $Paths.ControlPanelMD -Encoding UTF8
+    Write-Ok "Р С›Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С• Р Т‘Р В°РЎвЂљРЎС“ Р Р† CONTROL_PANEL.md ($ts)."
+  } else { Write-Info "Р СџР С•Р В»Р Вµ {{DATE}} Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• РІР‚вЂќ Р С-РЎР‚Р С•Р С-РЎС“РЎвЂ°Р ВµР Р…Р С•." }
+}
+
+function Toggle-Force(){ $script:Force = -not $script:Force; Write-Host ("Force={0}" -f ($(if($script:Force){"ON"}else{"off"}))) -ForegroundColor ($(if($script:Force){"Green"}else{"Yellow"})) }
+
+function Normalize-Severity([string]$sev){ $s=($sev ?? "").ToLower().Trim(); if(@("low","medium","high")-contains $s){$s}else{"medium"} }
+function YamlEscape([string]$s){ if($null -eq $s){return ""}; return ($s -replace '"','\"') }
+
+# --- Strategic README/INDEX ---------------------------------------------
+function Update-StrategicReadmeTimestamp([string]$Path){
+  $stamp = "Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂќ Р С•Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ: " + (Get-Date -Format "yyyy-MM-dd HH:mm")
+  if(-not (Test-Path $Path)){
+    "# СЂСџвЂњС™ Strategic Reports РІР‚вЂќ Vault`n$stamp`n" | Set-Content -Path $Path -Encoding UTF8
+    return
+  }
+  $lines = Get-Content $Path
+  $headerIdx = ($lines | Select-String -SimpleMatch "# СЂСџвЂњС™ Strategic Reports РІР‚вЂќ Vault" | Select-Object -First 1).LineNumber
+  $stampIdx  = ($lines | Select-String -SimpleMatch "Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂќ Р С•Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ:" | Select-Object -First 1).LineNumber
+  if(-not $headerIdx){
+    $lines = @("# СЂСџвЂњС™ Strategic Reports РІР‚вЂќ Vault",$stamp) + $lines
+  } elseif($stampIdx){ $lines[$stampIdx-1] = $stamp }
+  Backup-File $Path
+  $lines | Set-Content -Path $Path -Encoding UTF8
+}
+function Add-IncidentToStrategicReadme([string]$IncidentId,[string]$Severity,[string]$IncidentPath,[string]$CreatedIso){
+  $readmePath = $Paths.StrategicReadme
+  $readmeDir  = Split-Path $readmePath -Parent
+  if(-not (Test-Path $readmeDir)){ New-Item -ItemType Directory -Path $readmeDir | Out-Null }
+  $dateStr = $CreatedIso.Split(' ')[0]
+  $rel = [System.IO.Path]::GetRelativePath($readmeDir, $IncidentPath) -replace '\\','/'
+  $sectionHeader='## Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂ“ РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљР С‘'; $tableHeader='| Р вЂќР В°РЎвЂљР В° | Р вЂ Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљ | Severity |'; $tableSeparator='|---|---|---|'
+  $newRow="| $dateStr | [$IncidentId]($rel) | $Severity |"
+  if(-not (Test-Path $readmePath)){
+    $content=@"
+# СЂСџвЂњС™ Strategic Reports РІР‚вЂќ Vault
+Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂќ Р С•Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ: $(Get-Date -Format "yyyy-MM-dd HH:mm")
+
+$sectionHeader
+$tableHeader
+$tableSeparator
+$newRow
+"@
+    Backup-File $readmePath
+    $content | Set-Content -Path $readmePath -Encoding UTF8
+    Update-StrategicReadmeTimestamp -Path $readmePath
+    Write-Ok "Р РЋРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…Р С• README РЎвЂљР В° Р Т‘Р С•Р Т‘Р В°Р Р…Р С• РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљ."
+    return
+  }
+  $lines = Get-Content $readmePath
+  $idxHeader = ($lines | Select-String -SimpleMatch $sectionHeader | Select-Object -First 1)
+  if(-not $idxHeader){
+    Backup-File $readmePath
+    "`n$sectionHeader`n$tableHeader`n$tableSeparator`n$newRow`n" | Add-Content -Path $readmePath -Encoding UTF8
+    Update-StrategicReadmeTimestamp -Path $readmePath
+    Write-Ok "Р вЂќР С•Р Т‘Р В°Р Р…Р С• РЎРѓР ВµР С”РЎвЂ РЎвЂ“РЎР‹ Р’В«Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂ“ РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљР С‘Р’В» РЎвЂ“ РЎР‚РЎРЏР Т‘Р С•Р С”."
+    return
+  }
+  $iHeader = $idxHeader.LineNumber - 1; $iSeparator=($iHeader+2)
+  $insertIndex = $iSeparator + 1
+  $updated=@()
+  if($insertIndex -gt 0){ $updated += $lines[0..($insertIndex-1)] }
+  $updated += $newRow
+  if($lines.Count -gt ($insertIndex)){ $updated += $lines[$insertIndex..($lines.Count-1)] }
+  Backup-File $readmePath
+  $updated | Set-Content -Path $readmePath -Encoding UTF8
+  Update-StrategicReadmeTimestamp -Path $readmePath
+  Write-Ok "Р вЂќР С•Р Т‘Р В°Р Р…Р С• РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљ РЎС“ README (top)."
+}
+function Update-StrategicIndex([int]$Count=20){
+  $indexPath = $Paths.StrategicIndex
+  $indexDir  = Split-Path $indexPath -Parent
+  if(-not (Test-Path $indexDir)){ New-Item -ItemType Directory -Path $indexDir | Out-Null }
+  $incRoot   = $Paths.IncidentsRoot
+  if(-not (Test-Path $incRoot)){
+    Backup-File $indexPath
+    "# СЂСџвЂњвЂЎ Strategic Reports Index`nР С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂќ Р С•Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ: $(Get-Date -Format "yyyy-MM-dd HH:mm")`n`n(Р вЂ Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљР С‘ РЎвЂ°Р Вµ Р Р…Р Вµ РЎРѓРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…РЎвЂ“.)`n" | Set-Content -Path $indexPath -Encoding UTF8
+    Write-Warn "IncidentsRoot Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $incRoot РІР‚вЂќ РЎРѓРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…Р С• Р С-Р С•РЎР‚Р С•Р В¶Р Р…РЎвЂ“Р в„- РЎвЂ“Р Р…Р Т‘Р ВµР С”РЎРѓ."
+    return
+  }
+  $all = Get-ChildItem $incRoot -Recurse -File -Filter "*.md" | Sort-Object LastWriteTime -Desc | Select-Object -First $Count
+  $nowStamp = (Get-Date -Format "yyyy-MM-dd HH:mm")
+  $lines = @("# СЂСџвЂњвЂЎ Strategic Reports Index","Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂќ Р С•Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ: $nowStamp","","## Р С›РЎРѓРЎвЂљР В°Р Р…Р Р…РЎвЂ“ РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљР С‘ ($($all.Count))","")
+  foreach($f in $all){
+    $rel = [System.IO.Path]::GetRelativePath($indexDir, $f.FullName) -replace '\\','/'
+    $id=$null;$sev=$null;$title=$null;$created=$f.LastWriteTime.ToString("yyyy-MM-dd")
+    try{
+      $raw = Get-Content $f.FullName -Raw
+      if($raw -match "(?s)^---(.*?)---"){
+        $yaml=$Matches[1]
+        if($yaml -match "id:\s*""?([^""\r\n]+)""?"){ $id=$Matches[1].Trim() }
+        if($yaml -match "severity:\s*""?([^""\r\n]+)""?"){ $sev=$Matches[1].Trim() }
+        if($yaml -match "title:\s*""?([^""\r\n]+)""?"){ $title=$Matches[1].Trim() }
+        if($yaml -match "created:\s*""?([^""\r\n]+)""?"){ $created=($Matches[1].Split(' ')[0]).Trim() }
+      }
+    }catch{}
+    if(-not $id){ $id=[System.IO.Path]::GetFileNameWithoutExtension($f.Name) }
+    if(-not $sev){ $sev="medium" }
+    if(-not $title){ $title=$id }
+    $lines += ("- {0} РІР‚вЂќ [{1}]({2}) РІР‚вЂќ **{3}**" -f $created,$id,$rel,$sev)
+  }
+  Backup-File $indexPath
+  $lines | Set-Content -Path $indexPath -Encoding UTF8
+  Write-Ok "Р С›Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С• РЎвЂ“Р Р…Р Т‘Р ВµР С”РЎРѓ: $indexPath"
+}
+
+# --- Shortcut Icon helpers ----------------------------------------------
+function Get-IconPath(){
+  $st = Get-State
+  if($st.iconPath -and (Test-Path $st.iconPath -PathType Leaf)){ return $st.iconPath }
+  if(Test-Path $Paths.ShortcutIconDefault -PathType Leaf){ return $Paths.ShortcutIconDefault }
+  return $null
+}
+function Set-IconPath([string]$path){
+  $st = Get-State
+  if([string]::IsNullOrWhiteSpace($path)){ $st.iconPath=$null; Save-State $st; Write-Ok "Р вЂ Р С”Р С•Р Р…Р С”РЎС“ Р С•РЎвЂЎР С‘РЎвЂ°Р ВµР Р…Р С•."; return }
+  if(-not (Test-Path $path -PathType Leaf)){ Write-Err "Р В¤Р В°Р в„-Р В» Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $path"; return }
+  if([IO.Path]::GetExtension($path).ToLower() -ne ".ico"){ Write-Err "Р С›РЎвЂЎРЎвЂ“Р С”РЎС“РЎвЂќРЎвЂљРЎРЉРЎРѓРЎРЏ .ico: $path"; return }
+  $st.iconPath=(Resolve-Path $path).Path; Save-State $st; Write-Ok "Р вЂ Р С”Р С•Р Р…Р С”РЎС“ Р В·Р В±Р ВµРЎР‚Р ВµР В¶Р ВµР Р…Р С•: $($st.iconPath)"
+}
+function Action-SetShortcutIcon(){
+  Write-Host "Р вЂ™Р С”Р В°Р В¶Р С‘ РЎв‚¬Р В»РЎРЏРЎвЂ¦ Р Т‘Р С• .ico Р В°Р В±Р С• Enter Р Т‘Р В»РЎРЏ Р Т‘Р ВµРЎвЂћР С•Р В»РЎвЂљР В°; 'clear' РІР‚вЂќ Р С-РЎР‚Р С‘Р В±РЎР‚Р В°РЎвЂљР С‘ РЎвЂ“Р С”Р С•Р Р…Р С”РЎС“." -ForegroundColor Cyan
+  Write-Host "  " $Paths.ShortcutIconDefault -ForegroundColor DarkGray
+  $inp = Read-Host "Icon path [.ico] / Enter / clear"
+  if([string]::IsNullOrWhiteSpace($inp)){
+    if(Test-Path $Paths.ShortcutIconDefault -PathType Leaf){ Set-IconPath $Paths.ShortcutIconDefault } else { Write-Warn "Р вЂќР ВµРЎвЂћР С•Р В»РЎвЂљР Р…Р С•РЎ- .ico Р Р…Р ВµР СР В°РЎвЂќ." }
+  } elseif($inp.Trim().ToLower() -eq "clear"){ Set-IconPath $null }
+  else { Set-IconPath $inp }
+}
+
+# --- PS 5.1 STA helpers --------------------------------------------------
+function Ensure-PS5Path(){ $ps5=Join-Path $env:WINDIR "System32\WindowsPowerShell\v1.0\powershell.exe"; if(-not (Test-Path $ps5 -PathType Leaf)){ throw "Р СњР Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• Windows PowerShell 5.1: $ps5" }; $ps5 }
+function New-ShortcutSTA {
+  param([Parameter(Mandatory)][string]$Path,[Parameter(Mandatory)][string]$Target,[Parameter(Mandatory)][string]$WorkDir,[string]$Icon)
+  $PS5 = Ensure-PS5Path
+  $tmp = Join-Path $env:TEMP ("mklnk_{0}.ps1" -f ([guid]::NewGuid().ToString('N')))
+  @'
+param([string]$Path,[string]$Target,[string]$WorkDir,[string]$Icon)
+$ErrorActionPreference='Stop'
+$shell = New-Object -ComObject WScript.Shell
+$dir = Split-Path $Path -Parent
+if(-not (Test-Path $dir)){ New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+if(Test-Path $Path){
+  try{ (Get-Item $Path).Attributes = 'Normal' }catch{}
+  try{ Remove-Item $Path -Force -ErrorAction SilentlyContinue }catch{}
+}
+$lnk = $shell.CreateShortcut($Path)
+$lnk.TargetPath       = $Target
+$lnk.Arguments        = ""
+$lnk.WorkingDirectory = $WorkDir
+$lnk.WindowStyle      = 1
+if($Icon -and (Test-Path $Icon)){ $lnk.IconLocation = "$Icon, 0" }
+$lnk.Save()
+if(-not (Test-Path $Path)){ throw "Save() completed but file not found: $Path" }
+try{ (Get-Item $Path).Attributes = 'ReadOnly' }catch{}
+try{ attrib +P $Path 2>$null }catch{}
+'@ | Set-Content -Path $tmp -Encoding UTF8
+  & $PS5 -STA -NoProfile -File $tmp -Path $Path -Target $Target -WorkDir $WorkDir -Icon $Icon | Out-Null
+  $code=$LASTEXITCODE
+  Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+  if(-not (Test-Path $Path)){ throw "Failed to create shortcut: $Path (exit $code)" }
+}
+
+# --- Actions -------------------------------------------------------------
+function Action-RunAll(){ $args=@{}; if($script:Force){$args["Force"]=$true}; Run-PS $Paths.RunAll $args }
+function Action-RunPipelines(){ $args=@{}; if($script:Force){$args["Force"]=$true}; if(Test-Path $Paths.ShelvesConfig){ $args["ConfigPath"]=$Paths.ShelvesConfig }; Run-PS $Paths.Pipelines $args }
+function Action-UpdateVaultDashboard(){ Run-PS $Paths.VaultDashScript @{} }
+function Action-OpenDashboards(){ Open-Path $Paths.RhythmDash; Action-UpdateVaultDashboard }
+function Action-GitSync(){ Run-Task $Tasks.GitSync }
+function Action-StrategicAgent(){
+  if(Test-Path $Paths.StrategAgentDir){ Run-Task $Tasks.StrategWeekly; Open-Path (Join-Path $Paths.StrategAgentDir "reports") }
+  else { Write-Warn "Р вЂќР С‘РЎР‚Р ВµР С”РЎвЂљР С•РЎР‚РЎвЂ“РЎРЏ Р В°Р С-Р ВµР Р…РЎвЂљР В° Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р В°: $($Paths.StrategAgentDir)" }
+}
+
+# --- 16) Shortcut Hardening / Auto-Restore -------------------------------
+function Action-ShortcutHardening(){
+  $toolsDir   = Join-Path $ChechaRoot "C11\C11_AUTOMATION\tools"
+  $panelPs1   = Join-Path $toolsDir "Checha-ControlPanel.ps1"
+  $launcher   = Join-Path $toolsDir "Checha-ControlPanel.cmd"
+  $fixPs1     = Join-Path $toolsDir "Fix-ChechaShortcut.ps1"
+  $autoCmd    = Join-Path $toolsDir "Run-ChechaShortcutAutoRestore.cmd"
+  $masterLnk  = Join-Path $toolsDir "CheCha CONTROL PANEL.master.lnk"
+  $icon       = Get-IconPath
+  if(-not (Test-Path $panelPs1 -PathType Leaf)){ Write-Err "Р СњР Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• Р С-Р В°Р Р…Р ВµР В»РЎРЉ: $panelPs1"; return }
+
+  # 1) .cmd-Р В»Р В°Р Р…РЎвЂЎР ВµРЎР‚
+  "@echo off`r`npushd ""$toolsDir""`r`nstart """" ""$((Get-Command pwsh).Source)"" -NoProfile -ExecutionPolicy Bypass -File ""$panelPs1""`r`npopd`r`n" |
+    Set-Content -Path $launcher -Encoding ASCII
+  try{ attrib +P $launcher 2>$null }catch{}
+
+  # 2) Р вЂўРЎвЂљР В°Р В»Р С•Р Р…Р Р…Р С‘Р в„- РЎРЏРЎР‚Р В»Р С‘Р С” (STA)
+  try{ New-ShortcutSTA -Path $masterLnk -Target $launcher -WorkDir $toolsDir -Icon $icon; Write-Ok "Р вЂўРЎвЂљР В°Р В»Р С•Р Р…Р Р…Р С‘Р в„- РЎРЏРЎР‚Р В»Р С‘Р С” РЎРѓРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…Р С•: $masterLnk" }
+  catch { Write-Err "Р СњР Вµ Р Р†Р Т‘Р В°Р В»Р С•РЎРѓРЎРЏ РЎРѓРЎвЂљР Р†Р С•РЎР‚Р С‘РЎвЂљР С‘ Р ВµРЎвЂљР В°Р В»Р С•Р Р…Р Р…Р С‘Р в„- РЎРЏРЎР‚Р В»Р С‘Р С”: $($_.Exception.Message)"; return }
+
+  # 3) Р РЋР С”РЎР‚Р С‘Р С-РЎвЂљ Р В°Р Р†РЎвЂљР С•-Р Р†РЎвЂ“Р Т‘Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…РЎРЏ Р В· Р В»Р С•Р С-РЎС“Р Р†Р В°Р Р…Р Р…РЎРЏР С
+  $restoreContent = @"
+Start-Sleep -Seconds 5
+`$ErrorActionPreference="SilentlyContinue"
+`$ToolsDir   = "$toolsDir"
+`$ChechaRoot = "$ChechaRoot"
+`$MasterLnk  = Join-Path `$ToolsDir "CheCha CONTROL PANEL.master.lnk"
+`$Targets = @(
+  (Join-Path `$env:APPDATA 'Microsoft\Windows\Start Menu\Programs\CheCha CONTROL PANEL.lnk'),
+  (Join-Path `$env:Public  'Desktop\CheCha CONTROL PANEL.lnk')
+)
+`$logDir = Join-Path `$ChechaRoot "C03\LOG"
+if(-not (Test-Path `$logDir)){ New-Item -ItemType Directory -Path `$logDir | Out-Null }
+`$logFile = Join-Path `$logDir "shortcut_restore.log"
+"`$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') START restore" | Out-File -FilePath `$logFile -Append -Encoding utf8
+foreach(`$t in `$Targets){
+  try{
+    Copy-Item `$MasterLnk `$t -Force
+    try{ (Get-Item `$t).Attributes = 'ReadOnly' }catch{}
+    try{ attrib +P `$t 2>`$null }catch{}
+    "`$(Get-Date -Format 'HH:mm:ss') OK   `$t" | Out-File -FilePath `$logFile -Append -Encoding utf8
+  }catch{
+    "`$(Get-Date -Format 'HH:mm:ss') ERR  `$t РІР‚вЂќ $($_.Exception.Message)" | Out-File -FilePath `$logFile -Append -Encoding utf8
+  }
+}
+"@
+  $restoreContent | Set-Content -Path $fixPs1 -Encoding UTF8
+  try{ attrib +P $fixPs1 2>$null }catch{}
+  try{ attrib +P $masterLnk 2>$null }catch{}
+  if($icon){ try{ attrib +P $icon 2>$null }catch{} }
+
+  # 4) Task Scheduler Р В· 20РЎРѓ Р В·Р В°РЎвЂљРЎР‚Р С‘Р СР С”Р С•РЎР‹ (fallback РЎС“ Startup)
+  $taskName = "ChechaShortcutAutoRestore"
+  $pwsh = (Get-Command pwsh).Source
+  $createdByTask = $false
+  try{
+    schtasks /Delete /TN $taskName /F 2>$null | Out-Null
+    $out = schtasks /Create /SC ONLOGON /TN $taskName /TR "`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$fixPs1`"" /RL LIMITED /DELAY 0000:20 /F 2>&1
+    if($LASTEXITCODE -eq 0){ $createdByTask=$true; Write-Ok "Auto-restore РЎвЂЎР ВµРЎР‚Р ВµР В· Task Scheduler РЎРѓРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…Р С• (Р В·Р В°РЎвЂљРЎР‚Р С‘Р СР С”Р В° 20РЎРѓ)." }
+    else { Write-Warn ("Task Scheduler: Р С”Р С•Р Т‘ $LASTEXITCODE РІР‚вЂќ Р Р†Р С‘Р С”Р С•РЎР‚Р С‘РЎРѓРЎвЂљР С•Р Р†РЎС“РЎР‹ Startup fallback. " + ($out -join " ")) }
+  } catch { Write-Warn "Task Scheduler Р Р…Р ВµР Т‘Р С•РЎРѓРЎвЂљРЎС“Р С-Р Р…Р С‘Р в„- РІР‚вЂќ Р Р†Р С‘Р С”Р С•РЎР‚Р С‘РЎРѓРЎвЂљР С•Р Р†РЎС“РЎР‹ Startup fallback. Р вЂќР ВµРЎвЂљР В°Р В»РЎвЂ“: $($_.Exception.Message)" }
+
+  if(-not $createdByTask){
+    "@echo off
+""$pwsh"" -NoProfile -ExecutionPolicy Bypass -File ""$fixPs1""
+" | Set-Content -Path $autoCmd -Encoding ASCII
+    try{ attrib +P $autoCmd 2>$null }catch{}
+    $startup = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Startup'
+    if(-not (Test-Path $startup)){ New-Item -ItemType Directory -Path $startup -Force | Out-Null }
+    try{
+      Copy-Item $autoCmd (Join-Path $startup (Split-Path $autoCmd -Leaf)) -Force
+      try{ attrib +P (Join-Path $startup (Split-Path $autoCmd -Leaf)) 2>$null }catch{}
+      Write-Ok "Auto-restore РЎвЂЎР ВµРЎР‚Р ВµР В· Startup Р Р…Р В°Р В»Р В°РЎв‚¬РЎвЂљР С•Р Р†Р В°Р Р…Р С•: $startup"
+    } catch {
+      Write-Warn "Р СњР Вµ Р Р†Р Т‘Р В°Р В»Р С•РЎРѓРЎРЏ Р В·Р В°Р С-Р С‘РЎРѓР В°РЎвЂљР С‘ Р Р† Startup (Р СР С•Р В¶Р В»Р С‘Р Р†Р С•, Controlled Folder Access). Р вЂќР ВµРЎвЂљР В°Р В»РЎвЂ“: $($_.Exception.Message)"
+    }
+  }
+
+  # 5) Р В Р В°Р В·Р С•Р Р†Р С‘Р в„- Р В·Р В°Р С-РЎС“РЎРѓР С” + Р С-РЎвЂ“Р Т‘Р С”Р В°Р В·Р С”Р В° Р С-РЎР‚Р С• Р В»Р С•Р С-
+  & pwsh -NoProfile -ExecutionPolicy Bypass -File $fixPs1
+  Write-Ok "Shortcut hardening Р В·Р В°Р Р†Р ВµРЎР‚РЎв‚¬Р ВµР Р…Р С•. Р вЂєР С•Р С-: $(Join-Path $ChechaRoot 'C03\LOG\shortcut_restore.log')"
+  Write-Info "Р Р‡РЎР‚Р В»Р С‘Р С”Р С‘: User Start Menu + Public Desktop (РЎРЏР С”РЎвЂ°Р С• Р Т‘Р С•РЎРѓРЎвЂљРЎС“Р С-Р Р…Р С•)."
+}
+
+# --- 17) Set Shortcut Icon ----------------------------------------------
+# (Р Р†Р С‘Р С”Р С•РЎР‚Р С‘РЎРѓРЎвЂљР С•Р Р†РЎС“РЎвЂќ Action-SetShortcutIcon РЎвЂљР В° Set-IconPath Р Р†Р С‘РЎвЂ°Р Вµ)
+
+# --- 18) Shortcut Restore Log (view/tail/clear) -------------------------
+function Get-ShortcutLogPath(){
+  $logDir = Join-Path $ChechaRoot "C03\LOG"
+  if(-not (Test-Path $logDir)){ New-Item -ItemType Directory -Path $logDir | Out-Null }
+  return (Join-Path $logDir "shortcut_restore.log")
+}
+function Action-OpenShortcutLog(){
+  $log = Get-ShortcutLogPath
+  if(-not (Test-Path $log)){ "" | Set-Content $log -Encoding UTF8 }
+  try{ Start-Process notepad $log | Out-Null; Write-Ok "Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘Р Р† Р В»Р С•Р С- РЎС“ Notepad." }catch{ Write-Err "Р СњР Вµ Р Р†Р Т‘Р В°Р В»Р С•РЎРѓРЎРЏ Р Р†РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘ Р В»Р С•Р С-: $($_.Exception.Message)" }
+}
+function Action-TailShortcutLog(){
+  $log = Get-ShortcutLogPath
+  if(-not (Test-Path $log)){ "" | Set-Content $log -Encoding UTF8 }
+  Write-Info "Р РЋРЎвЂљР ВµР В¶Р ВµР Р…Р Р…РЎРЏ Р В·Р В° Р В»Р С•Р С-Р С•Р С. Р СњР В°РЎвЂљР С‘РЎРѓР Р…Р С‘ Ctrl+C, РЎвЂ°Р С•Р В± Р Р†Р С‘Р в„-РЎвЂљР С‘."
+  Get-Content $log -Wait
+}
+function Action-ClearShortcutLog(){
+  $log = Get-ShortcutLogPath
+  try{ "" | Set-Content $log -Encoding UTF8; Write-Ok "Р вЂєР С•Р С- Р С•РЎвЂЎР С‘РЎвЂ°Р ВµР Р…Р С•: $log" }catch{ Write-Err "Р СџР С•Р СР С‘Р В»Р С”Р В° Р С•РЎвЂЎР С‘РЎвЂ°Р ВµР Р…Р Р…РЎРЏ: $($_.Exception.Message)" }
+}
+function Action-ShortcutLogMenu(){
+  Write-Host "18.1) Open in Notepad"
+  Write-Host "18.2) Tail (live view)"
+  Write-Host "18.3) Clear log"
+  Write-Host "0) Back"
+  $s = Read-Host "Р вЂ™Р С‘Р В±РЎвЂ“РЎР‚"
+  switch($s){
+    '1' { Action-OpenShortcutLog }
+    '2' { Action-TailShortcutLog }
+    '3' { Action-ClearShortcutLog }
+    default { return }
+  }
+}
+
+# --- Menu UI -------------------------------------------------------------
+function Show-Header(){
+  Clear-Host
+  Write-Host ""
+  Write-Host "==================== СЂСџвЂєВ° CheCha CONTROL PANEL ====================" -ForegroundColor Magenta
+  Write-Host ("  Root: {0}" -f $ChechaRoot) -ForegroundColor DarkGray
+  Write-Host ("  Time: {0}" -f (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")) -ForegroundColor DarkGray
+  Write-Host ("  Force: {0}" -f ($(if($script:Force){"ON"}else{"off"}))) -ForegroundColor DarkGray
+  Write-Host "=================================================================" -ForegroundColor Magenta
+  Write-Host ""
+}
+function Show-Menu(){
+  Write-Host "1) Dashboards                     6) Verify Release"
+  Write-Host "2) RunAll (Р С-Р В°Р в„-Р С-Р В»Р В°Р в„-Р Р…Р С‘)             7) Check Release"
+  Write-Host "3) Pipelines (Р В·Р В° Р С”Р С•Р Р…РЎвЂћРЎвЂ“Р С-Р С•Р С)        8) Vault / Protocols"
+  Write-Host "4) GitSync (Scheduled Task)       9) Logs / Tail last"
+  Write-Host "5) Strategic Agent (G44)         10) Install/Update Context Menu"
+  Write-Host "-----------------------------------------------------------------"
+  Write-Host "11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report"
+  Write-Host "13) G04 Escalation                14) Create Incident Note"
+  Write-Host "15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore"
+  Write-Host "17) Set Shortcut Icon (.ico)      18) Shortcut Restore Log (view/tail/clear)"
+  Write-Host "A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   V) View Shortcut Log   0) Exit"
+  Write-Host ""
+}
+
+function Main-Loop(){
+  do{
+    Show-Header
+    Show-Menu
+    $choice = Read-Host "Р вЂ™Р С‘Р В±РЎвЂ“РЎР‚"
+    try{
+      switch($choice){
+        '1'  { Action-OpenDashboards }
+        '2'  { Action-RunAll }
+        '3'  { Action-RunPipelines }
+        '4'  { Action-GitSync }
+        '5'  { Action-StrategicAgent }
+        '6'  { Action-VerifyRelease }
+        '7'  { Action-CheckRelease }
+        '8'  {
+          Write-Host "8.1) Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘ Vault"
+          Write-Host "8.2) Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘ Protocols"
+          Write-Host "8.3) Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘ Incidents"
+          $s = Read-Host "Р вЂ™Р С‘Р В±РЎвЂ“РЎР‚"
+          if($s -eq '1'){ Open-Path $Paths.VaultRoot }
+          elseif($s -eq '2'){ Open-Path $Paths.Protocols }
+          elseif($s -eq '3'){ Open-Path $Paths.IncidentsRoot }
+        }
+        '9'  {
+          Write-Host "9.1) Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С‘ РЎвЂљР ВµР С”РЎС“ LOG"
+          Write-Host "9.2) Р СџР С•Р С”Р В°Р В·Р В°РЎвЂљР С‘ РЎвЂ¦Р Р†РЎвЂ“РЎРѓРЎвЂљ Р С•РЎРѓРЎвЂљР В°Р Р…Р Р…РЎРЉР С•Р С-Р С• Р В»Р С•Р С--РЎвЂћР В°Р в„-Р В»РЎС“"
+          $s = Read-Host "Р вЂ™Р С‘Р В±РЎвЂ“РЎР‚"
+          if($s -eq '1'){ Open-Path $Paths.C03_Log }
+          elseif($s -eq '2'){ Tail-LastLog -Lines 80 }
+        }
+        '10' { Run-PS $Paths.PanelContext @{ Install=$true; IncludeOpenPanel=$true; PwshExe=(Get-Command pwsh).Source; ChechaRoot=$ChechaRoot } }
+        '11' { Update-ControlPanelDate }
+        '12' { 
+          $dir = Join-Path $Paths.VaultRoot "StrategicReports"
+          if(-not (Test-Path $dir)){ Write-Warn "Р СњР ВµР СР В°РЎвЂќ РЎвЂљР ВµР С”Р С‘ StrategicReports: $dir" }
+          else{
+            $last = Get-ChildItem $dir -Recurse -File -Filter "Strateg_Report_*.md" | Sort-Object LastWriteTime -Desc | Select-Object -First 1
+            if($last){ Start-Process $last.FullName | Out-Null; Write-Ok "Р вЂ™РЎвЂ“Р Т‘Р С”РЎР‚Р С‘РЎвЂљР С•: $($last.Name)" } else { Write-Warn "Р -Р Р†РЎвЂ“РЎвЂљРЎвЂ“Р Р† Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С• РЎС“ $dir" }
+          }
+        }
+        '13' { 
+          if(-not (Test-Path $Paths.G04Escalation -PathType Leaf)){ Write-Err "Р РЋР С”РЎР‚Р С‘Р С-РЎвЂљ Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $($Paths.G04Escalation)" }
+          else{
+            Write-Info "Р СљР С•Р В¶Р ВµРЎв‚¬ Р Р†Р С”Р В°Р В·Р В°РЎвЂљР С‘ Р С-Р В°РЎР‚Р В°Р СР ВµРЎвЂљРЎР‚Р С‘ (Enter РІР‚вЂќ Р С-РЎР‚Р С•Р С-РЎС“РЎРѓРЎвЂљР С‘РЎвЂљР С‘)."
+            $incident = Read-Host "IncidentId (Р Р…Р ВµР С•Р В±Р С•Р Р†'РЎРЏР В·Р С”Р С•Р Р†Р С•)"
+            $severity = Normalize-Severity (Read-Host "Severity [low|medium|high] (Р Р…Р ВµР С•Р В±Р С•Р Р†'РЎРЏР В·Р С”Р С•Р Р†Р С•)")
+            $args=@{}; if($incident){$args["IncidentId"]=$incident}; if($severity){$args["Severity"]=$severity}; if($script:Force){$args["Force"]=$true}
+            Run-PS $Paths.G04Escalation $args
+          }
+        }
+        '14' {
+          $now=Get-Date; $yyy=$now.ToString("yyyy"); $tsId=$now.ToString("yyyyMMdd-HHmmss"); $defaultId="INC-$tsId"
+          $dirYear = Join-Path $Paths.IncidentsRoot $yyy
+          if(-not (Test-Path $dirYear)){ New-Item -ItemType Directory -Path $dirYear | Out-Null }
+          $incident = Read-Host "IncidentId (Enter Р Т‘Р В»РЎРЏ Р В°Р Р†РЎвЂљР С•) [$defaultId]"; if([string]::IsNullOrWhiteSpace($incident)){ $incident=$defaultId }
+          $severity = Normalize-Severity (Read-Host "Severity [low|medium|high] (Enter=medium)")
+          $title    = Read-Host "Р С™Р С•РЎР‚Р С•РЎвЂљР С”Р С‘Р в„- Р В·Р В°Р С-Р С•Р В»Р С•Р Р†Р С•Р С” (1-2 РЎвЂћРЎР‚Р В°Р В·Р С‘)"
+          $desc     = Read-Host "Р С›Р С-Р С‘РЎРѓ (optional)"
+          $fileName="INC-$tsId.md"; $pathMd=Join-Path $dirYear $fileName; $author=$env:USERNAME; $isoTime=$now.ToString("yyyy-MM-dd HH:mm:ss")
+          $content=@"
+---
+type: incident
+id: "$(YamlEscape $incident)"
+title: "$(YamlEscape $title)"
+severity: "$(YamlEscape $severity)"
+created: "$isoTime"
+author: "$(YamlEscape $author)"
+status: "open"
+links: []
+tags: ["G04","escalation"]
+---
+
+# $incident РІР‚вЂќ $title
+
+**Р вЂќР В°РЎвЂљР В°/РЎвЂЎР В°РЎРѓ:** $isoTime  
+**Р С’Р Р†РЎвЂљР С•РЎР‚:** $author  
+**Severity:** $severity
+
+## Р С™Р С•РЎР‚Р С•РЎвЂљР С”Р С‘Р в„- Р С•Р С-Р С‘РЎРѓ
+$desc
+
+## Р вЂќРЎвЂ“РЎ- / Р вЂўРЎРѓР С”Р В°Р В»Р В°РЎвЂ РЎвЂ“РЎРЏ
+- [ ] Р СџР ВµРЎР‚Р Р†Р С‘Р Р…Р Р…Р В° Р Р†Р В°Р В»РЎвЂ“Р Т‘Р В°РЎвЂ РЎвЂ“РЎРЏ
+- [ ] Р СџРЎР‚Р С‘Р В·Р Р…Р В°РЎвЂЎР С‘РЎвЂљР С‘ Р Р†РЎвЂ“Р Т‘Р С-Р С•Р Р†РЎвЂ“Р Т‘Р В°Р В»РЎРЉР Р…Р С•Р С-Р С•
+- [ ] Р -РЎвЂ“Р В±РЎР‚Р В°РЎвЂљР С‘ Р В°РЎР‚РЎвЂљР ВµРЎвЂћР В°Р С”РЎвЂљР С‘ (Р В»Р С•Р С-Р С‘, РЎРѓР С”РЎР‚РЎвЂ“Р Р…РЎв‚¬Р С•РЎвЂљР С‘, Р С-Р С•РЎРѓР С‘Р В»Р В°Р Р…Р Р…РЎРЏ)
+- [ ] Р СџР С•Р Р†РЎвЂ“Р Т‘Р С•Р СР С‘РЎвЂљР С‘ РЎРѓРЎвЂљР ВµР в„-Р С”РЎвЂ¦Р С•Р В»Р Т‘Р ВµРЎР‚РЎвЂ“Р Р†
+- [ ] Р -Р В°Р С-РЎС“РЎРѓРЎвЂљР С‘РЎвЂљР С‘ Р ВµРЎРѓР С”Р В°Р В»Р В°РЎвЂ РЎвЂ“РЎР‹ (G04)
+
+## Р С’РЎР‚РЎвЂљР ВµРЎвЂћР В°Р С”РЎвЂљР С‘
+- Р вЂєР С•Р С-Р С‘: `C03/LOG/...`
+- Р РЋР С”РЎР‚Р С‘Р С-РЎвЂљ: `C11/C11_AUTOMATION/G04/Handle-G04-Escalation.ps1`
+
+## Р В РЎвЂ“РЎв‚¬Р ВµР Р…Р Р…РЎРЏ / Р СџР С•РЎРѓРЎвЂљР СР С•РЎР‚РЎвЂљР ВµР С
+- TBD
+
+РІСљРЊРїС‘РЏ Р РЋ.Р В§.
+"@
+          $content | Set-Content -Path $pathMd -Encoding UTF8
+          Write-Ok "Р СњР С•РЎвЂљРЎС“ РЎвЂ“Р Р…РЎвЂ Р С‘Р Т‘Р ВµР Р…РЎвЂљРЎС“ РЎРѓРЎвЂљР Р†Р С•РЎР‚Р ВµР Р…Р С•: $pathMd"
+          Start-Process $pathMd | Out-Null
+          try{ Add-IncidentToStrategicReadme -IncidentId $incident -Severity $severity -IncidentPath $pathMd -CreatedIso $isoTime; Update-StrategicIndex -Count 20 }catch{ Write-Warn "README/INDEX: $($_.Exception.Message)" }
+        }
+        '15' { Update-StrategicIndex -Count 20 }
+        '16' { Action-ShortcutHardening }
+        '17' { Action-SetShortcutIcon }
+        '18' { Action-ShortcutLogMenu }
+        'A'  { 
+          $i=0; $keys=$Agents.Keys
+          foreach($k in $keys){ $i++; Write-Host ("{0}) {1}" -f $i, $k) }
+          Write-Host "0) Back"
+          $sel = Read-Host "Р вЂ™Р С‘Р В±РЎвЂ“РЎР‚"
+          if($sel -eq '0'){ }
+          elseif($sel -as [int] -and $sel -ge 1 -and $sel -le $keys.Count){
+            $key=$keys[[int]$sel-1]; $cfg=$Agents[$key]
+            switch($cfg.Type){
+              "task"   { Run-Task $cfg.Name }
+              "open"   { Open-Path $cfg.Path }
+              "script" { if(Test-Path $cfg.Path -PathType Leaf){ & $cfg.Path } else { Write-Err "Р РЋР С”РЎР‚Р С‘Р С-РЎвЂљ Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $($cfg.Path)" } }
+              default  { Write-Warn "Р СњР ВµР Р†РЎвЂ“Р Т‘Р С•Р СР С‘Р в„- РЎвЂљР С‘Р С- Р В°Р С-Р ВµР Р…РЎвЂљР В°: $($cfg.Type)" }
+            }
+          } else { Write-Warn "Р СњР ВµР Р†РЎвЂ“РЎР‚Р Р…Р С‘Р в„- Р Р†Р С‘Р В±РЎвЂ“РЎР‚: $sel" }
+        }
+        'D' { Action-OpenDashboards }
+        'L' { Tail-LastLog -Lines 80 }
+        'F' { Toggle-Force }
+        'E' { 
+          if(Test-Path $Paths.G04Escalation -PathType Leaf){
+            $incident = Read-Host "IncidentId (Р Р…Р ВµР С•Р В±Р С•Р Р†'РЎРЏР В·Р С”Р С•Р Р†Р С•)"
+            $severity = Normalize-Severity (Read-Host "Severity [low|medium|high] (Р Р…Р ВµР С•Р В±Р С•Р Р†'РЎРЏР В·Р С”Р С•Р Р†Р С•)")
+            $args=@{}; if($incident){$args["IncidentId"]=$incident}; if($severity){$args["Severity"]=$severity}; if($script:Force){$args["Force"]=$true}
+            Run-PS $Paths.G04Escalation $args
+          } else { Write-Err "Р РЋР С”РЎР‚Р С‘Р С-РЎвЂљ Р Р…Р Вµ Р В·Р Р…Р В°Р в„-Р Т‘Р ВµР Р…Р С•: $($Paths.G04Escalation)" }
+        }
+        'I' { 
+          # Alias Р Т‘Р С• 14
+          $choice='14'; continue
+        }
+        'T' { Update-StrategicIndex -Count 20 }
+        'Y' { Action-ShortcutHardening }
+        'O' { Action-SetShortcutIcon }
+        'V' { Action-OpenShortcutLog }
+        '0' { break }
+        default { Write-Warn "Р СњР ВµР Р†РЎвЂ“Р Т‘Р С•Р СР С‘Р в„- Р Р†Р С‘Р В±РЎвЂ“РЎР‚: $choice" }
+      }
+    } catch { Write-Err $_.Exception.Message }
+    if($choice -ne '0'){ Write-Host ""; Read-Host "Р СњР В°РЎвЂљР С‘РЎРѓР Р…Р С‘ Enter, РЎвЂ°Р С•Р В± Р С-РЎР‚Р С•Р Т‘Р С•Р Р†Р В¶Р С‘РЎвЂљР С‘" | Out-Null }
+  } while ($true)
+}
+
+# --- Startup diagnostics -------------------------------------------------
+try{ Assert-Dir $Paths.Root; Write-Ok "CHECHA_ROOT OK: $($Paths.Root)" } catch { Write-Err $_.Exception.Message; try{ Stop-Transcript | Out-Null }catch{}; exit 1 }
+
+Main-Loop
+
+try{ Stop-Transcript | Out-Null } catch {}
+

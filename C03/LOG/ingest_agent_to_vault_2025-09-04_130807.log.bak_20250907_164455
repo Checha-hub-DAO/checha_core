@@ -1,0 +1,5 @@
+﻿2025-09-04 13:08:07 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\Releases'; Pattern='Release_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 13:08:07 Env: PS=7.5.2; Host=ConsoleHost; OS=Майкрософт Windows 11 Pro
+2025-09-04 13:08:07 SKIP SAME: Release_2025-09-04.md (hash=81FDBA809691EE93EB877C56C6761B53E182B77DAC2CCF3ABBF53F4305BC791B) -> C:\CHECHA_CORE\C12\Vault\Releases\2025\Release_2025-09-04.md
+2025-09-04 13:08:07 SUMMARY: copied=0; moved=0; overwritten=0; skippedSame=1; conflicts=0; errors=0
+2025-09-04 13:08:07 END Ingest

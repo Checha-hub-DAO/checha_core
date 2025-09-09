@@ -1,0 +1,8 @@
+п»ї2025-09-04 14:34:24 BEGIN Run-ChechaPipelines; Config=C:\CHECHA_CORE\C11\C11_AUTOMATION\config\checha_shelves.json; DryRun=False; Force=True; Pwsh=C:\Program Files\PowerShell\7\pwsh.exe
+2025-09-04 14:34:24 LOCK acquired: Global\CHECHA_VaultPipeline
+2025-09-04 14:34:24 Targets: StrategicReports, DecisionsJournal, Releases
+2025-09-04 14:34:24 INGEST [StrategicReports]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports -> C:\CHECHA_CORE\C12\Vault\StrategicReports  (Strateg_Report_*.md)
+2025-09-04 14:34:25 INGEST done [StrategicReports]
+2025-09-04 14:34:25 UPDATE [StrategicReports]  Title='рџ“љ Strategic Reports вЂ” Vault'
+2025-09-04 14:34:25 ERR: Update failed (StrategicReports): exit 1
+2025-09-04 14:34:25 LOCK released: Global\CHECHA_VaultPipeline

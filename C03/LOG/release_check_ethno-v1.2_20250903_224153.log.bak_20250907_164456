@@ -1,0 +1,9 @@
+﻿[2025-09-03 22:41:53] INFO: Знайдено ассетів: 4
+[2025-09-03 22:41:54] INFO: OK ассет: CHECKSUMS.txt
+[2025-09-03 22:41:54] INFO: CHECKSUMS.txt завантажено: C:\Users\serge\AppData\Local\Temp\checks_Checha-hub-DAO_checha_core_ethno-v1.2\CHECKSUMS.txt
+[2025-09-03 22:41:54] INFO: Імена, знайдені у CHECKSUMS: ETHNO-Block-v1.2_20250901_1609.zip, GALLERY_ETHNO_v1.2_20250902_151318.zip
+[2025-09-03 22:41:54] INFO: Визначено ZIP: E
+[2025-09-03 22:41:55] INFO: Завантажено ZIP: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\E
+[2025-09-03 22:41:55] ERROR: Локальний ZIP не знайдено: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\E
+[2025-09-03 22:41:55] ERROR: Не знайдено рядок у CHECKSUMS для 'E'. Доступні: ETHNO-Block-v1.2_20250901_1609.zip, GALLERY_ETHNO_v1.2_20250902_151318.zip
+[2025-09-03 22:41:55] ERROR: Перевірка релізу НЕ пройдена.

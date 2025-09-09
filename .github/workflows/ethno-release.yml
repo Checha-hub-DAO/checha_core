@@ -1,4 +1,4 @@
-name: ETHNO Release
+﻿name: ETHNO Release
 
 on:
   push:
@@ -51,17 +51,17 @@ jobs:
           if (-not $ff) { throw "ffmpeg not found in PATH" }
           Write-Host "ffmpeg: $ff"
 
-      # --- NEW: export MP4s (якщо є скрипт) ---
-      # Очікується скрипт tools/export_mp4.ps1, який читає з джерела .gif і кладе .mp4 в задану теку
+      # --- NEW: export MP4s (СЏРєС‰Рѕ С” СЃРєСЂРёРїС‚) ---
+      # РћС‡С–РєСѓС”С‚СЊСЃСЏ СЃРєСЂРёРїС‚ tools/export_mp4.ps1, СЏРєРёР№ С‡РёС‚Р°С” Р· РґР¶РµСЂРµР»Р° .gif С– РєР»Р°РґРµ .mp4 РІ Р·Р°РґР°РЅСѓ С‚РµРєСѓ
       - name: Export MP4 symbols (optional)
         shell: pwsh
         run: |
           $export = Join-Path $env:GITHUB_WORKSPACE 'tools\export_mp4.ps1'
           if (Test-Path $export -PathType Leaf) {
-            Write-Host "Running export_mp4.ps1…"
+            Write-Host "Running export_mp4.ps1вЂ¦"
             pwsh -NoProfile -ExecutionPolicy Bypass -File $export -Overwrite
           } else {
-            Write-Host "(i) tools/export_mp4.ps1 not found — skip MP4 export"
+            Write-Host "(i) tools/export_mp4.ps1 not found вЂ” skip MP4 export"
           }
 
       - name: Build ETHNO
@@ -78,13 +78,13 @@ jobs:
             -File "$env:ETHNO_ROOT\Verify-ETHNO.ps1" `
             -Root "$env:ETHNO_ROOT" -Strict
 
-      # Публікація: ZIP + README + CHECKSUMS + MP4 (через UploadExtra)
+      # РџСѓР±Р»С–РєР°С†С–СЏ: ZIP + README + CHECKSUMS + MP4 (С‡РµСЂРµР· UploadExtra)
       - name: Publish release (ZIP + README + CHECKSUMS + MP4)
         shell: pwsh
         run: |
-          # Спробуємо знайти MP4 після експорту в репо. Підлаштуй патерни під свою структуру:
+          # РЎРїСЂРѕР±СѓС”РјРѕ Р·РЅР°Р№С‚Рё MP4 РїС–СЃР»СЏ РµРєСЃРїРѕСЂС‚Сѓ РІ СЂРµРїРѕ. РџС–РґР»Р°С€С‚СѓР№ РїР°С‚РµСЂРЅРё РїС–Рґ СЃРІРѕСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ:
           $mp4A = Join-Path $env:GITHUB_WORKSPACE 'c02_pack\C02_symbol_pack_v1.0\*.mp4'
-          $mp4B = Join-Path $env:ETHNO_ROOT 'Symbols\*.mp4'   # якщо скрипт кладе поруч із символами
+          $mp4B = Join-Path $env:ETHNO_ROOT 'Symbols\*.mp4'   # СЏРєС‰Рѕ СЃРєСЂРёРїС‚ РєР»Р°РґРµ РїРѕСЂСѓС‡ С–Р· СЃРёРјРІРѕР»Р°РјРё
 
           $uploadExtra = @()
           if (Test-Path $mp4A) { $uploadExtra += $mp4A }
@@ -94,7 +94,7 @@ jobs:
           if ($uploadExtra.Count -gt 0) {
             $extraArg = @('-UploadExtra', ($uploadExtra -join ','))
           } else {
-            Write-Host "(i) No MP4 found to upload — proceeding with ZIP/README/CHECKSUMS only"
+            Write-Host "(i) No MP4 found to upload вЂ” proceeding with ZIP/README/CHECKSUMS only"
           }
 
           pwsh -NoProfile -ExecutionPolicy Bypass `

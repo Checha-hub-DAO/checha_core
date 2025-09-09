@@ -1,0 +1,5 @@
+Р С—Р’В»РЎвЂ”2025-09-04 12:05:48 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\DecisionsJournal'; Pattern='Decision_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 12:05:48 Env: PS=7.5.2; Host=ConsoleHost; OS=Р В РЎС™Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂќР РЋР вЂљР В РЎвЂўР РЋР С“Р В РЎвЂўР РЋРІР‚С›Р РЋРІР‚С™ Windows 11 Pro
+2025-09-04 12:05:48 SKIP SAME: Decision_2025-09-04.md (hash=499D63A30DA6BC16F65DD5F919BCA3D0041A8F705314E63DCE6E51308AD5F6B9) -> C:\CHECHA_CORE\C12\Vault\DecisionsJournal\2025\Decision_2025-09-04.md
+2025-09-04 12:05:48 SUMMARY: copied=0; moved=0; overwritten=0; skippedSame=1; conflicts=0; errors=0
+2025-09-04 12:05:48 END Ingest

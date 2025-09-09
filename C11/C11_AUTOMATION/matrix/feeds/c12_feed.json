@@ -1,0 +1,108 @@
+﻿{
+  "counts": {
+    "strategic_reports": 12,
+    "docs": 6
+  },
+  "strategic_reports": [
+    {
+      "date": "2025-09-07 18:22",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strateg_Report_2025-09-01.md",
+      "rel": "StrategicReports\\2025\\Strateg_Report_2025-09-01.md"
+    },
+    {
+      "date": "2025-09-04 14:55",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strateg_Report_2025-09-03.md",
+      "rel": "StrategicReports\\2025\\Strateg_Report_2025-09-03.md"
+    },
+    {
+      "date": "2025-09-04 14:55",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strateg_Report_2025-09-04.md",
+      "rel": "StrategicReports\\2025\\Strateg_Report_2025-09-04.md"
+    },
+    {
+      "date": "2025-09-05 15:20",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strateg_Report_2025-09-05.md",
+      "rel": "StrategicReports\\2025\\Strateg_Report_2025-09-05.md"
+    },
+    {
+      "date": "2025-09-05 15:37",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strategic_Analysis_2025-09-05.md",
+      "rel": "StrategicReports\\2025\\Strategic_Analysis_2025-09-05.md"
+    },
+    {
+      "date": "2025-09-07 20:01",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\_index.md",
+      "rel": "StrategicReports\\_index.md"
+    },
+    {
+      "date": "2025-09-05 15:20",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\README.md",
+      "rel": "StrategicReports\\README.md"
+    },
+    {
+      "date": "2025-09-06 22:25",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\SESSION_STATS_MONTHLY_2025-09-06.md",
+      "rel": "StrategicReports\\SESSION_STATS_MONTHLY_2025-09-06.md"
+    },
+    {
+      "date": "2025-09-06 22:25",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\SESSION_STATS_MONTHLY_2025-09.md",
+      "rel": "StrategicReports\\SESSION_STATS_MONTHLY_2025-09.md"
+    },
+    {
+      "date": "2025-09-06 08:25",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\SESSION_STATS_WEEKLY_2025-09-06.md",
+      "rel": "StrategicReports\\SESSION_STATS_WEEKLY_2025-09-06.md"
+    },
+    {
+      "date": "2025-09-07 20:01",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\SESSION_STATS_WEEKLY_2025-09-07.md",
+      "rel": "StrategicReports\\SESSION_STATS_WEEKLY_2025-09-07.md"
+    },
+    {
+      "date": "2025-09-07 00:00",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\Strategic_Template_Steps.md",
+      "rel": "StrategicReports\\Strategic_Template_Steps.md"
+    }
+  ],
+  "docs": [
+    {
+      "date": "2025-09-04 11:42",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\DecisionsJournal\\2025\\Decision_2025-09-04.md",
+      "size": 83,
+      "rel": "DecisionsJournal\\2025\\Decision_2025-09-04.md"
+    },
+    {
+      "date": "2025-09-04 14:55",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\DecisionsJournal\\README.md",
+      "size": 844,
+      "rel": "DecisionsJournal\\README.md"
+    },
+    {
+      "date": "2025-09-04 12:11",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\Releases\\2025\\Release_2025-09-04.md",
+      "size": 72,
+      "rel": "Releases\\2025\\Release_2025-09-04.md"
+    },
+    {
+      "date": "2025-09-04 15:00",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\Releases\\README.md",
+      "size": 829,
+      "rel": "Releases\\README.md"
+    },
+    {
+      "date": "2025-09-05 15:20",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\Matrix.md",
+      "size": 510,
+      "rel": "Matrix.md"
+    },
+    {
+      "date": "2025-09-04 14:55",
+      "path": "C:\\CHECHA_CORE\\C12\\Vault\\README.md",
+      "size": 1311,
+      "rel": "README.md"
+    }
+  ],
+  "ts": "2025-09-07T20:01:57",
+  "since": "2025-08-24T20:01:57"
+}

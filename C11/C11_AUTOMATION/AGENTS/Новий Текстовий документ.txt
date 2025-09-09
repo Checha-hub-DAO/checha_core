@@ -1,0 +1,44 @@
+id: checha-orchestrator
+title: "Checha Orchestrator"
+version: "1.0"
+owner: "С.Ч."
+description: >
+  Єдиний агент-оркестратор сценаріїв CHECHA_CORE: щоденний, щотижневий, щомісячний,
+  rolling/init/publish. Логує у C03/LOG/orchestrator.log, поважає ForceRun/DryRun/Quiet.
+
+entrypoint:
+  shell: pwsh
+  args:
+    - -NoProfile
+    - -ExecutionPolicy
+    - Bypass
+    - -File
+    - C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Checha-Orchestrator.ps1
+
+modes:
+  daily:
+    args: ["-Mode","Daily"]
+    schedule: "RRULE:FREQ=DAILY;BYHOUR=9;BYMINUTE=0;BYSECOND=0"
+  weekly:
+    args: ["-Mode","Weekly","-ForceRun"]
+    schedule: "RRULE:FREQ=WEEKLY;BYDAY=SU;BYHOUR=20;BYMINUTE=0;BYSECOND=0"
+  monthly:
+    args: ["-Mode","Monthly","-ForceRun"]
+    schedule: "RRULE:FREQ=MONTHLY;BYMONTHDAY=1;BYHOUR=21;BYMINUTE=0;BYSECOND=0"
+  rolling:
+    args: ["-Mode","Rolling"]
+  init:
+    args: ["-Mode","Init"]
+  publish:
+    args: ["-Mode","Publish"]
+
+logging:
+  file: "C:\\CHECHA_CORE\\C03\\LOG\\orchestrator.log"
+  encoding: "utf-8"
+
+env:
+  CHECHA_ROOT: "C:\\CHECHA_CORE"
+
+guards:
+  - check: "Test-Path C:\\CHECHA_CORE"
+    fail_message: "CHECHA_CORE not found."

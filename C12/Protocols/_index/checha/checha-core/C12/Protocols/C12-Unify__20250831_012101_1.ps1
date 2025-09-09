@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$Root = "C:\CHECHA_CORE\C12",
   [switch]$Apply,
   [switch]$Confirm,
@@ -9,7 +9,7 @@ param(
   [switch]$HashArchive
 )
 
-# кодування виводу (щоб не було кракозябр у логах)
+# РєРѕРґСѓРІР°РЅРЅСЏ РІРёРІРѕРґСѓ (С‰РѕР± РЅРµ Р±СѓР»Рѕ РєСЂР°РєРѕР·СЏР±СЂ Сѓ Р»РѕРіР°С…)
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $global:OutputEncoding   = [Console]::OutputEncoding
 
@@ -29,7 +29,7 @@ function Write-Err($m) { Write-Host "[x] $m" -ForegroundColor Red }
 function Ensure-Dir($p){
   if (-not (Test-Path -LiteralPath $p)) {
     if ($Apply) { New-Item -ItemType Directory -Force -Path $p | Out-Null }
-    Write-Info "Створено папку: $p (Apply=$Apply)"
+    Write-Info "РЎС‚РІРѕСЂРµРЅРѕ РїР°РїРєСѓ: $p (Apply=$Apply)"
   }
 }
 
@@ -72,28 +72,28 @@ function Move-ItemSafe([string]$src, [string]$dst){
         From      = $src
         To        = $dst
       })
-      Write-Ok "MOVE: `"$src`" → `"$dst`" (Apply=$Apply)"
+      Write-Ok "MOVE: `"$src`" в†’ `"$dst`" (Apply=$Apply)"
       return
     } catch {
-      if ($_.Exception.Message -match 'already exists|уже существует|вже існує') {
+      if ($_.Exception.Message -match 'already exists|СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚|РІР¶Рµ С–СЃРЅСѓС”') {
         $dst = Get-UniquePath $dst
-        Write-Warn "Колізія імені, пробую ще: $dst"
+        Write-Warn "РљРѕР»С–Р·С–СЏ С–РјРµРЅС–, РїСЂРѕР±СѓСЋ С‰Рµ: $dst"
         Start-Sleep -Milliseconds 120
         continue
       } else {
-        Write-Err "Move failed: $src → $dst — $($_.Exception.Message)"
+        Write-Err "Move failed: $src в†’ $dst вЂ” $($_.Exception.Message)"
         return
       }
     }
   }
-  Write-Err "Move aborted після $maxRetry спроб: $src"
+  Write-Err "Move aborted РїС–СЃР»СЏ $maxRetry СЃРїСЂРѕР±: $src"
 }
 
-if (-not (Test-Path -LiteralPath $RootFull)) { throw "Root не існує: $RootFull" }
+if (-not (Test-Path -LiteralPath $RootFull)) { throw "Root РЅРµ С–СЃРЅСѓС”: $RootFull" }
 Write-Info "ROOT: $RootFull"
 Write-Info ("MODE: {0}" -f ($(if($Apply){"APPLY"}else{"DRY-RUN"})))
 
-# --- правила категоризації
+# --- РїСЂР°РІРёР»Р° РєР°С‚РµРіРѕСЂРёР·Р°С†С–С—
 $rules = [ordered]@{
   "Books"      = { param($f) $f.Extension -match '^\.(pdf|epub|mobi)$' -or $f.Name -match '(?i)(BOOK|LIB|Frankl|Stoicism)' }
   "Documents"  = { param($f) $f.Extension -eq '.md' -and $f.Name -match '(?i)(ETHNO|STRATEGY|Moral|Awareness|Case|Guide|Analysis|README)' }
@@ -105,9 +105,9 @@ $rules = [ordered]@{
   "Archive"    = { param($f) $f.Extension -eq '.zip' -or $f.Name -match '(?i)(ARCHIVE|PUSH_\d{8}|INTEGRATION_BANK_ZNAN)' }
 }
 
-# --- 1) Виправлення «подвійних» підшляхів
+# --- 1) Р’РёРїСЂР°РІР»РµРЅРЅСЏ В«РїРѕРґРІС–Р№РЅРёС…В» РїС–РґС€Р»СЏС…С–РІ
 if ($FixNested) {
-  Write-Info "Сканую на дублювання підшляхів…"
+  Write-Info "РЎРєР°РЅСѓСЋ РЅР° РґСѓР±Р»СЋРІР°РЅРЅСЏ РїС–РґС€Р»СЏС…С–РІвЂ¦"
   $all = Get-ChildItem -LiteralPath $RootFull -Recurse -Force -ErrorAction SilentlyContinue
   $paths = $all | ForEach-Object { [IO.Path]::GetFullPath($_.FullName) } | Sort-Object { $_.Length } -Descending
 
@@ -126,18 +126,18 @@ if ($FixNested) {
       $dst = Join-Path $RootFull $tailNorm
       if ($full -eq $dst) { continue }
       if ($Confirm -and $Apply) {
-        $q = Read-Host "Виправити дубль?`n FROM: $full `n   TO: $dst `n[y/N]"
+        $q = Read-Host "Р’РёРїСЂР°РІРёС‚Рё РґСѓР±Р»СЊ?`n FROM: $full `n   TO: $dst `n[y/N]"
         if ($q -notin @('y','Y','yes','YES')) { continue }
       }
       Move-ItemSafe -src $full -dst $dst
     }
   }
-  Append-Log "C12 уніфікація: виправлено дублі підшляхів (FixNested=$FixNested, Apply=$Apply)."
+  Append-Log "C12 СѓРЅС–С„С–РєР°С†С–СЏ: РІРёРїСЂР°РІР»РµРЅРѕ РґСѓР±Р»С– РїС–РґС€Р»СЏС…С–РІ (FixNested=$FixNested, Apply=$Apply)."
 }
 
-# --- 2) Категоризація
+# --- 2) РљР°С‚РµРіРѕСЂРёР·Р°С†С–СЏ
 if ($Categorize) {
-  Write-Info "Категоризація файлів…"
+  Write-Info "РљР°С‚РµРіРѕСЂРёР·Р°С†С–СЏ С„Р°Р№Р»С–РІвЂ¦"
   $targets = @("Books","Documents","Media","Protocols","Forms","Journals","Navigation","Archive")
   foreach ($t in $targets) { Ensure-Dir (Join-Path $RootFull $t) }
 
@@ -151,7 +151,7 @@ if ($Categorize) {
       if (& $pred $f) {
         $dst = Join-Path (Join-Path $RootFull $cat) $f.Name
         if ($Confirm -and $Apply) {
-          $q = Read-Host "Перемістити у $cat? `"$($f.FullName)`" → `"$dst`" [y/N]"
+          $q = Read-Host "РџРµСЂРµРјС–СЃС‚РёС‚Рё Сѓ $cat? `"$($f.FullName)`" в†’ `"$dst`" [y/N]"
           if ($q -notin @('y','Y','yes','YES')) { break }
         }
         Move-ItemSafe -src $f.FullName -dst $dst
@@ -160,19 +160,19 @@ if ($Categorize) {
       }
     }
     if (-not $moved) {
-      Write-Warn "Не класифіковано (залишено місце): $($f.FullName)"
+      Write-Warn "РќРµ РєР»Р°СЃРёС„С–РєРѕРІР°РЅРѕ (Р·Р°Р»РёС€РµРЅРѕ РјС–СЃС†Рµ): $($f.FullName)"
       $summary.Add([pscustomobject]@{
         Timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
         Action    = 'SKIP'
         From      = $f.FullName
-        To        = '—'
+        To        = 'вЂ”'
       })
     }
   }
-  Append-Log "C12 категоризація: файли розкладено по папках (Categorize=$Categorize, Apply=$Apply)."
+  Append-Log "C12 РєР°С‚РµРіРѕСЂРёР·Р°С†С–СЏ: С„Р°Р№Р»Рё СЂРѕР·РєР»Р°РґРµРЅРѕ РїРѕ РїР°РїРєР°С… (Categorize=$Categorize, Apply=$Apply)."
 }
 
-# --- 3) README у ключових папках
+# --- 3) README Сѓ РєР»СЋС‡РѕРІРёС… РїР°РїРєР°С…
 if ($CreateReadme) {
   $keyDirs = @(
     $RootFull
@@ -192,25 +192,25 @@ if ($CreateReadme) {
     if (-not (Test-Path -LiteralPath $readme)) {
       $md = @"
 # $(Split-Path $d -Leaf)
-Статус: активний  
-Дата: $dstr  
+РЎС‚Р°С‚СѓСЃ: Р°РєС‚РёРІРЅРёР№  
+Р”Р°С‚Р°: $dstr  
 
-Короткий опис папки (DAO-GOGS стандарт).
+РљРѕСЂРѕС‚РєРёР№ РѕРїРёСЃ РїР°РїРєРё (DAO-GOGS СЃС‚Р°РЅРґР°СЂС‚).
 "@
       if ($Apply) { $md | Set-Content -Path $readme -Encoding UTF8 }
-      Write-Ok "README.md створено: $readme (Apply=$Apply)"
+      Write-Ok "README.md СЃС‚РІРѕСЂРµРЅРѕ: $readme (Apply=$Apply)"
       $summary.Add([pscustomobject]@{
         Timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
         Action    = 'CREATE'
-        From      = '—'
+        From      = 'вЂ”'
         To        = $readme
       })
     }
   }
-  Append-Log "C12 README: створено мінімальні описи (CreateReadme=$CreateReadme, Apply=$Apply)."
+  Append-Log "C12 README: СЃС‚РІРѕСЂРµРЅРѕ РјС–РЅС–РјР°Р»СЊРЅС– РѕРїРёСЃРё (CreateReadme=$CreateReadme, Apply=$Apply)."
 }
 
-# --- 4) Звіт
+# --- 4) Р—РІС–С‚
 if ($Report) {
   Ensure-Dir $Archive
   $csv = Join-Path $Archive ("C12_UNIFY_REPORT_" + $stamp + ".csv")
@@ -218,28 +218,28 @@ if ($Report) {
 
   if ($summary.Count -gt 0) {
     if ($Apply) { $summary | Export-Csv -Path $csv -NoTypeInformation -Encoding UTF8 }
-    Write-Ok "CSV звіт: $csv (Apply=$Apply)"
+    Write-Ok "CSV Р·РІС–С‚: $csv (Apply=$Apply)"
 
     $mdLines = @("# C12 Unify Report (" + $stamp + ")", "", "| Time | Action | From | To |", "|---|---|---|---|")
     foreach ($row in $summary) {
       $mdLines += "| {0} | {1} | {2} | {3} |" -f $row.Timestamp, $row.Action, ($row.From -replace '\|','\|'), ($row.To -replace '\|','\|')
     }
     if ($Apply) { $mdLines -join "`n" | Set-Content -Path $md -Encoding UTF8 }
-    Write-Ok "MD звіт: $md (Apply=$Apply)"
-    Append-Log "C12 звіт: експортовано CSV+MD ($stamp)."
+    Write-Ok "MD Р·РІС–С‚: $md (Apply=$Apply)"
+    Append-Log "C12 Р·РІС–С‚: РµРєСЃРїРѕСЂС‚РѕРІР°РЅРѕ CSV+MD ($stamp)."
   } else {
-    Write-Warn "Немає дій для звіту (summary пустий)."
+    Write-Warn "РќРµРјР°С” РґС–Р№ РґР»СЏ Р·РІС–С‚Сѓ (summary РїСѓСЃС‚РёР№)."
   }
 }
 
-# --- 5) SHA-256 для ZIP архівів
+# --- 5) SHA-256 РґР»СЏ ZIP Р°СЂС…С–РІС–РІ
 if ($HashArchive) {
   Ensure-Dir $Archive
   $manifest = Join-Path $Archive ("C12_ARCHIVE_SHA256_" + $stamp + ".txt")
   $lines = New-Object System.Collections.Generic.List[string]
   $zips = Get-ChildItem -LiteralPath $Archive -Filter *.zip -File -ErrorAction SilentlyContinue
   if ($zips.Count -eq 0) {
-    Write-Warn "У Archive немає ZIP-файлів."
+    Write-Warn "РЈ Archive РЅРµРјР°С” ZIP-С„Р°Р№Р»С–РІ."
   } else {
     foreach ($z in $zips) {
       try {
@@ -247,7 +247,7 @@ if ($HashArchive) {
         $lines.Add(($hash + "  *" + $z.Name))
         Write-Ok ("SHA256: " + $z.Name + " = " + $hash)
       } catch {
-        Write-Err ("Хеш не обчислено: " + $z.FullName + " — " + $_.Exception.Message)
+        Write-Err ("РҐРµС€ РЅРµ РѕР±С‡РёСЃР»РµРЅРѕ: " + $z.FullName + " вЂ” " + $_.Exception.Message)
       }
     }
     if ($Apply -and $lines.Count -gt 0) {
@@ -258,8 +258,8 @@ if ($HashArchive) {
         ""
       )
       ($header + $lines) | Set-Content -Path $manifest -Encoding UTF8
-      Write-Ok "Маніфест SHA-256: $manifest"
-      Append-Log "C12 архів: згенеровано SHA-256 маніфест ($stamp)."
+      Write-Ok "РњР°РЅС–С„РµСЃС‚ SHA-256: $manifest"
+      Append-Log "C12 Р°СЂС…С–РІ: Р·РіРµРЅРµСЂРѕРІР°РЅРѕ SHA-256 РјР°РЅС–С„РµСЃС‚ ($stamp)."
     }
   }
 }
@@ -268,4 +268,4 @@ Write-Host ""
 Write-Host "===== SUMMARY =====" -ForegroundColor Cyan
 $summary | Format-Table -AutoSize
 Write-Host "===================" -ForegroundColor Cyan
-Write-Info "Готово."
+Write-Info "Р“РѕС‚РѕРІРѕ."

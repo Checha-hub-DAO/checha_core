@@ -1,0 +1,8 @@
+BEGIN Verify-And-Sync-G45.1 :: 20250907_143118
+2025-09-07 14:31:18 [INFO ] РџРѕС‡Р°С‚РѕРє РїРµСЂРµРІС–СЂРєРё СЂРµР»С–Р·Сѓ g45-1-aot-v1.1 Сѓ Checha-hub-DAO/g45-kod-zakhystu
+2025-09-07 14:31:25 [INFO ] Checksum OK РґР»СЏ g45-1-aot_2025-09-06_build.zip (8D597F4ED3C64772518C7AC33145FD05C54EB9A68C329791AFEBBE5EA17F55F7)
+2025-09-07 14:31:29 [INFO ] GitBook publish OK (g45-1-aot)
+2025-09-07 14:31:29 [INFO ] SYNC.md РѕРЅРѕРІР»РµРЅРѕ -> C:\CHECHA_CORE\G\G45\45.1_РђРћРў\SYNC.md
+2025-09-07 14:31:31 [INFO ] Git commit/push OK Сѓ C:\CHECHA_CORE\GitBook
+2025-09-07 14:31:31 [INFO ] DONE: G45.1 вЂ” РђРћРў verify + sync Р·Р°РІРµСЂС€РµРЅРѕ СѓСЃРїС–С€РЅРѕ.
+END 20250907_143118

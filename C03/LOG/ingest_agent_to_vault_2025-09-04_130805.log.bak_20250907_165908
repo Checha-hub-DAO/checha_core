@@ -1,0 +1,7 @@
+Р В РЎвЂ”Р вЂ™Р’В»Р РЋРІР‚вЂќ2025-09-04 13:08:05 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\StrategicReports'; Pattern='Strateg_Report_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 13:08:05 Env: PS=7.5.2; Host=ConsoleHost; OS=Р В Р’В Р РЋРЎв„ўР В Р’В Р вЂ™Р’В°Р В Р’В Р Р†РІР‚С›РІР‚вЂњР В Р’В Р РЋРІР‚СњР В Р Р‹Р В РІР‚С™Р В Р’В Р РЋРІР‚СћР В Р Р‹Р В РЎвЂњР В Р’В Р РЋРІР‚СћР В Р Р‹Р Р†Р вЂљРЎвЂєР В Р Р‹Р Р†Р вЂљРЎв„ў Windows 11 Pro
+2025-09-04 13:08:05 SKIP SAME: Strateg_Report_2025-09-03.md (hash=BD6C57F32B2142A43761B8C10DD263AA448A56DD65B74421F4CB57EAF9AD93D6) -> C:\CHECHA_CORE\C12\Vault\StrategicReports\2025\Strateg_Report_2025-09-03.md
+2025-09-04 13:08:05 CONFLICT: C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports\Strateg_Report_2025-09-04.md -> C:\CHECHA_CORE\C12\Vault\StrategicReports\2025\Strateg_Report_2025-09-04.md (srcHash=218ADC0A4238F1D4FECFF5F16DB7D87E851C65F07F1111A88388540652F42C7B, dstHash=54B1253F3E542C5D48B00681D971E412A3E0D17FD5A03DCADB0632ACE27BB71E)
+2025-09-04 13:08:05 CONFLICTS saved to: C:\CHECHA_CORE\C03\LOG\ingest_conflicts_2025-09-04_130805.txt
+2025-09-04 13:08:05 SUMMARY: copied=0; moved=0; overwritten=0; skippedSame=1; conflicts=1; errors=0
+2025-09-04 13:08:05 END Ingest

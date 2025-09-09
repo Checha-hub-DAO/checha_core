@@ -1,0 +1,186 @@
+﻿param(
+  [string]$RepoPath = "D:\CHECHA_CORE",
+  [string]$Remote   = "origin",
+  [string]$Branch   = "main",
+  [switch]$NoPush,
+  [switch]$SkipStash,
+  [switch]$ForcePush,
+  [switch]$LogOnly,                    # тільки fetch/rebase + лог/дашборд, без push
+  [int]$LogRetentionDays = 14,         # автоклінап логів у C03\LOG
+  [int]$DashboardRetentionDays = 60    # автоклінап рядків у RHYTHM_DASHBOARD.md
+)
+
+$ErrorActionPreference = "Stop"
+
+# --- logging / files ---
+$LogDir = "C:\CHECHA_CORE\C03\LOG"
+New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
+$ts    = Get-Date -Format "yyyyMMdd_HHmmss"
+$Log   = Join-Path $LogDir ("git_sync_{0}.log" -f $ts)
+$Dash  = "C:\CHECHA_CORE\RHYTHM_DASHBOARD.md"
+
+# режим логування = без пушу
+if ($LogOnly) { $NoPush = $true }
+
+# автоклінап логів
+try {
+  $cutoff = (Get-Date).AddDays(-[math]::Abs($LogRetentionDays))
+  Get-ChildItem $LogDir -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.LastWriteTime -lt $cutoff -and $_.Name -match '^(git_sync_.*\.log|push_.*\.(out|err))$' } |
+    Remove-Item -Force -ErrorAction SilentlyContinue
+} catch {}
+
+# автоклінап дашборда
+try {
+  if (Test-Path $Dash -PathType Leaf -and $DashboardRetentionDays -gt 0) {
+    $cutDash = (Get-Date).AddDays(-[math]::Abs($DashboardRetentionDays))
+    $lines   = Get-Content $Dash -ErrorAction SilentlyContinue
+    if ($lines) {
+      $keep = New-Object System.Collections.Generic.List[string]
+      foreach ($ln in $lines) {
+        if ($ln -match '^\[(?<d>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]') {
+          try {
+            $dt = [datetime]::ParseExact($Matches['d'], 'yyyy-MM-dd HH:mm:ss', $null)
+            if ($dt -ge $cutDash) { $keep.Add($ln) }
+          } catch { $keep.Add($ln) }
+        } else { $keep.Add($ln) }
+      }
+      $utf8bom = New-Object System.Text.UTF8Encoding($true)
+      [IO.File]::WriteAllLines($Dash, $keep, $utf8bom)
+    }
+  }
+} catch {}
+
+function Stamp { "[{0}] " -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss") }
+
+# ЛОГ: консоль + файл UTF-8 BOM, без порожніх рядків
+function W([string]$msg, [string]$color="Gray") {
+  Write-Host $msg -ForegroundColor $color
+  if ($msg -and $msg.Trim()) {
+    $utf8bom = New-Object System.Text.UTF8Encoding($true)
+    $sw = New-Object System.IO.StreamWriter($Log, $true, $utf8bom)
+    try { $sw.WriteLine((Stamp + $msg)) } finally { $sw.Dispose() }
+  }
+}
+
+# Дашборд: завжди через UTF-8 BOM
+function AppendDash([string]$line) {
+  $utf8bom = New-Object System.Text.UTF8Encoding($true)
+  $sw = New-Object System.IO.StreamWriter($Dash, $true, $utf8bom)
+  try { $sw.WriteLine($line) } finally { $sw.Dispose() }
+}
+
+function Fail([string]$msg) {
+  W ("ERROR: {0}" -f $msg) "Red"
+  AppendDash ("{0}GIT sync FAILED: {1} <-> {2}/{1} (Repo={3})" -f (Stamp), $Branch, $Remote, $RepoPath)
+  exit 1
+}
+
+# --- sanity checks ---
+if (-not (Test-Path (Join-Path $RepoPath ".git"))) { Fail ("RepoPath is not a git repo: {0} (no .git)" -f $RepoPath) }
+$git = (Get-Command git -ErrorAction SilentlyContinue | Select-Object -First 1).Source
+if (-not $git) { $git = "C:\Program Files\Git\cmd\git.exe" }
+if (-not (Test-Path $git)) { Fail ("git.exe not found: {0}" -f $git) }
+
+# --- begin ---
+$__t0 = Get-Date
+W ("BEGIN sync Repo={0} Remote={1} Branch={2}" -f $RepoPath, $Remote, $Branch) "White"
+
+# work-tree check (лог лише якщо є вивід)
+$out = & $git -C $RepoPath rev-parse --is-inside-work-tree 2>&1
+if ($out -and $out.Trim()) {
+  $utf8bom = New-Object System.Text.UTF8Encoding($true)
+  [IO.File]::AppendAllText($Log, (Stamp + $out + [Environment]::NewLine), $utf8bom)
+}
+if ($LASTEXITCODE -ne 0) { Fail ("not a git work tree: {0}" -f $RepoPath) }
+
+# default pull mode (лог лише якщо є вивід)
+$out = & $git -C $RepoPath config pull.rebase true 2>&1
+if ($out -and $out.Trim()) {
+  $utf8bom = New-Object System.Text.UTF8Encoding($true)
+  [IO.File]::AppendAllText($Log, (Stamp + $out + [Environment]::NewLine), $utf8bom)
+}
+
+# ensure on target branch
+$current = (& $git -C $RepoPath rev-parse --abbrev-ref HEAD).Trim()
+if ($current -ne $Branch) {
+  W ("CHECKOUT {0}" -f $Branch) "Cyan"
+  $out = & $git -C $RepoPath checkout $Branch 2>&1
+  $out | Tee-Object -FilePath $Log -Append | Out-Host
+  if ($LASTEXITCODE -ne 0) { Fail ("checkout {0} failed" -f $Branch) }
+}
+
+# stash if dirty
+$por = (& $git -C $RepoPath status --porcelain)
+$hadStash = $false
+if ($por) {
+  if ($SkipStash) { Fail "working tree dirty and -SkipStash is set" }
+  $name = "pre-rebase " + (Get-Date -Format "yyyyMMdd_HHmmss")
+  W ("STASH {0}" -f $name) "Yellow"
+  $out = & $git -C $RepoPath stash push -u -m $name 2>&1
+  $out | Tee-Object -FilePath $Log -Append | Out-Host
+  if ($LASTEXITCODE -ne 0) { Fail "stash failed" }
+  $hadStash = $true
+}
+
+# fetch
+W ("FETCH {0}" -f $Remote) "Cyan"
+$out = & $git -C $RepoPath fetch $Remote 2>&1
+$out | Tee-Object -FilePath $Log -Append | Out-Host
+if ($LASTEXITCODE -ne 0) { Fail "fetch failed" }
+
+# rebase
+W ("REBASE {0}/{1}" -f $Remote, $Branch) "Cyan"
+$out = & $git -C $RepoPath rebase "$Remote/$Branch" 2>&1
+$out | Tee-Object -FilePath $Log -Append | Out-Host
+if ($LASTEXITCODE -ne 0) {
+  W "Rebase stopped due to conflicts. Resolve, then: git rebase --continue (or --abort)" "Yellow"
+  AppendDash ("{0}GIT sync PAUSED (conflicts): {1} <-> {2}/{1} (Repo={3})" -f (Stamp), $Branch, $Remote, $RepoPath)
+  exit 1
+}
+
+# stash pop (if used)
+if ($hadStash) {
+  W "STASH POP" "Yellow"
+  $out = & $git -C $RepoPath stash pop 2>&1
+  $out | Tee-Object -FilePath $Log -Append | Out-Host
+  if ($LASTEXITCODE -ne 0) {
+    W "Conflicts after stash pop. Resolve and commit." "Yellow"
+    AppendDash ("{0}GIT sync PAUSED (stash-pop conflicts): {1} <-> {2}/{1} (Repo={3})" -f (Stamp), $Branch, $Remote, $RepoPath)
+    exit 1
+  }
+}
+
+# push (optional) — Start-Process, без NativeCommandError
+if (-not $NoPush) {
+  $tmpOut = Join-Path $LogDir ("push_{0}.out" -f $ts)
+  $tmpErr = Join-Path $LogDir ("push_{0}.err" -f $ts)
+  if ($ForcePush) {
+    W "PUSH --force-with-lease" "Magenta"
+    $p = Start-Process -FilePath $git -ArgumentList @('-C',$RepoPath,'push','--force-with-lease',$Remote,$Branch) -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tmpOut -RedirectStandardError $tmpErr
+  } else {
+    W "PUSH" "Green"
+    $p = Start-Process -FilePath $git -ArgumentList @('-C',$RepoPath,'push',$Remote,$Branch) -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tmpOut -RedirectStandardError $tmpErr
+  }
+  Get-Content $tmpOut, $tmpErr | Tee-Object -FilePath $Log -Append | Out-Host
+  Remove-Item $tmpOut, $tmpErr -ErrorAction SilentlyContinue
+  if ($p.ExitCode -ne 0) { Fail ("push failed (exit={0})" -f $p.ExitCode) }
+} else {
+  W "NoPush: skipping push" "DarkYellow"
+}
+
+# delta & duration
+$counts = (& $git -C $RepoPath rev-list --left-right --count "$Remote/$Branch...HEAD" 2>&1).Trim()
+$ahead = 0; $behind = 0
+if ($counts -match '^\s*(\d+)\s+(\d+)\s*$') { $behind = [int]$matches[1]; $ahead = [int]$matches[2] }
+$elapsed = [int]((Get-Date) - $__t0).TotalSeconds
+
+# summary and dashboard (UTF-8 append)
+$head = (& $git -C $RepoPath rev-parse --short HEAD).Trim()
+$subj = (& $git -C $RepoPath log -1 --pretty=%s) -replace '\r?\n',' '
+$mode = if ($LogOnly) { 'LOGONLY' } else { 'OK' }
+AppendDash ("{0}GIT sync {5}: {1} <-> {2}/{1} (Repo={3}, HEAD={4}, Δ +{6}/-{7}, {8}, {9}s)" `
+  -f (Stamp), $Branch, $Remote, $RepoPath, $head, $mode, $ahead, $behind, $subj, $elapsed)
+
+W ("DONE: {0} synced with {1}/{0} (Repo={2})" -f $Branch, $Remote, $RepoPath) "Green"
+W ("LOG: {0}" -f $Log) "DarkGray"

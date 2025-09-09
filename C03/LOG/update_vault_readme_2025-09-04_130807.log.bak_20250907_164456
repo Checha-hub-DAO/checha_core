@@ -1,0 +1,5 @@
+﻿2025-09-04 13:08:07 BEGIN Update; Title='🚀 Releases — Vault'; Vault='C:\CHECHA_CORE\C12\Vault\Releases'; Agents='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports'; Pattern='Release_*.md'; Take=5; AutoSync=False; Checksums=True
+2025-09-04 13:08:07 Env: PS=7.5.2; Host=ConsoleHost
+2025-09-04 13:08:08 Checksums written: C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports\CHECKSUMS.txt
+2025-09-04 13:08:08 OK README updated: C:\CHECHA_CORE\C12\Vault\Releases\README.md
+2025-09-04 13:08:08 END

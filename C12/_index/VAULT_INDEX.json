@@ -1,0 +1,32 @@
+﻿[
+    {
+        "id":  "strategic-report::20250903_234109",
+        "type":  "document",
+        "category":  "StrategicReport",
+        "title":  "Strateg_Report_2025-09-03",
+        "date":  "2025-09-03",
+        "path":  "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\2025\\Strateg_Report_2025-09-03.md",
+        "sha256":  "BD6C57F32B2142A43761B8C10DD263AA448A56DD65B74421F4CB57EAF9AD93D6",
+        "tags":  [
+                     "G44",
+                     "Agent-Strateg",
+                     "DAO-GOGS",
+                     "Р©РРў-4",
+                     "CheChaUniversity"
+                 ]
+    },
+    {
+        "id":  "strategic-archive::20250903_234939",
+        "type":  "archive",
+        "category":  "StrategicReportArchive",
+        "title":  "Strategic_2025-09",
+        "date":  "2025-09-03",
+        "path":  "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\ARCHIVE\\2025\\Strategic_2025-09.zip",
+        "sha256":  "13C2EFD6C9FDCD368E4C255F37B81F4565C6923B56193016B070372187482AA1",
+        "tags":  [
+                     "G44",
+                     "Agent-Strateg",
+                     "Archive"
+                 ]
+    }
+]

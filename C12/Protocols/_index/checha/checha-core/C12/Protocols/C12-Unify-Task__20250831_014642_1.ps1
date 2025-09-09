@@ -1,11 +1,11 @@
-# --- C12-Unify weekly wrapper (v2.7: timeout + non-interactive) ---
+﻿# --- C12-Unify weekly wrapper (v2.7: timeout + non-interactive) ---
 $Root    = "C:\CHECHA_CORE\C12"
 $Script  = Join-Path $Root "C12-Unify.ps1"
 $Pwsh7   = "C:\Program Files\PowerShell\7\pwsh.exe"
 $WinPS51 = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
-$TimeoutSec = 600  # 10 хвилин; змінюй за потреби
+$TimeoutSec = 600  # 10 С…РІРёР»РёРЅ; Р·РјС–РЅСЋР№ Р·Р° РїРѕС‚СЂРµР±Рё
 
-# Логи
+# Р›РѕРіРё
 $LogDir  = Join-Path (Split-Path $Root -Parent) "C03\LOG"
 if (-not (Test-Path -LiteralPath $LogDir)) { New-Item -ItemType Directory -Force -Path $LogDir | Out-Null }
 $Stamp   = Get-Date -Format "yyyyMMdd_HHmmss"
@@ -27,7 +27,7 @@ if (-not $exists) {
   if (Test-Path -LiteralPath $Root) { Get-ChildItem -LiteralPath $Root | ForEach-Object { Write-Host (" - " + $_.FullName) } }
 }
 
-# Один рядок аргументів (-NonInteractive додано)
+# РћРґРёРЅ СЂСЏРґРѕРє Р°СЂРіСѓРјРµРЅС‚С–РІ (-NonInteractive РґРѕРґР°РЅРѕ)
 $argString = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Script + '" -Apply -FixNested -Categorize -CreateReadme -Report -HashArchive'
 Write-Host ("[i] Args: {0}" -f $argString)
 
@@ -45,12 +45,12 @@ function Invoke-Proc([string]$exe, [string]$args){
   $p.StartInfo = $psi
   [void]$p.Start()
 
-  # очікуємо з таймаутом
+  # РѕС‡С–РєСѓС”РјРѕ Р· С‚Р°Р№РјР°СѓС‚РѕРј
   if (-not $p.WaitForExit($TimeoutSec * 1000)) {
-    Write-Host ("[!] TIMEOUT {0}s — killing process PID={1}" -f $TimeoutSec, $p.Id)
+    Write-Host ("[!] TIMEOUT {0}s вЂ” killing process PID={1}" -f $TimeoutSec, $p.Id)
     try { $p.Kill($true) } catch {}
     $p.WaitForExit()
-    $exit = 124  # умовний код "timeout"
+    $exit = 124  # СѓРјРѕРІРЅРёР№ РєРѕРґ "timeout"
   } else {
     $exit = $p.ExitCode
   }
@@ -60,12 +60,12 @@ function Invoke-Proc([string]$exe, [string]$args){
   return $exit, $out, $err
 }
 
-# 1) Пробуємо pwsh 7
+# 1) РџСЂРѕР±СѓС”РјРѕ pwsh 7
 $exit,$outTxt,$errTxt = Invoke-Proc -exe $Pwsh7 -args $argString
 
-# 2) Якщо не ок — WinPS 5.1
-if ($exit -ne 0 -and $exit -ne 124 -and $errTxt -match "not recognized|не распознан|не розпізнано|The argument .* is not recognized") {
-  Write-Host "[!] pwsh7 complained; trying Windows PowerShell 5.1…"
+# 2) РЇРєС‰Рѕ РЅРµ РѕРє вЂ” WinPS 5.1
+if ($exit -ne 0 -and $exit -ne 124 -and $errTxt -match "not recognized|РЅРµ СЂР°СЃРїРѕР·РЅР°РЅ|РЅРµ СЂРѕР·РїС–Р·РЅР°РЅРѕ|The argument .* is not recognized") {
+  Write-Host "[!] pwsh7 complained; trying Windows PowerShell 5.1вЂ¦"
   $exit,$out2,$err2 = Invoke-Proc -exe $WinPS51 -args $argString
   $outTxt += $out2
   $errTxt += $err2

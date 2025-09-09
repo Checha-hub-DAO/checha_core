@@ -1,0 +1,29 @@
+﻿[
+  {
+    "name": "StrategicReports",
+    "title": "📚 Strategic Reports — Vault",
+    "vault": "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports",
+    "agents": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\G44_STRATEG\\reports",
+    "pattern": "Strateg_Report_*.md",
+    "dateRegex": "^Strateg_Report_(\\d{4}-\\d{2}-\\d{2}).*$",
+    "take": 3
+  },
+  {
+    "name": "DecisionsJournal",
+    "title": "🗒️ Decisions Journal — Vault",
+    "vault": "C:\\CHECHA_CORE\\C12\\Vault\\DecisionsJournal",
+    "agents": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\G43_DECISIONS\\reports",
+    "pattern": "Decision_*.md",
+    "dateRegex": "^Decision_(\\d{4}-\\d{2}-\\d{2}).*$",
+    "take": 5
+  },
+  {
+    "name": "Releases",
+    "title": "🚀 Releases — Vault",
+    "vault": "C:\\CHECHA_CORE\\C12\\Vault\\Releases",
+    "agents": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\G42_RELEASES\\reports",
+    "pattern": "Release_*.md",
+    "dateRegex": "^Release_(\\d{4}-\\d{2}-\\d{2}).*$",
+    "take": 5
+  }
+]

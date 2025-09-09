@@ -1,0 +1,30 @@
+Р С—Р’В»РЎвЂ”2025-09-04 10:31:57 BEGIN SessionStart
+2025-09-04 10:31:57 Host:  User=serge
+2025-09-04 10:31:57 UpdateScript: C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\Update-Strateg-README.ps1
+2025-09-04 10:31:57 Run Update-Strateg-README
+2025-09-04 10:31:58 Update-Strateg-README done
+2025-09-04 10:31:58 END OK
+2025-09-04 10:33:29 ERR: Update-Strateg-README exited with code 1
+2025-09-04 10:42:25 README updated: C:\CHECHA_CORE\C12\Vault\StrategicReports\README.md
+2025-09-04 11:25:52 Run Update-VaultReadme (StrategicReports)
+2025-09-04 11:25:52 Update-VaultReadme done
+2025-09-04 11:29:04 Run Ingest-Agent-To-Vault
+2025-09-04 11:29:05 Ingest-Agent-To-Vault done
+2025-09-04 11:29:05 Run Update-VaultReadme (StrategicReports)
+2025-09-04 11:29:06 Update-VaultReadme done
+2025-09-04 11:39:53 Run Ingest StrategicReports
+2025-09-04 11:39:54 Ingest StrategicReports done
+2025-09-04 11:39:54 Run Update StrategicReports
+2025-09-04 11:39:54 Update StrategicReports done
+2025-09-04 11:39:54 Run Ingest DecisionsJournal
+2025-09-04 11:39:55 Ingest DecisionsJournal done
+2025-09-04 11:39:55 Run Update DecisionsJournal
+2025-09-04 11:39:55 ERR Update DecisionsJournal: Update exited 1
+2025-09-04 12:05:46 Run Ingest StrategicReports
+2025-09-04 12:05:47 Ingest StrategicReports done
+2025-09-04 12:05:47 Run Update StrategicReports
+2025-09-04 12:05:48 Update StrategicReports done
+2025-09-04 12:05:48 Run Ingest DecisionsJournal
+2025-09-04 12:05:48 Ingest DecisionsJournal done
+2025-09-04 12:05:48 Run Update DecisionsJournal
+2025-09-04 12:05:49 Update DecisionsJournal done

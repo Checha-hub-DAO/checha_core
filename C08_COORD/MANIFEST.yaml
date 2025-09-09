@@ -1,0 +1,6 @@
+﻿version: 2.1
+owner: "С.Ч."
+policies:
+  access: "POLICY/ACCESS_POLICY.md"
+  map: "POLICY/MAP_POLICY.md"
+  publish_delay: "POLICY/PUBLISH_DELAY.md"

@@ -1,0 +1,16 @@
+Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРІР‚СњР В Р’В Р Р†Р вЂљРІвЂћСћР В РІР‚в„ўР вЂ™Р’В»Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р Р†Р вЂљРЎСљ2025-09-04 12:39:31 BEGIN Run-ChechaPipelines; Config=C:\CHECHA_CORE\C11\C11_AUTOMATION\config\checha_shelves.json; DryRun=False; Force=False; Pwsh=C:\Program Files\PowerShell\7\pwsh.exe
+2025-09-04 12:39:31 LOCK acquired: Global\CHECHA_VaultPipeline
+2025-09-04 12:39:31 INGEST [StrategicReports]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports -> C:\CHECHA_CORE\C12\Vault\StrategicReports  (Strateg_Report_*.md)
+2025-09-04 12:39:32 INGEST done [StrategicReports]
+2025-09-04 12:39:32 UPDATE [StrategicReports]  Title='Р В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р В Р вЂ№Р В Р Р‹Р РЋРЎСџР В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р Р‹Р РЋРІвЂћСћР В Р’В Р В Р вЂ№Р В Р вЂ Р Р†Р вЂљРЎвЂєР РЋРЎвЂє Strategic Reports Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р Р‹Р РЋРЎв„ў Vault'
+2025-09-04 12:39:32 UPDATE done [StrategicReports]
+2025-09-04 12:39:32 INGEST [DecisionsJournal]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports -> C:\CHECHA_CORE\C12\Vault\DecisionsJournal  (Decision_*.md)
+2025-09-04 12:39:33 INGEST done [DecisionsJournal]
+2025-09-04 12:39:33 UPDATE [DecisionsJournal]  Title='Р В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р В Р вЂ№Р В Р Р‹Р РЋРЎСџР В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р В РІР‚С™Р РЋРЎС™Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р Р†Р вЂљРЎвЂєР РЋРЎвЂєР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРІР‚СњР В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р вЂ™Р’ВР В Р’В Р вЂ™Р’В Р В Р’В Р В Р РЏ Decisions Journal Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р Р‹Р РЋРЎв„ў Vault'
+2025-09-04 12:39:33 UPDATE done [DecisionsJournal]
+2025-09-04 12:39:33 INGEST [Releases]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports -> C:\CHECHA_CORE\C12\Vault\Releases  (Release_*.md)
+2025-09-04 12:39:34 INGEST done [Releases]
+2025-09-04 12:39:34 UPDATE [Releases]  Title='Р В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р В Р вЂ№Р В Р Р‹Р РЋРЎСџР В Р’В Р В Р вЂ№Р В Р вЂ Р Р†Р вЂљРЎвЂєР РЋРЎвЂєР В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћ Releases Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р Р‹Р РЋРЎв„ў Vault'
+2025-09-04 12:39:34 UPDATE done [Releases]
+2025-09-04 12:39:34 END OK
+2025-09-04 12:39:34 LOCK released: Global\CHECHA_VaultPipeline

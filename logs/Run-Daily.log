@@ -1,20 +1,20 @@
-→ Реіндекс...
-🔒 Backup індексу: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_145803.json
-✅ Перезібрано індекс: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (унікальних протоколів: 5)
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✅ Таблицю згенеровано.
-✓ Реіндекс
-→ Валідація...
-✅ Валідація пройдена.
-✓ Валідація
-→ Генерація таблиці...
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✓ Генерація таблиці
-→ Експорт звіту...
-✅ Звіт збережено: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
-✓ Експорт звіту
+﻿в†’ Р РµС–РЅРґРµРєСЃ...
+рџ”’ Backup С–РЅРґРµРєСЃСѓ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_145803.json
+вњ… РџРµСЂРµР·С–Р±СЂР°РЅРѕ С–РЅРґРµРєСЃ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (СѓРЅС–РєР°Р»СЊРЅРёС… РїСЂРѕС‚РѕРєРѕР»С–РІ: 5)
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ… РўР°Р±Р»РёС†СЋ Р·РіРµРЅРµСЂРѕРІР°РЅРѕ.
+вњ“ Р РµС–РЅРґРµРєСЃ
+в†’ Р’Р°Р»С–РґР°С†С–СЏ...
+вњ… Р’Р°Р»С–РґР°С†С–СЏ РїСЂРѕР№РґРµРЅР°.
+вњ“ Р’Р°Р»С–РґР°С†С–СЏ
+в†’ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–...
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ“ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–
+в†’ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ...
+вњ… Р—РІС–С‚ Р·Р±РµСЂРµР¶РµРЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
+вњ“ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ
 
-✅ DONE: Run-Daily завершено
+вњ… DONE: Run-Daily Р·Р°РІРµСЂС€РµРЅРѕ
 
  0 B / ? 
  0 B / ? 
@@ -87,24 +87,24 @@ C:\CHECHA_CORE\C12\Protocols\protocol_update_status.ps1: 134.91 KiB / 134.91 KiB
 C:\CHECHA_CORE\C12\Protocols\templates\PROTOCOL_TEMPLATE.md: 134.91 KiB / 134.91 KiB  2.21 MiB/s 0s
 LOCAL:  56
 REMOTE: 66
-✅ Резервна копія синхронізована до checha/checha-core/C12/Protocols (mc)
-→ Реіндекс...
-🔒 Backup індексу: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_145820.json
-✅ Перезібрано індекс: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (унікальних протоколів: 5)
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✅ Таблицю згенеровано.
-✓ Реіндекс
-→ Валідація...
-✅ Валідація пройдена.
-✓ Валідація
-→ Генерація таблиці...
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✓ Генерація таблиці
-→ Експорт звіту...
-✅ Звіт збережено: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
-✓ Експорт звіту
+вњ… Р РµР·РµСЂРІРЅР° РєРѕРїС–СЏ СЃРёРЅС…СЂРѕРЅС–Р·РѕРІР°РЅР° РґРѕ checha/checha-core/C12/Protocols (mc)
+в†’ Р РµС–РЅРґРµРєСЃ...
+рџ”’ Backup С–РЅРґРµРєСЃСѓ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_145820.json
+вњ… РџРµСЂРµР·С–Р±СЂР°РЅРѕ С–РЅРґРµРєСЃ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (СѓРЅС–РєР°Р»СЊРЅРёС… РїСЂРѕС‚РѕРєРѕР»С–РІ: 5)
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ… РўР°Р±Р»РёС†СЋ Р·РіРµРЅРµСЂРѕРІР°РЅРѕ.
+вњ“ Р РµС–РЅРґРµРєСЃ
+в†’ Р’Р°Р»С–РґР°С†С–СЏ...
+вњ… Р’Р°Р»С–РґР°С†С–СЏ РїСЂРѕР№РґРµРЅР°.
+вњ“ Р’Р°Р»С–РґР°С†С–СЏ
+в†’ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–...
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ“ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–
+в†’ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ...
+вњ… Р—РІС–С‚ Р·Р±РµСЂРµР¶РµРЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
+вњ“ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ
 
-✅ DONE: Run-Daily завершено
+вњ… DONE: Run-Daily Р·Р°РІРµСЂС€РµРЅРѕ
 
  0 B / ? 
  0 B / ? 
@@ -141,24 +141,24 @@ C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_145820.json: 65
 C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json: 65.94 KiB / 65.94 KiB  1.72 MiB/s 0s
 LOCAL:  84
 REMOTE: 95
-✅ Резервна копія синхронізована до checha/checha-core/C12/Protocols (mc)
-→ Реіндекс...
-🔒 Backup індексу: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_150129.json
-✅ Перезібрано індекс: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (унікальних протоколів: 5)
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✅ Таблицю згенеровано.
-✓ Реіндекс
-→ Валідація...
-✅ Валідація пройдена.
-✓ Валідація
-→ Генерація таблиці...
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✓ Генерація таблиці
-→ Експорт звіту...
-✅ Звіт збережено: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
-✓ Експорт звіту
+вњ… Р РµР·РµСЂРІРЅР° РєРѕРїС–СЏ СЃРёРЅС…СЂРѕРЅС–Р·РѕРІР°РЅР° РґРѕ checha/checha-core/C12/Protocols (mc)
+в†’ Р РµС–РЅРґРµРєСЃ...
+рџ”’ Backup С–РЅРґРµРєСЃСѓ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250830_150129.json
+вњ… РџРµСЂРµР·С–Р±СЂР°РЅРѕ С–РЅРґРµРєСЃ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (СѓРЅС–РєР°Р»СЊРЅРёС… РїСЂРѕС‚РѕРєРѕР»С–РІ: 5)
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ… РўР°Р±Р»РёС†СЋ Р·РіРµРЅРµСЂРѕРІР°РЅРѕ.
+вњ“ Р РµС–РЅРґРµРєСЃ
+в†’ Р’Р°Р»С–РґР°С†С–СЏ...
+вњ… Р’Р°Р»С–РґР°С†С–СЏ РїСЂРѕР№РґРµРЅР°.
+вњ“ Р’Р°Р»С–РґР°С†С–СЏ
+в†’ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–...
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ“ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–
+в†’ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ...
+вњ… Р—РІС–С‚ Р·Р±РµСЂРµР¶РµРЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
+вњ“ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ
 
-✅ DONE: Run-Daily завершено
+вњ… DONE: Run-Daily Р·Р°РІРµСЂС€РµРЅРѕ
 
  0 B / ? 
  0 B / ? 
@@ -196,7 +196,7 @@ C:\CHECHA_CORE\C12\Protocols\_index\checha\checha-core\C12\Protocols\_index\prot
 C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json: 68.40 KiB / 68.40 KiB  1.47 MiB/s 0s
 LOCAL:  112
 REMOTE: 124
-✅ Резервна копія синхронізована до checha/checha-core/C12/Protocols (mc)
+вњ… Р РµР·РµСЂРІРЅР° РєРѕРїС–СЏ СЃРёРЅС…СЂРѕРЅС–Р·РѕРІР°РЅР° РґРѕ checha/checha-core/C12/Protocols (mc)
 **********************
 PowerShell transcript start
 Start time: 20250830163532
@@ -216,9 +216,9 @@ PSRemotingProtocolVersion: 2.3
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-PS C:\CHECHA_CORE\C12\Protocols> # Mutex проти паралельних запусків
+PS C:\CHECHA_CORE\C12\Protocols> # Mutex РїСЂРѕС‚Рё РїР°СЂР°Р»РµР»СЊРЅРёС… Р·Р°РїСѓСЃРєС–РІ
 PS C:\CHECHA_CORE\C12\Protocols> $mtx = New-Object System.Threading.Mutex($false, 'Global\CHECHA_PROTOCOLS_DAILY')
-PS C:\CHECHA_CORE\C12\Protocols> if (-not $mtx.WaitOne(0)) { Write-Warning "Вже виконується. Вихід."; Stop-Transcript; exit 0 }
+PS C:\CHECHA_CORE\C12\Protocols> if (-not $mtx.WaitOne(0)) { Write-Warning "Р’Р¶Рµ РІРёРєРѕРЅСѓС”С‚СЊСЃСЏ. Р’РёС…С–Рґ."; Stop-Transcript; exit 0 }
 PS C:\CHECHA_CORE\C12\Protocols> try {
   Write-Host "== Reindex from files ==" -ForegroundColor Cyan
   .\protocol_reindex_from_files.ps1
@@ -233,9 +233,9 @@ PS C:\CHECHA_CORE\C12\Protocols> try {
   if (Test-Path .\Export-Report.ps1) { .\Export-Report.ps1 }
 
   Write-Host "== Backup to MinIO ==" -ForegroundColor Cyan
-  .\_index\Backup-To-MinIO.ps1  # додайте -UseDocker, якщо потрібно
+  .\_index\Backup-To-MinIO.ps1  # РґРѕРґР°Р№С‚Рµ -UseDocker, СЏРєС‰Рѕ РїРѕС‚СЂС–Р±РЅРѕ
 
-  Write-Host "✅ DAILY OK" -ForegroundColor Green
+  Write-Host "вњ… DAILY OK" -ForegroundColor Green
 }
 catch {
   Write-Error $_
@@ -273,7 +273,7 @@ Cannot bind argument to parameter 'Path' because it is an empty string.
 Join-Path: Cannot bind argument to parameter 'Path' because it is an empty string.
 PS C:\CHECHA_CORE\C12\Protocols> $repo = (Get-Location).Path
 PS C:\CHECHA_CORE\C12\Protocols> $remotePrefix = 'checha/checha-core/C12/Protocols/'
-PS C:\CHECHA_CORE\C12\Protocols> # Локальний список
+PS C:\CHECHA_CORE\C12\Protocols> # Р›РѕРєР°Р»СЊРЅРёР№ СЃРїРёСЃРѕРє
 PS C:\CHECHA_CORE\C12\Protocols> $local = Get-ChildItem -Recurse -File -Path $repo `
   -Exclude *.tmp,*.log,*.bak,'Thumbs.db','desktop.ini' |
   Where-Object {
@@ -286,7 +286,7 @@ PS C:\CHECHA_CORE\C12\Protocols> $local = Get-ChildItem -Recurse -File -Path $re
   ForEach-Object {
     $_.FullName.Substring($repo.Length+1).Replace('\','/')
   }
-PS C:\CHECHA_CORE\C12\Protocols> # Віддалений список (ключі) та обрізання префіксу
+PS C:\CHECHA_CORE\C12\Protocols> # Р’С–РґРґР°Р»РµРЅРёР№ СЃРїРёСЃРѕРє (РєР»СЋС‡С–) С‚Р° РѕР±СЂС–Р·Р°РЅРЅСЏ РїСЂРµС„С–РєСЃСѓ
 PS C:\CHECHA_CORE\C12\Protocols> $remoteRaw = mc find 'checha/checha-core/C12/Protocols' --files --print
 PS C:\CHECHA_CORE\C12\Protocols> $remote = $remoteRaw | ForEach-Object {
   ($_ -replace [regex]::Escape($remotePrefix), '')
@@ -298,12 +298,12 @@ PS C:\CHECHA_CORE\C12\Protocols> $diff = Compare-Object -ReferenceObject $local 
 Cannot bind argument to parameter 'DifferenceObject' because it is null.
 Compare-Object: Cannot bind argument to parameter 'DifferenceObject' because it is null.
 PS C:\CHECHA_CORE\C12\Protocols> if ($diff) {
-  "DIFF (перші 30):"
+  "DIFF (РїРµСЂС€С– 30):"
   $diff | Select-Object -First 30
 } else {
-  Write-Host "🟢 OK: локально == MinIO (з урахуванням виключень)" -ForegroundColor Green
+  Write-Host "рџџў OK: Р»РѕРєР°Р»СЊРЅРѕ == MinIO (Р· СѓСЂР°С…СѓРІР°РЅРЅСЏРј РІРёРєР»СЋС‡РµРЅСЊ)" -ForegroundColor Green
 }
-DIFF (перші 30):
+DIFF (РїРµСЂС€С– 30):
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/_index/Backup-To-MinIO.ps1
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/_index/Backup-To-MinIO.ps1.bak
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/_index/Check-Index.ps1
@@ -332,7 +332,7 @@ checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/new_protocol.p
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/protocol_check.ps1
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/protocol_update_status.ps1
 checha/checha-core/C12/Protocols/checha/checha-core/C12/Protocols/templates/PROTOCOL_TEMPLATE.md
-PS C:\CHECHA_CORE\C12\Protocols> # Дати SYSTEM повні права на конфіг mc і репозиторій
+PS C:\CHECHA_CORE\C12\Protocols> # Р”Р°С‚Рё SYSTEM РїРѕРІРЅС– РїСЂР°РІР° РЅР° РєРѕРЅС„С–Рі mc С– СЂРµРїРѕР·РёС‚РѕСЂС–Р№
 PS C:\CHECHA_CORE\C12\Protocols> icacls "C:\CHECHA_CORE\.mc" /grant "NT AUTHORITY\SYSTEM:(OI)(CI)(F)" /T
 Successfully processed 0 files; Failed processing 0 files
 PS C:\CHECHA_CORE\C12\Protocols> icacls "C:\CHECHA_CORE\C12\Protocols" /grant "NT AUTHORITY\SYSTEM:(OI)(CI)(F)" /T
@@ -698,7 +698,7 @@ processed file: C:\CHECHA_CORE\C12\Protocols\_index\Restore-From-MinIO.ps1
 processed file: C:\CHECHA_CORE\C12\Protocols\_index\Run-Daily-Wrapper.ps1
 processed file: C:\CHECHA_CORE\C12\Protocols\_index\Run-Daily.ps1
 Successfully processed 229 files; Failed processing 0 files
-PS C:\CHECHA_CORE\C12\Protocols> # Створення щоденної задачі 03:07
+PS C:\CHECHA_CORE\C12\Protocols> # РЎС‚РІРѕСЂРµРЅРЅСЏ С‰РѕРґРµРЅРЅРѕС— Р·Р°РґР°С‡С– 03:07
 PS C:\CHECHA_CORE\C12\Protocols> schtasks /Create /TN "CHECHA_PROTOCOLS_DAILY" ^
 ERROR: Invalid argument/option - '^'.
 Type "SCHTASKS /CREATE /?" for usage.
@@ -716,7 +716,7 @@ The term '/SC' is not recognized as a name of a cmdlet, function, script file, o
 Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
 /SC: The term '/SC' is not recognized as a name of a cmdlet, function, script file, or executable program.
 Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
-PS C:\CHECHA_CORE\C12\Protocols> # Ручний старт для перевірки
+PS C:\CHECHA_CORE\C12\Protocols> # Р СѓС‡РЅРёР№ СЃС‚Р°СЂС‚ РґР»СЏ РїРµСЂРµРІС–СЂРєРё
 PS C:\CHECHA_CORE\C12\Protocols> schtasks /Run /TN "CHECHA_PROTOCOLS_DAILY"
 ERROR: The system cannot find the file specified.
 PS C:\CHECHA_CORE\C12\Protocols> schtasks /Create /TN "CHECHA_PROTOCOLS_DAILY" /TR "\"C:\Program Files\PowerShell\7\pwsh.exe\" -NoProfile -ExecutionPolicy Bypass -File \"C:\CHECHA_CORE\C12\Protocols\Run-Daily.ps1\"" /SC DAILY /ST 03:07 /RU "SYSTEM" /RL HIGHEST /F
@@ -738,7 +738,7 @@ TaskPath                                       TaskName                         
 --------                                       --------                          -----
 \                                              CHECHA_PROTOCOLS_DAILY            Ready
 
-PS C:\CHECHA_CORE\C12\Protocols> # Перевірка і ручний старт
+PS C:\CHECHA_CORE\C12\Protocols> # РџРµСЂРµРІС–СЂРєР° С– СЂСѓС‡РЅРёР№ СЃС‚Р°СЂС‚
 PS C:\CHECHA_CORE\C12\Protocols> Get-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY" | Get-ScheduledTaskInfo
 
 LastRunTime        : 30.11.1999 0:00:00
@@ -750,10 +750,10 @@ TaskPath           : \
 PSComputerName     : 
 
 PS C:\CHECHA_CORE\C12\Protocols> Start-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY"
-PS C:\CHECHA_CORE\C12\Protocols> # 1) Поточний стан задачі (Ready/Running/Queued/…)
+PS C:\CHECHA_CORE\C12\Protocols> # 1) РџРѕС‚РѕС‡РЅРёР№ СЃС‚Р°РЅ Р·Р°РґР°С‡С– (Ready/Running/Queued/вЂ¦)
 PS C:\CHECHA_CORE\C12\Protocols> (Get-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY").State
 Queued
-PS C:\CHECHA_CORE\C12\Protocols> # 2) Якщо вже біжить — дивимось «хвіст» останнього транскрипта Run-Daily
+PS C:\CHECHA_CORE\C12\Protocols> # 2) РЇРєС‰Рѕ РІР¶Рµ Р±С–Р¶РёС‚СЊ вЂ” РґРёРІРёРјРѕСЃСЊ В«С…РІС–СЃС‚В» РѕСЃС‚Р°РЅРЅСЊРѕРіРѕ С‚СЂР°РЅСЃРєСЂРёРїС‚Р° Run-Daily
 PS C:\CHECHA_CORE\C12\Protocols> $lastLog = Get-ChildItem -Path "$PSScriptRoot\_index\logs\Run-Daily_*.log" |
   Sort-Object LastWriteTime -Descending | Select-Object -First 1
 >> TerminatingError(Get-ChildItem): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot find path 'C:\_index\logs' because it does not exist."
@@ -768,7 +768,7 @@ PS C:\CHECHA_CORE\C12\Protocols> Get-Content $lastLog.FullName -Tail 60
 >> TerminatingError(): "The variable '$lastLog' cannot be retrieved because it has not been set."
 The variable '$lastLog' cannot be retrieved because it has not been set.
 InvalidOperation: The variable '$lastLog' cannot be retrieved because it has not been set.
-PS C:\CHECHA_CORE\C12\Protocols> # 3) Коли завершиться — код результату і час
+PS C:\CHECHA_CORE\C12\Protocols> # 3) РљРѕР»Рё Р·Р°РІРµСЂС€РёС‚СЊСЃСЏ вЂ” РєРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Сѓ С– С‡Р°СЃ
 PS C:\CHECHA_CORE\C12\Protocols> Get-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY" | Get-ScheduledTaskInfo |
   Select-Object LastRunTime, LastTaskResult, NextRunTime
 
@@ -776,22 +776,22 @@ LastRunTime         LastTaskResult NextRunTime
 -----------         -------------- -----------
 30.08.2025 16:37:37              0 31.08.2025 3:07:07
 
-PS C:\CHECHA_CORE\C12\Protocols> # Події «Планувальника» по цій задачі
+PS C:\CHECHA_CORE\C12\Protocols> # РџРѕРґС–С— В«РџР»Р°РЅСѓРІР°Р»СЊРЅРёРєР°В» РїРѕ С†С–Р№ Р·Р°РґР°С‡С–
 PS C:\CHECHA_CORE\C12\Protocols> Get-WinEvent -LogName 'Microsoft-Windows-TaskScheduler/Operational' -MaxEvents 40 |
   Where-Object { $_.Message -like '*CHECHA_PROTOCOLS_DAILY*' } |
   Select-Object TimeCreated, Id, LevelDisplayName, Message
 
 TimeCreated          Id LevelDisplayName Message
 -----------          -- ---------------- -------
-30.08.2025 16:37:36 110 Information      Планувальник завдань запустив екземпляр "{631b0eed-f3e0-4853-…
-30.08.2025 16:37:36 325 Warning          Планувальник завдань поставив у чергу екземпляр "{631b0eed-f3…
-30.08.2025 16:37:35 140 Information      Користувач "DESKTOP-2OLDAUU\serge" оновив завдання "\CHECHA_P…
-30.08.2025 16:37:35 106 Information      Користувач "DESKTOP-2OLDAUU\serge" зареєстрував завдання "\CH…
+30.08.2025 16:37:36 110 Information      РџР»Р°РЅСѓРІР°Р»СЊРЅРёРє Р·Р°РІРґР°РЅСЊ Р·Р°РїСѓСЃС‚РёРІ РµРєР·РµРјРїР»СЏСЂ "{631b0eed-f3e0-4853-вЂ¦
+30.08.2025 16:37:36 325 Warning          РџР»Р°РЅСѓРІР°Р»СЊРЅРёРє Р·Р°РІРґР°РЅСЊ РїРѕСЃС‚Р°РІРёРІ Сѓ С‡РµСЂРіСѓ РµРєР·РµРјРїР»СЏСЂ "{631b0eed-f3вЂ¦
+30.08.2025 16:37:35 140 Information      РљРѕСЂРёСЃС‚СѓРІР°С‡ "DESKTOP-2OLDAUU\serge" РѕРЅРѕРІРёРІ Р·Р°РІРґР°РЅРЅСЏ "\CHECHA_PвЂ¦
+30.08.2025 16:37:35 106 Information      РљРѕСЂРёСЃС‚СѓРІР°С‡ "DESKTOP-2OLDAUU\serge" Р·Р°СЂРµС”СЃС‚СЂСѓРІР°РІ Р·Р°РІРґР°РЅРЅСЏ "\CHвЂ¦
 
-PS C:\CHECHA_CORE\C12\Protocols> # Статус зараз
+PS C:\CHECHA_CORE\C12\Protocols> # РЎС‚Р°С‚СѓСЃ Р·Р°СЂР°Р·
 PS C:\CHECHA_CORE\C12\Protocols> (Get-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY").State
 Ready
-PS C:\CHECHA_CORE\C12\Protocols> # Останній лог транскрипта
+PS C:\CHECHA_CORE\C12\Protocols> # РћСЃС‚Р°РЅРЅС–Р№ Р»РѕРі С‚СЂР°РЅСЃРєСЂРёРїС‚Р°
 PS C:\CHECHA_CORE\C12\Protocols> $lastLog = Get-ChildItem "$PSScriptRoot\_index\logs\Run-Daily_*.log" |
   Sort-Object LastWriteTime -Descending | Select-Object -First 1
 >> TerminatingError(Get-ChildItem): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot find path 'C:\_index\logs' because it does not exist."
@@ -806,7 +806,7 @@ PS C:\CHECHA_CORE\C12\Protocols> Get-Content $lastLog.FullName -Tail 80
 >> TerminatingError(): "The variable '$lastLog' cannot be retrieved because it has not been set."
 The variable '$lastLog' cannot be retrieved because it has not been set.
 InvalidOperation: The variable '$lastLog' cannot be retrieved because it has not been set.
-PS C:\CHECHA_CORE\C12\Protocols> # Підсумок виконання
+PS C:\CHECHA_CORE\C12\Protocols> # РџС–РґСЃСѓРјРѕРє РІРёРєРѕРЅР°РЅРЅСЏ
 PS C:\CHECHA_CORE\C12\Protocols> Get-ScheduledTask -TaskName "CHECHA_PROTOCOLS_DAILY" | Get-ScheduledTaskInfo |
   Select-Object LastRunTime, LastTaskResult, NextRunTime
 
@@ -1187,11 +1187,11 @@ PS C:\CHECHA_CORE\C12\Protocols> '{0} (0x{0:X8})' -f $info.LastTaskResult
 64 (0x00000040)
 PS C:\CHECHA_CORE\C12\Protocols> [CmdletBinding()]
 param(
-  [switch]$UseDocker,                                  # форсує docker-режим
-  [string]$DockerNetwork = 'checha_core_default'       # назва мережі MinIO
+  [switch]$UseDocker,                                  # С„РѕСЂСЃСѓС” docker-СЂРµР¶РёРј
+  [string]$DockerNetwork = 'checha_core_default'       # РЅР°Р·РІР° РјРµСЂРµР¶С– MinIO
 )
 PS C:\CHECHA_CORE\C12\Protocols> $ErrorActionPreference = 'Stop'
-PS C:\CHECHA_CORE\C12\Protocols> Set-Location -LiteralPath (Join-Path $PSScriptRoot '..')  # → C:\CHECHA_CORE\C12\Protocols
+PS C:\CHECHA_CORE\C12\Protocols> Set-Location -LiteralPath (Join-Path $PSScriptRoot '..')  # в†’ C:\CHECHA_CORE\C12\Protocols
 >> TerminatingError(Join-Path): "Cannot bind argument to parameter 'Path' because it is an empty string."
 >> TerminatingError(Join-Path): "Cannot bind argument to parameter 'Path' because it is an empty string."
 Cannot bind argument to parameter 'Path' because it is an empty string.
@@ -1202,31 +1202,31 @@ PS C:\CHECHA_CORE\C12\Protocols> if (-not $env:MC_CONFIG_DIR) { $env:MC_CONFIG_D
 PS C:\CHECHA_CORE\C12\Protocols> # === prefer bundled mc.exe, fallback to PATH, else Docker ===
 PS C:\CHECHA_CORE\C12\Protocols> $global:McExe = 'C:\CHECHA_CORE\tools\mc.exe'
 PS C:\CHECHA_CORE\C12\Protocols> if (-not (Test-Path $global:McExe)) { $global:McExe = 'mc' }
-PS C:\CHECHA_CORE\C12\Protocols> # Автовизначення: якщо mc недоступний → Docker
+PS C:\CHECHA_CORE\C12\Protocols> # РђРІС‚РѕРІРёР·РЅР°С‡РµРЅРЅСЏ: СЏРєС‰Рѕ mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ в†’ Docker
 PS C:\CHECHA_CORE\C12\Protocols> if (-not $PSBoundParameters.ContainsKey('UseDocker')) {
   try { & $global:McExe --version | Out-Null; $UseDocker = $false } catch { $UseDocker = $true }
 }
-PS C:\CHECHA_CORE\C12\Protocols> # === MinIO ціль ===
+PS C:\CHECHA_CORE\C12\Protocols> # === MinIO С†С–Р»СЊ ===
 PS C:\CHECHA_CORE\C12\Protocols> $Alias      = 'checha'
 PS C:\CHECHA_CORE\C12\Protocols> $RemoteBase = 'checha-core/C12/Protocols'
 PS C:\CHECHA_CORE\C12\Protocols> $RemoteUri  = "$Alias/$RemoteBase"
-PS C:\CHECHA_CORE\C12\Protocols> # === Виключення ===
+PS C:\CHECHA_CORE\C12\Protocols> # === Р’РёРєР»СЋС‡РµРЅРЅСЏ ===
 PS C:\CHECHA_CORE\C12\Protocols> $Exclude = @(
   '/_index/*',
   '/.git/*','/.github/*','/.vscode/*',
   '/node_modules/*',
   '/*.tmp','/*.log','/*.bak','/Thumbs.db','/desktop.ini'
 )
-PS C:\CHECHA_CORE\C12\Protocols> # === Анти-«дзеркало-в-себе» ===
+PS C:\CHECHA_CORE\C12\Protocols> # === РђРЅС‚Рё-В«РґР·РµСЂРєР°Р»Рѕ-РІ-СЃРµР±РµВ» ===
 PS C:\CHECHA_CORE\C12\Protocols> if ($Repo -match '(^|\\)checha\\checha-core(\\|$)') {
-  throw "Небезпечно: локальний шлях містить 'checha\checha-core'. Це може створити рекурсію."
+  throw "РќРµР±РµР·РїРµС‡РЅРѕ: Р»РѕРєР°Р»СЊРЅРёР№ С€Р»СЏС… РјС–СЃС‚РёС‚СЊ 'checha\checha-core'. Р¦Рµ РјРѕР¶Рµ СЃС‚РІРѕСЂРёС‚Рё СЂРµРєСѓСЂСЃС–СЋ."
 }
-PS C:\CHECHA_CORE\C12\Protocols> if ($Repo -eq $RemoteUri) { throw "SRC і DST збігаються. Перевірте змінні." }
-PS C:\CHECHA_CORE\C12\Protocols> # === Виклики mc (локально або через Docker у ПРАВИЛЬНІЙ мережі) ===
+PS C:\CHECHA_CORE\C12\Protocols> if ($Repo -eq $RemoteUri) { throw "SRC С– DST Р·Р±С–РіР°СЋС‚СЊСЃСЏ. РџРµСЂРµРІС–СЂС‚Рµ Р·РјС–РЅРЅС–." }
+PS C:\CHECHA_CORE\C12\Protocols> # === Р’РёРєР»РёРєРё mc (Р»РѕРєР°Р»СЊРЅРѕ Р°Р±Рѕ С‡РµСЂРµР· Docker Сѓ РџР РђР’РР›Р¬РќР†Р™ РјРµСЂРµР¶С–) ===
 PS C:\CHECHA_CORE\C12\Protocols> function Invoke-Mc {
   param([string[]]$Args)
   if ($UseDocker) {
-    # ВАЖЛИВО: приєднуємось до мережі, де біжить MinIO (наприклад checha_core_default)
+    # Р’РђР–Р›РР’Рћ: РїСЂРёС”РґРЅСѓС”РјРѕСЃСЊ РґРѕ РјРµСЂРµР¶С–, РґРµ Р±С–Р¶РёС‚СЊ MinIO (РЅР°РїСЂРёРєР»Р°Рґ checha_core_default)
     docker run --rm `
       --network "$using:DockerNetwork" `
       -v "C:\CHECHA_CORE\.mc:/root/.mc" `
@@ -1236,31 +1236,31 @@ PS C:\CHECHA_CORE\C12\Protocols> function Invoke-Mc {
     & $global:McExe @Args
   }
 }
-PS C:\CHECHA_CORE\C12\Protocols> # Перевірка доступності alias'а
+PS C:\CHECHA_CORE\C12\Protocols> # РџРµСЂРµРІС–СЂРєР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚С– alias'Р°
 PS C:\CHECHA_CORE\C12\Protocols> try {
   $aliases = Invoke-Mc @('alias','list') 2>&1
   if ($aliases -notmatch '^checha\s') {
-    throw "Alias 'checha' не знайдено в $env:MC_CONFIG_DIR. Запусти один раз (для Docker-режиму адреса має бути на сервіс у мережі, напр. http://minio:9000):
+    throw "Alias 'checha' РЅРµ Р·РЅР°Р№РґРµРЅРѕ РІ $env:MC_CONFIG_DIR. Р—Р°РїСѓСЃС‚Рё РѕРґРёРЅ СЂР°Р· (РґР»СЏ Docker-СЂРµР¶РёРјСѓ Р°РґСЂРµСЃР° РјР°С” Р±СѓС‚Рё РЅР° СЃРµСЂРІС–СЃ Сѓ РјРµСЂРµР¶С–, РЅР°РїСЂ. http://minio:9000):
 C:\CHECHA_CORE\tools\mc.exe alias set checha http://minio:9000 <ACCESS> <SECRET> --api S3v4"
   }
 } catch {
-  throw "mc недоступний або alias відсутній. Деталі: $($_.Exception.Message)"
+  throw "mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ Р°Р±Рѕ alias РІС–РґСЃСѓС‚РЅС–Р№. Р”РµС‚Р°Р»С–: $($_.Exception.Message)"
 }
-PS C:\CHECHA_CORE\C12\Protocols> TerminatingError(): "mc недоступний або alias відсутній. Деталі: Alias 'checha' не знайдено в C:\Users\serge\mc. Запусти один раз (для Docker-режиму адреса має бути на сервіс у мережі, напр. http://minio:9000):
+PS C:\CHECHA_CORE\C12\Protocols> TerminatingError(): "mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ Р°Р±Рѕ alias РІС–РґСЃСѓС‚РЅС–Р№. Р”РµС‚Р°Р»С–: Alias 'checha' РЅРµ Р·РЅР°Р№РґРµРЅРѕ РІ C:\Users\serge\mc. Р—Р°РїСѓСЃС‚Рё РѕРґРёРЅ СЂР°Р· (РґР»СЏ Docker-СЂРµР¶РёРјСѓ Р°РґСЂРµСЃР° РјР°С” Р±СѓС‚Рё РЅР° СЃРµСЂРІС–СЃ Сѓ РјРµСЂРµР¶С–, РЅР°РїСЂ. http://minio:9000):
 C:\CHECHA_CORE\tools\mc.exe alias set checha http://minio:9000 <ACCESS> <SECRET> --api S3v4"
-mc недоступний або alias відсутній. Деталі: Alias 'checha' не знайдено в C:\Users\serge\mc. Запусти один раз (для Docker-режиму адреса має бути на сервіс у мережі, напр. http://minio:9000):
+mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ Р°Р±Рѕ alias РІС–РґСЃСѓС‚РЅС–Р№. Р”РµС‚Р°Р»С–: Alias 'checha' РЅРµ Р·РЅР°Р№РґРµРЅРѕ РІ C:\Users\serge\mc. Р—Р°РїСѓСЃС‚Рё РѕРґРёРЅ СЂР°Р· (РґР»СЏ Docker-СЂРµР¶РёРјСѓ Р°РґСЂРµСЃР° РјР°С” Р±СѓС‚Рё РЅР° СЃРµСЂРІС–СЃ Сѓ РјРµСЂРµР¶С–, РЅР°РїСЂ. http://minio:9000):
 C:\CHECHA_CORE\tools\mc.exe alias set checha http://minio:9000 <ACCESS> <SECRET> --api S3v4
 Exception: 
 Line |
-   8 |    throw "mc недоступний або alias відсутній. Деталі: $($_.Exception.M …
+   8 |    throw "mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ Р°Р±Рѕ alias РІС–РґСЃСѓС‚РЅС–Р№. Р”РµС‚Р°Р»С–: $($_.Exception.M вЂ¦
      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | mc недоступний або alias відсутній. Деталі: Alias 'checha' не знайдено в C:\Users\serge\mc. Запусти один раз (для Docker-режиму адреса має бути на сервіс у мережі, напр. http://minio:9000):
+     | mc РЅРµРґРѕСЃС‚СѓРїРЅРёР№ Р°Р±Рѕ alias РІС–РґСЃСѓС‚РЅС–Р№. Р”РµС‚Р°Р»С–: Alias 'checha' РЅРµ Р·РЅР°Р№РґРµРЅРѕ РІ C:\Users\serge\mc. Р—Р°РїСѓСЃС‚Рё РѕРґРёРЅ СЂР°Р· (РґР»СЏ Docker-СЂРµР¶РёРјСѓ Р°РґСЂРµСЃР° РјР°С” Р±СѓС‚Рё РЅР° СЃРµСЂРІС–СЃ Сѓ РјРµСЂРµР¶С–, РЅР°РїСЂ. http://minio:9000):
 C:\CHECHA_CORE\tools\mc.exe alias set checha http://minio:9000 <ACCESS> <SECRET> --api S3v4
-PS C:\CHECHA_CORE\C12\Protocols> # Побудова аргів mirror
+PS C:\CHECHA_CORE\C12\Protocols> # РџРѕР±СѓРґРѕРІР° Р°СЂРіС–РІ mirror
 PS C:\CHECHA_CORE\C12\Protocols> $excludeArgs = @(); foreach($e in $Exclude){ $excludeArgs += @('--exclude', $e) }
-PS C:\CHECHA_CORE\C12\Protocols> Write-Host "→ Зеркалю /repo → $RemoteUri (Docker=$UseDocker; Net=$DockerNetwork)" -ForegroundColor Cyan
-→ Зеркалю /repo → checha/checha-core/C12/Protocols (Docker=False; Net=checha_core_default)
-PS C:\CHECHA_CORE\C12\Protocols> # Створити bucket (ідемпотентно)
+PS C:\CHECHA_CORE\C12\Protocols> Write-Host "в†’ Р—РµСЂРєР°Р»СЋ /repo в†’ $RemoteUri (Docker=$UseDocker; Net=$DockerNetwork)" -ForegroundColor Cyan
+в†’ Р—РµСЂРєР°Р»СЋ /repo в†’ checha/checha-core/C12/Protocols (Docker=False; Net=checha_core_default)
+PS C:\CHECHA_CORE\C12\Protocols> # РЎС‚РІРѕСЂРёС‚Рё bucket (С–РґРµРјРїРѕС‚РµРЅС‚РЅРѕ)
 PS C:\CHECHA_CORE\C12\Protocols> try { Invoke-Mc @('mb', "$Alias/checha-core") } catch { }
 
 NAME:
@@ -1342,18 +1342,18 @@ COPYRIGHT:
 
 LICENSE:
   GNU AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
-PS C:\CHECHA_CORE\C12\Protocols> # Дзеркало
+PS C:\CHECHA_CORE\C12\Protocols> # Р”Р·РµСЂРєР°Р»Рѕ
 PS C:\CHECHA_CORE\C12\Protocols> Invoke-Mc @('mirror','--overwrite','--remove') + $excludeArgs + @('/repo', $RemoteUri)
 
 mc.exe: <ERROR> `+` is not a recognized command. Get help using `--help` flag.
-PS C:\CHECHA_CORE\C12\Protocols> # Перевірка на підозрілі вкладення
+PS C:\CHECHA_CORE\C12\Protocols> # РџРµСЂРµРІС–СЂРєР° РЅР° РїС–РґРѕР·СЂС–Р»С– РІРєР»Р°РґРµРЅРЅСЏ
 PS C:\CHECHA_CORE\C12\Protocols> $bad = Invoke-Mc @('find', $RemoteUri, '--name', 'checha/*', '--print') | Out-String
 PS C:\CHECHA_CORE\C12\Protocols> if ($bad.Trim()) {
-  Write-Warning "У бакеті знайдено підозрілі вкладення '.../checha/...':"
+  Write-Warning "РЈ Р±Р°РєРµС‚С– Р·РЅР°Р№РґРµРЅРѕ РїС–РґРѕР·СЂС–Р»С– РІРєР»Р°РґРµРЅРЅСЏ '.../checha/...':"
   $bad
-  Write-Warning "Прибрати: mc rm -r -f --dangerous `"$RemoteUri/checha/`""
+  Write-Warning "РџСЂРёР±СЂР°С‚Рё: mc rm -r -f --dangerous `"$RemoteUri/checha/`""
 }
-WARNING: У бакеті знайдено підозрілі вкладення '.../checha/...':
+WARNING: РЈ Р±Р°РєРµС‚С– Р·РЅР°Р№РґРµРЅРѕ РїС–РґРѕР·СЂС–Р»С– РІРєР»Р°РґРµРЅРЅСЏ '.../checha/...':
 
 NAME:
   mc - MinIO Client for object storage and filesystems.
@@ -1429,9 +1429,9 @@ COPYRIGHT:
 
 LICENSE:
   GNU AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
-WARNING: Прибрати: mc rm -r -f --dangerous "checha/checha-core/C12/Protocols/checha/"
-PS C:\CHECHA_CORE\C12\Protocols> Write-Host "✅ Backup OK" -ForegroundColor Green
-✅ Backup OK
+WARNING: РџСЂРёР±СЂР°С‚Рё: mc rm -r -f --dangerous "checha/checha-core/C12/Protocols/checha/"
+PS C:\CHECHA_CORE\C12\Protocols> Write-Host "вњ… Backup OK" -ForegroundColor Green
+вњ… Backup OK
 PS C:\CHECHA_CORE\C12\Protocols> Write-Host "== Backup to MinIO (Docker) ==" -ForegroundColor Cyan
 == Backup to MinIO (Docker) ==
 PS C:\CHECHA_CORE\C12\Protocols> .\_index\Backup-To-MinIO.ps1 -UseDocker -DockerNetwork 'checha_core_default'
@@ -1865,14 +1865,14 @@ InvalidOperation: The variable '$lastLog' cannot be retrieved because it has not
 PS C:\CHECHA_CORE\C12\Protocols> $base  = 'C:\CHECHA_CORE\C12\Protocols'
 PS C:\CHECHA_CORE\C12\Protocols> $logs  = Join-Path $base '_index\logs'
 PS C:\CHECHA_CORE\C12\Protocols> New-Item -ItemType Directory -Force -Path $logs | Out-Null
-PS C:\CHECHA_CORE\C12\Protocols> # якщо alias зберігався у профілі користувача — скопіюємо в робоче місце для SYSTEM
+PS C:\CHECHA_CORE\C12\Protocols> # СЏРєС‰Рѕ alias Р·Р±РµСЂС–РіР°РІСЃСЏ Сѓ РїСЂРѕС„С–Р»С– РєРѕСЂРёСЃС‚СѓРІР°С‡Р° вЂ” СЃРєРѕРїС–СЋС”РјРѕ РІ СЂРѕР±РѕС‡Рµ РјС–СЃС†Рµ РґР»СЏ SYSTEM
 PS C:\CHECHA_CORE\C12\Protocols> robocopy "$env:USERPROFILE\.mc" "C:\CHECHA_CORE\.mc" /MIR
 
 -------------------------------------------------------------------------------
    ROBOCOPY     ::     Robust File Copy for Windows
 -------------------------------------------------------------------------------
 
-  Started : 30 серпня 2025 р. 16:58:52
+  Started : 30 СЃРµСЂРїРЅСЏ 2025 СЂ. 16:58:52
    Source : C:\Users\serge\.mc\
      Dest : C:\CHECHA_CORE\.mc\
 
@@ -1884,9 +1884,9 @@ PS C:\CHECHA_CORE\C12\Protocols> robocopy "$env:USERPROFILE\.mc" "C:\CHECHA_CORE
 
 2025/08/30 16:58:52 ERROR 2 (0x00000002) Accessing Source Directory C:\Users\serge\.mc\
 The system cannot find the file specified.
-PS C:\CHECHA_CORE\C12\Protocols> # система бачить саме цей конфіг
+PS C:\CHECHA_CORE\C12\Protocols> # СЃРёСЃС‚РµРјР° Р±Р°С‡РёС‚СЊ СЃР°РјРµ С†РµР№ РєРѕРЅС„С–Рі
 PS C:\CHECHA_CORE\C12\Protocols> [Environment]::SetEnvironmentVariable('MC_CONFIG_DIR','C:\CHECHA_CORE\.mc','Machine')
-PS C:\CHECHA_CORE\C12\Protocols> # права
+PS C:\CHECHA_CORE\C12\Protocols> # РїСЂР°РІР°
 PS C:\CHECHA_CORE\C12\Protocols> icacls "C:\CHECHA_CORE\.mc" /grant "NT AUTHORITY\SYSTEM:(OI)(CI)(F)" /T
 Successfully processed 0 files; Failed processing 0 files
 PS C:\CHECHA_CORE\C12\Protocols> icacls "C:\CHECHA_CORE\C12\Protocols" /grant "NT AUTHORITY\SYSTEM:(OI)(CI)(F)" /T
@@ -2257,29 +2257,29 @@ Successfully processed 230 files; Failed processing 0 files
 PowerShell transcript end
 End time: 20250830170707
 **********************
-→ Реіндекс...
-🔒 Backup індексу: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250901_091002.json
-✅ Перезібрано індекс: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (унікальних протоколів: 7)
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✅ Таблицю згенеровано.
-✓ Реіндекс
-→ Валідація...
-[33;1mWARNING: Некоректний статус: {{ID}} → protocols[0m
-[33;1mWARNING: Некоректний статус: Protocols → protocols[0m
+в†’ Р РµС–РЅРґРµРєСЃ...
+рџ”’ Backup С–РЅРґРµРєСЃСѓ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.bak_20250901_091002.json
+вњ… РџРµСЂРµР·С–Р±СЂР°РЅРѕ С–РЅРґРµРєСЃ: C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json (СѓРЅС–РєР°Р»СЊРЅРёС… РїСЂРѕС‚РѕРєРѕР»С–РІ: 7)
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ… РўР°Р±Р»РёС†СЋ Р·РіРµРЅРµСЂРѕРІР°РЅРѕ.
+вњ“ Р РµС–РЅРґРµРєСЃ
+в†’ Р’Р°Р»С–РґР°С†С–СЏ...
+[33;1mWARNING: РќРµРєРѕСЂРµРєС‚РЅРёР№ СЃС‚Р°С‚СѓСЃ: {{ID}} в†’ protocols[0m
+[33;1mWARNING: РќРµРєРѕСЂРµРєС‚РЅРёР№ СЃС‚Р°С‚СѓСЃ: Protocols в†’ protocols[0m
 Exception: C:\CHECHA_CORE\C12\Protocols\_index\protocol_validate.ps1:21
 Line |
-  21 |  … Green } else { throw "❌ Помилки валідації. Виправ і запусти знову." }
+  21 |  вЂ¦ Green } else { throw "вќЊ РџРѕРјРёР»РєРё РІР°Р»С–РґР°С†С–С—. Р’РёРїСЂР°РІ С– Р·Р°РїСѓСЃС‚Рё Р·РЅРѕРІСѓ." }
      |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | ❌ Помилки валідації. Виправ і запусти знову.
-✓ Валідація
-→ Генерація таблиці...
- Згенеровано: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
-✓ Генерація таблиці
-→ Експорт звіту...
-✅ Звіт збережено: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
-✓ Експорт звіту
+     | вќЊ РџРѕРјРёР»РєРё РІР°Р»С–РґР°С†С–С—. Р’РёРїСЂР°РІ С– Р·Р°РїСѓСЃС‚Рё Р·РЅРѕРІСѓ.
+вњ“ Р’Р°Р»С–РґР°С†С–СЏ
+в†’ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–...
+ Р—РіРµРЅРµСЂРѕРІР°РЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols.md
+вњ“ Р“РµРЅРµСЂР°С†С–СЏ С‚Р°Р±Р»РёС†С–
+в†’ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ...
+вњ… Р—РІС–С‚ Р·Р±РµСЂРµР¶РµРЅРѕ: C:\CHECHA_CORE\C12\Protocols\_index\Protocols_Report.md
+вњ“ Р•РєСЃРїРѕСЂС‚ Р·РІС–С‚Сѓ
 
-✅ DONE: Run-Daily завершено
+вњ… DONE: Run-Daily Р·Р°РІРµСЂС€РµРЅРѕ
 
  0 B / ? 
  0 B / ? 
@@ -2699,4 +2699,4 @@ C:\CHECHA_CORE\C12\Protocols\templates\PROTOCOL_TEMPLATE__20250831_011805.md: 1.
 C:\CHECHA_CORE\C12\Protocols\templates\PROTOCOL_TEMPLATE__20250831_011815.md: 1.25 MiB / 1.25 MiB  621.91 KiB/s 2s
 LOCAL:  648
 REMOTE: 381
-✅ Резервна копія синхронізована до checha/checha-core/C12/Protocols (mc)
+вњ… Р РµР·РµСЂРІРЅР° РєРѕРїС–СЏ СЃРёРЅС…СЂРѕРЅС–Р·РѕРІР°РЅР° РґРѕ checha/checha-core/C12/Protocols (mc)

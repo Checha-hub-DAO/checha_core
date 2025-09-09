@@ -1,5 +1,5 @@
-@echo off
-:: C12 Quick Actions — С.Ч.
+﻿@echo off
+:: C12 Quick Actions вЂ” РЎ.Р§.
 setlocal ENABLEDELAYEDEXPANSION
 
 :: === CONFIG ===
@@ -7,7 +7,7 @@ set "CORE=C:\CHECHA_CORE"
 set "PROT=%CORE%\C12\Protocols"
 set "NAV=%CORE%\C12\NAV\C12_NAV.md"
 set "GITBOOK_URL="
-:: TODO: задай GITBOOK_URL на сторінку "C12 — Тематична Навігація"
+:: TODO: Р·Р°РґР°Р№ GITBOOK_URL РЅР° СЃС‚РѕСЂС–РЅРєСѓ "C12 вЂ” РўРµРјР°С‚РёС‡РЅР° РќР°РІС–РіР°С†С–СЏ"
 
 :menu
 cls

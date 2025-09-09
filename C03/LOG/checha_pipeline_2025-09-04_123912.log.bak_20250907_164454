@@ -1,0 +1,16 @@
+﻿2025-09-04 12:39:12 BEGIN Run-ChechaPipelines; Config=C:\CHECHA_CORE\C11\C11_AUTOMATION\config\checha_shelves.json; DryRun=False; Force=False; Pwsh=C:\Program Files\PowerShell\7\pwsh.exe
+2025-09-04 12:39:12 LOCK acquired: Global\CHECHA_VaultPipeline
+2025-09-04 12:39:12 INGEST [StrategicReports]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports -> C:\CHECHA_CORE\C12\Vault\StrategicReports  (Strateg_Report_*.md)
+2025-09-04 12:39:12 INGEST done [StrategicReports]
+2025-09-04 12:39:12 UPDATE [StrategicReports]  Title='📚 Strategic Reports — Vault'
+2025-09-04 12:39:13 UPDATE done [StrategicReports]
+2025-09-04 12:39:13 INGEST [DecisionsJournal]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports -> C:\CHECHA_CORE\C12\Vault\DecisionsJournal  (Decision_*.md)
+2025-09-04 12:39:13 INGEST done [DecisionsJournal]
+2025-09-04 12:39:13 UPDATE [DecisionsJournal]  Title='🗒️ Decisions Journal — Vault'
+2025-09-04 12:39:14 UPDATE done [DecisionsJournal]
+2025-09-04 12:39:14 INGEST [Releases]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports -> C:\CHECHA_CORE\C12\Vault\Releases  (Release_*.md)
+2025-09-04 12:39:14 INGEST done [Releases]
+2025-09-04 12:39:14 UPDATE [Releases]  Title='🚀 Releases — Vault'
+2025-09-04 12:39:15 UPDATE done [Releases]
+2025-09-04 12:39:15 END OK
+2025-09-04 12:39:15 LOCK released: Global\CHECHA_VaultPipeline

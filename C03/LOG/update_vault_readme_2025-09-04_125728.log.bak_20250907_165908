@@ -1,0 +1,5 @@
+Р В РЎвЂ”Р вЂ™Р’В»Р РЋРІР‚вЂќ2025-09-04 12:57:28 BEGIN Update; Title='Р РЋР вЂљР РЋРЎСџР Р†Р вЂљРІР‚СњР Р†Р вЂљРІвЂћСћР В РЎвЂ”Р РЋРІР‚ВР В Р РЏ Decisions Journal Р В Р вЂ Р В РІР‚С™Р Р†Р вЂљРЎСљ Vault'; Vault='C:\CHECHA_CORE\C12\Vault\DecisionsJournal'; Agents='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports'; Pattern='Decision_*.md'; Take=5; AutoSync=False; Checksums=True
+2025-09-04 12:57:28 Env: PS=7.5.2; Host=ConsoleHost
+2025-09-04 12:57:28 Checksums written: C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports\CHECKSUMS.txt
+2025-09-04 12:57:28 OK README updated: C:\CHECHA_CORE\C12\Vault\DecisionsJournal\README.md
+2025-09-04 12:57:28 END

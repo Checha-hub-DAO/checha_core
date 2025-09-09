@@ -1,0 +1,429 @@
+﻿<#
+Fix-Today.ps1 — CheCha Quick Stabilizer
+Автор: С.Ч. / CheCha
+Призначення:
+  • Вирівняти системні дрібниці за сьогодні: задачі планувальника, індекси Vault, кодування файлів.
+  • Безпечний повторний запуск: скрипт ідемпотентний (створює/оновлює задачі з /F).
+
+Що робить:
+  1) Перевіряє/створює задачі Планувальника Windows:
+     - Checha-Daily-StrategicTemplate (щодня 09:00)
+     - Checha-Monthly-StrategicReport (щодня 21:00; сам скрипт виходить не в останній день місяця)
+  2) Оновлює дашборд сховища (Update-VaultDashboard.ps1)
+  3) Виправляє mojibake/ANSI у Checha-ControlPanel.ps1 → UTF-8 BOM
+  4) (Опційно) Лагідна перевірка Set-TitleSlogan.ps1 (лише підказка)
+  5) (Опційно -GitFix) Синхронізує g43-iteta (сабмодуль) і поінтер у батьківському GitBook
+  6) (Опційно -InstallContext) Додає контекстне меню «CheCha: Fix Today» у правий клік фону тек
+
+Параметри:
+  -ChechaRoot <string>        Корінь CHECHA_CORE (дефолт: C:\CHECHA_CORE)
+  -RunAll                     Виконати всі дії зараз (дефолтна поведінка)
+  -GitFix                     Спроба автофікса g43-iteta + поінтер
+  -InstallContext             Додати пункт у контекстне меню «CheCha: Fix Today»
+
+Вимоги: Windows 10+, PowerShell 7, доступ до git у PATH (для -GitFix)
+#>
+[CmdletBinding()]
+param(
+  [string]$ChechaRoot = "C:\CHECHA_CORE",
+  [switch]$RunAll,
+  [switch]$GitFix,
+  [switch]$InstallContext
+)
+
+$ErrorActionPreference = 'Stop'
+$pwsh = "C:\Program Files\PowerShell\7\pwsh.exe"
+
+function Write-Info($msg){ Write-Host ("{0} [INFO ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Cyan }
+function Write-Ok  ($msg){ Write-Host ("{0} [ OK  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Green }
+function Write-Warn($msg){ Write-Host ("{0} [WARN ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Yellow }
+function Write-Err ($msg){ Write-Host ("{0} [ERR  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Red }
+
+function Ensure-Path([string]$p){ if(-not (Test-Path $p)){ throw "Path not found: $p" } }
+
+function Ensure-Utf8BomIfMojibake([string]$Path){
+  if(-not (Test-Path $Path)){ Write-Warn "No file: $Path"; return }
+  try {
+    $raw = [System.IO.File]::ReadAllBytes($Path)
+    # Спробуємо як UTF-8
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    $text = $utf8NoBom.GetString($raw)
+    $hasMojibake = $text -match 'Р[^\s]'  -or $text -match ' ' -or $text -match 'РЅ' -or $text -match 'Р°'
+    if($hasMojibake){
+      Write-Info "Mojibake detected → recode from cp1251 → UTF-8 BOM"
+      $enc1251 = [Text.Encoding]::GetEncoding(1251)
+      $decoded = $enc1251.GetString($raw)
+      $utf8Bom = New-Object Text.UTF8Encoding($true)
+      [IO.File]::WriteAllText($Path, $decoded, $utf8Bom)
+      Write-Ok "Rewritten as UTF-8 BOM: $Path"
+    } else {
+      # Якщо без бома — додамо BOM для уніфікації
+      if(-not ($raw.Length -ge 3 -and $raw[0] -eq 0xEF -and $raw[1] -eq 0xBB -and $raw[2] -eq 0xBF)){
+        $utf8Bom = New-Object Text.UTF8Encoding($true)
+        [IO.File]::WriteAllText($Path, $text, $utf8Bom)
+        Write-Ok "Added UTF-8 BOM: $Path"
+      } else {
+        Write-Ok "Already UTF-8 BOM: $Path"
+      }
+    }
+  } catch { Write-Err "Encoding check failed: $($_.Exception.Message)" }
+}
+
+function New-OrUpdateTask(
+  [string]$Name,
+  [ValidateSet('DAILY','WEEKLY','ONCE')][string]$Schedule,
+  [string]$TimeHHmm,
+  [string]$ScriptPath,
+  [string]$ScriptArgs
+){
+  Ensure-Path $ScriptPath
+
+  # 8.3 short path для pwsh.exe
+  $pwshExe = $pwsh
+  try {
+    if (Test-Path $pwsh) {
+      $fso = New-Object -ComObject Scripting.FileSystemObject
+      $pwshExe = $fso.GetFile($pwsh).ShortPath
+    }
+  } catch { $pwshExe = $pwsh }
+  # Побудова значення для /TR — УВЕСЬ рядок повинен бути у ЗОВНІШНІХ лапках,
+  # і всередині — лапки навколо шляхів. Інакше schtasks сприйме -NoProfile як свій свіч.
+  $scriptPathArg = ($ScriptPath -match '\s') ? ('"' + $ScriptPath + '"') : $ScriptPath
+  $trArg = ('"{0}"" -NoProfile -File {1} {2}' -f $pwshExe, $scriptPathArg, $ScriptArgs).Trim()
+
+  $sc = "/SC $Schedule"
+  if($Schedule -ne 'ONCE' -and $TimeHHmm){ $sc += " /ST $TimeHHmm" }
+
+  $isAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+  $base = @('/Create','/F','/TN', $Name) + ($sc -split ' ') + @('/TR', $trArg)
+  $args1 = if($isAdmin){ $base + @('/RL','HIGHEST') } else { $base }
+
+  Write-Info ("schtasks {0}" -f ($args1 -join ' '))
+  $p = Start-Process -FilePath 'schtasks.exe' -ArgumentList $args1 -NoNewWindow -Wait -PassThru
+  if($p.ExitCode -ne 0){
+    Write-Warn "schtasks returned $($p.ExitCode). Retrying with /RL LIMITED..."
+    $args2 = $base + @('/RL','LIMITED')
+    $p2 = Start-Process -FilePath 'schtasks.exe' -ArgumentList $args2 -NoNewWindow -Wait -PassThru
+    if($p2.ExitCode -ne 0){ throw "Failed to ensure task $Name (codes: $($p.ExitCode), $($p2.ExitCode))" }
+  }
+  Write-Ok "Task ensured: $Name"
+}
+
+function Run-ChildScript([string]$Path,[string]$Args){
+  Ensure-Path $Path
+  Write-Info "Run: $Path $Args"
+  $psi = New-Object System.Diagnostics.ProcessStartInfo
+  $psi.FileName = $pwsh
+  $psi.Arguments = "-NoProfile -File `"$Path`" $Args"
+  $psi.UseShellExecute = $false
+  $psi.RedirectStandardOutput = $true
+  $psi.RedirectStandardError  = $true
+  $p = [System.Diagnostics.Process]::Start($psi)
+  $out = $p.StandardOutput.ReadToEnd()
+  $err = $p.StandardError.ReadToEnd()
+  $p.WaitForExit()
+  if($out){ Write-Host $out }
+  if($err){ Write-Warn $err }
+  if($p.ExitCode -ne 0){ Write-Warn "Child exited with code $($p.ExitCode)" }
+}
+
+# ── Шляхи важливих скриптів ──────────────────────────────────────────────────
+$scriptMonthly  = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Checha-SessionMonthlyReport.ps1'
+$scriptTemplate = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Create-StrategicTemplate.ps1'
+$scriptDash     = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1'
+$controlPanel   = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Checha-ControlPanel.ps1'
+$setTitleSlogan = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1'
+$gitbookRoot    = Join-Path $ChechaRoot 'GitBook'
+$g43Path        = Join-Path $gitbookRoot 'dao-g\dao-g-mods\g43-iteta'
+
+Write-Info "BEGIN Fix-Today for $ChechaRoot"
+
+# 1) Планувальник задач
+try{
+  New-OrUpdateTask -Name 'Checha-Daily-StrategicTemplate' -Schedule DAILY -TimeHHmm '09:00' -ScriptPath $scriptTemplate -ScriptArgs ''
+} catch { Write-Err "Daily Template task: $($_.Exception.Message)" }
+
+try{
+  New-OrUpdateTask -Name 'Checha-Monthly-StrategicReport' -Schedule DAILY -TimeHHmm '21:00' -ScriptPath $scriptMonthly -ScriptArgs '-Mode Calendar'
+} catch { Write-Err "Monthly Report task: $($_.Exception.Message)" }
+
+# Показати стан Checha-* задач
+try{
+  $tasks = Get-ScheduledTask | Where-Object TaskName -like 'Checha-*' | Select-Object TaskName,State
+  if($tasks){ $tasks | Format-Table -AutoSize | Out-Host } else { Write-Warn 'No Checha-* tasks found.' }
+} catch { Write-Warn "Cannot list scheduled tasks: $($_.Exception.Message)" }
+
+# 2) Дашборд Vault (ручний запуск)
+try{ Run-ChildScript -Path $scriptDash -Args '' } catch { Write-Err $_ }
+
+# 3) Кодування ControlPanel → UTF-8 BOM
+try{ Ensure-Utf8BomIfMojibake -Path $controlPanel } catch { Write-Err $_ }
+
+# 4) Лінт Set-TitleSlogan.ps1 (мʼяка перевірка)
+try{
+  if(Test-Path $setTitleSlogan){
+    $txt = Get-Content -LiteralPath $setTitleSlogan -Raw
+    if($txt -notmatch '(?s)\bparam\s*\('){ Write-Warn 'Set-TitleSlogan.ps1: відсутній блок param(...) — перевір параметри Title/Slogan.' }
+    if($txt -match '(?i)\$slogan' -and $txt -notmatch '(?i)\$Slogan\s*\:'){ Write-Warn 'Set-TitleSlogan.ps1: змінна $Slogan може бути неініціалізована.' }
+  } else { Write-Warn 'Set-TitleSlogan.ps1: файл не знайдено.' }
+} catch { Write-Err $_ }
+
+# 5) (Опційно) GitFix g43-iteta
+if($GitFix){
+  try{
+    Ensure-Path $g43Path
+    Push-Location $g43Path
+    Write-Info "git status (g43-iteta)"
+    git status --porcelain
+    if((git status --porcelain).Trim().Length -gt 0){
+      git add -A
+      git commit -m "chore: sync g43-iteta"
+      git push
+      Write-Ok 'g43-iteta committed & pushed'
+    } else { Write-Info 'g43-iteta clean' }
+    Pop-Location
+<#
+Fix-Today.ps1 — CheCha Quick Stabilizer
+Автор: С.Ч. / CheCha
+Призначення:
+  • Вирівняти системні дрібниці за сьогодні: задачі планувальника, індекси Vault, кодування файлів.
+  • Безпечний повторний запуск: скрипт ідемпотентний (створює/оновлює задачі через Register-ScheduledTask (фолбек: schtasks \/F).
+
+Що робить:
+  1) Перевіряє/створює задачі Планувальника Windows:
+     - Checha-Daily-StrategicTemplate (щодня 09:00)
+     - Checha-Monthly-StrategicReport (щодня 21:00; сам скрипт виходить не в останній день місяця)
+  2) Оновлює дашборд сховища (Update-VaultDashboard.ps1)
+  3) Виправляє mojibake/ANSI у Checha-ControlPanel.ps1 → UTF-8 BOM
+  4) (Опційно) Лагідна перевірка Set-TitleSlogan.ps1 (лише підказка)
+  5) (Опційно -GitFix) Синхронізує g43-iteta (сабмодуль) і поінтер у батьківському GitBook
+  6) (Опційно -InstallContext) Додає контекстне меню «CheCha: Fix Today» у правий клік фону тек
+
+Параметри:
+  -ChechaRoot <string>        Корінь CHECHA_CORE (дефолт: C:\CHECHA_CORE)
+  -RunAll                     Виконати всі дії зараз (дефолтна поведінка)
+  -GitFix                     Спроба автофікса g43-iteta + поінтер
+  -InstallContext             Додати пункт у контекстне меню «CheCha: Fix Today»
+
+Вимоги: Windows 10+, PowerShell 7, доступ до git у PATH (для -GitFix)
+#>
+[CmdletBinding()]
+param(
+  [string]$ChechaRoot = "C:\CHECHA_CORE",
+  [switch]$RunAll,
+  [switch]$GitFix,
+  [switch]$InstallContext
+)
+
+$ErrorActionPreference = 'Stop'
+$pwsh = "C:\Program Files\PowerShell\7\pwsh.exe"
+
+function Write-Info($msg){ Write-Host ("{0} [INFO ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Cyan }
+function Write-Ok  ($msg){ Write-Host ("{0} [ OK  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Green }
+function Write-Warn($msg){ Write-Host ("{0} [WARN ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Yellow }
+function Write-Err ($msg){ Write-Host ("{0} [ERR  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $msg) -ForegroundColor Red }
+
+function Ensure-Path([string]$p){ if(-not (Test-Path $p)){ throw "Path not found: $p" } }
+
+function Ensure-Utf8BomIfMojibake([string]$Path){
+  if(-not (Test-Path $Path)){ Write-Warn "No file: $Path"; return }
+  try {
+    $raw = [System.IO.File]::ReadAllBytes($Path)
+    # Спробуємо як UTF-8
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    $text = $utf8NoBom.GetString($raw)
+    $hasMojibake = $text -match 'Р[^\s]'  -or $text -match ' ' -or $text -match 'РЅ' -or $text -match 'Р°'
+    if($hasMojibake){
+      Write-Info "Mojibake detected → recode from cp1251 → UTF-8 BOM"
+      $enc1251 = [Text.Encoding]::GetEncoding(1251)
+      $decoded = $enc1251.GetString($raw)
+      $utf8Bom = New-Object Text.UTF8Encoding($true)
+      [IO.File]::WriteAllText($Path, $decoded, $utf8Bom)
+      Write-Ok "Rewritten as UTF-8 BOM: $Path"
+    } else {
+      # Якщо без бома — додамо BOM для уніфікації
+      if(-not ($raw.Length -ge 3 -and $raw[0] -eq 0xEF -and $raw[1] -eq 0xBB -and $raw[2] -eq 0xBF)){
+        $utf8Bom = New-Object Text.UTF8Encoding($true)
+        [IO.File]::WriteAllText($Path, $text, $utf8Bom)
+        Write-Ok "Added UTF-8 BOM: $Path"
+      } else {
+        Write-Ok "Already UTF-8 BOM: $Path"
+      }
+    }
+  } catch { Write-Err "Encoding check failed: $($_.Exception.Message)" }
+}
+
+function New-OrUpdateTask(
+  [string]$Name,
+  [ValidateSet('DAILY','WEEKLY','ONCE')][string]$Schedule,
+  [string]$TimeHHmm,
+  [string]$ScriptPath,
+  [string]$ScriptArgs
+){
+  Ensure-Path $ScriptPath
+
+  $isAdmin = (New-Object Security.Principal.WindowsPrincipal(
+                [Security.Principal.WindowsIdentity]::GetCurrent()
+              )).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+  # 1) Надійний шлях: модуль ScheduledTasks
+  try {
+    $at = if ($TimeHHmm) { [DateTime]::ParseExact($TimeHHmm,'HH:mm',$null) } else { (Get-Date).Date.AddHours(9) }
+    switch ($Schedule) {
+      'DAILY'  { $trigger = New-ScheduledTaskTrigger -Daily  -At $at.TimeOfDay }
+      'WEEKLY' { $trigger = New-ScheduledTaskTrigger -Weekly -At $at.TimeOfDay }
+      'ONCE'   { $trigger = New-ScheduledTaskTrigger -Once   -At (Get-Date).AddMinutes(1) }
+    }
+    $action = New-ScheduledTaskAction -Execute $pwsh -Argument (('-NoProfile -File "{0}" {1}' -f $ScriptPath, $ScriptArgs).Trim())
+    $args = @{ TaskName = $Name; Action = $action; Trigger = $trigger; Force = $true }
+    if ($isAdmin) { $args.RunLevel = 'Highest' }
+    Register-ScheduledTask @args | Out-Null
+    Write-Ok "Task ensured: $Name"
+    return
+  } catch {
+    Write-Warn "Register-ScheduledTask failed: $($_.Exception.Message). Fallback to schtasks..."
+  }
+
+  # 2) Фолбек: schtasks (правильно сформований /TR)
+  $tr = ('"{0}" -NoProfile -File "{1}" {2}' -f $pwsh, $ScriptPath, $ScriptArgs).Trim()
+  $sc = "/SC $Schedule"
+  if ($Schedule -ne 'ONCE' -and $TimeHHmm) { $sc += " /ST $TimeHHmm" }
+  $base = @('/Create','/F','/TN',$Name) + ($sc -split ' ') + @('/TR',$tr)
+  if ($isAdmin) { $base += @('/RL','HIGHEST') }
+  $p = Start-Process -FilePath 'schtasks.exe' -ArgumentList $base -NoNewWindow -Wait -PassThru
+  if ($p.ExitCode -ne 0) { throw "schtasks failed with code $($p.ExitCode)" }
+  Write-Ok "Task ensured: $Name"
+}
+
+function Run-ChildScript([string]$Path,[string]$Args){
+  Ensure-Path $Path
+  Write-Info "Run: $Path $Args"
+  $psi = New-Object System.Diagnostics.ProcessStartInfo
+  $psi.FileName = $pwsh
+  $psi.Arguments = "-NoProfile -File `"$Path`" $Args"
+  $psi.UseShellExecute = $false
+  $psi.RedirectStandardOutput = $true
+  $psi.RedirectStandardError  = $true
+  $p = [System.Diagnostics.Process]::Start($psi)
+  $out = $p.StandardOutput.ReadToEnd()
+  $err = $p.StandardError.ReadToEnd()
+  $p.WaitForExit()
+  if($out){ Write-Host $out }
+  if($err){ Write-Warn $err }
+  if($p.ExitCode -ne 0){ Write-Warn "Child exited with code $($p.ExitCode)" }
+}
+
+# ── Шляхи важливих скриптів ──────────────────────────────────────────────────
+$scriptMonthly  = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Checha-SessionMonthlyReport.ps1'
+$scriptTemplate = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Create-StrategicTemplate.ps1'
+$scriptDash     = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1'
+$controlPanel   = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Checha-ControlPanel.ps1'
+$setTitleSlogan = Join-Path $ChechaRoot 'C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1'
+$gitbookRoot    = Join-Path $ChechaRoot 'GitBook'
+$g43Path        = Join-Path $gitbookRoot 'dao-g\dao-g-mods\g43-iteta'
+
+Write-Info "BEGIN Fix-Today for $ChechaRoot"
+
+# 1) Планувальник задач
+try{
+  New-OrUpdateTask -Name 'Checha-Daily-StrategicTemplate' -Schedule DAILY -TimeHHmm '09:00' -ScriptPath $scriptTemplate -ScriptArgs ''
+} catch { Write-Err "Daily Template task: $($_.Exception.Message)" }
+
+try{
+  New-OrUpdateTask -Name 'Checha-Monthly-StrategicReport' -Schedule DAILY -TimeHHmm '21:00' -ScriptPath $scriptMonthly -ScriptArgs '-Mode Calendar'
+} catch { Write-Err "Monthly Report task: $($_.Exception.Message)" }
+
+# Показати стан Checha-* задач
+try{
+  $tasks = Get-ScheduledTask | Where-Object TaskName -like 'Checha-*' | Select-Object TaskName,State
+  if($tasks){ $tasks | Format-Table -AutoSize | Out-Host } else { Write-Warn 'No Checha-* tasks found.' }
+} catch { Write-Warn "Cannot list scheduled tasks: $($_.Exception.Message)" }
+
+# 2) Дашборд Vault (ручний запуск)
+try{ Run-ChildScript -Path $scriptDash -Args '' } catch { Write-Err $_ }
+
+# 3) Кодування ControlPanel → UTF-8 BOM
+try{ Ensure-Utf8BomIfMojibake -Path $controlPanel } catch { Write-Err $_ }
+
+# 4) Лінт Set-TitleSlogan.ps1 (мʼяка перевірка)
+try{
+  if(Test-Path $setTitleSlogan){
+    $txt = Get-Content -LiteralPath $setTitleSlogan -Raw
+    if($txt -notmatch '(?s)\bparam\s*\('){ Write-Warn 'Set-TitleSlogan.ps1: відсутній блок param(...) — перевір параметри Title/Slogan.' }
+    if($txt -match '(?i)\$slogan' -and $txt -notmatch '(?i)\$Slogan\s*\:'){ Write-Warn 'Set-TitleSlogan.ps1: змінна $Slogan може бути неініціалізована.' }
+  } else { Write-Warn 'Set-TitleSlogan.ps1: файл не знайдено.' }
+} catch { Write-Err $_ }
+
+# 5) (Опційно) GitFix g43-iteta
+if($GitFix){
+  try{
+    Ensure-Path $g43Path
+    Push-Location $g43Path
+    Write-Info "git status (g43-iteta)"
+    git status --porcelain
+    if((git status --porcelain).Trim().Length -gt 0){
+      git add -A
+      git commit -m "chore: sync g43-iteta"
+      git push
+      Write-Ok 'g43-iteta committed & pushed'
+    } else { Write-Info 'g43-iteta clean' }
+    Pop-Location
+
+    Push-Location $gitbookRoot
+    git add 'dao-g/dao-g-mods/g43-iteta'
+    if((git diff --cached --name-only) -match 'g43-iteta'){
+      git commit -m "chore: update g43-iteta submodule pointer"
+      git push
+      Write-Ok 'Parent pointer updated'
+    } else { Write-Info 'Parent pointer unchanged' }
+    Pop-Location
+  } catch { Write-Err "GitFix failed: $($_.Exception.Message)" }
+}
+
+# 6) (Опційно) Контекстне меню «CheCha: Fix Today»
+if($InstallContext){
+  try{
+    $thisScript = $PSCommandPath
+    if(-not $thisScript){ throw 'Неможливо визначити шлях до скрипта (PSCommandPath порожній). Збережи файл і запусти з нього.' }
+    $key = 'HKCU:Software\Classes\Directory\Background\shell\CheCha_FixToday'
+    $cmdKey = Join-Path $key 'command'
+    New-Item -Path $key -Force | Out-Null
+    New-Item -Path $cmdKey -Force | Out-Null
+    New-ItemProperty -Path $key -Name 'Icon' -Value (Join-Path $ChechaRoot 'C06_FOCUS\icons\checha_start.ico') -Force | Out-Null
+    $cmd = '"{0}" -NoProfile -ExecutionPolicy Bypass -File "{1}" -RunAll' -f $pwsh, $thisScript
+    New-ItemProperty -Path $cmdKey -Name '(Default)' -Value $cmd -Force | Out-Null
+    Write-Ok 'Installed context menu: CheCha: Fix Today'
+  } catch { Write-Err "Context menu failed: $($_.Exception.Message)" }
+}
+
+Write-Ok 'DONE Fix-Today'
+
+    Push-Location $gitbookRoot
+    git add 'dao-g/dao-g-mods/g43-iteta'
+    if((git diff --cached --name-only) -match 'g43-iteta'){
+      git commit -m "chore: update g43-iteta submodule pointer"
+      git push
+      Write-Ok 'Parent pointer updated'
+    } else { Write-Info 'Parent pointer unchanged' }
+    Pop-Location
+  } catch { Write-Err "GitFix failed: $($_.Exception.Message)" }
+}
+
+# 6) (Опційно) Контекстне меню «CheCha: Fix Today»
+if($InstallContext){
+  try{
+    $thisScript = $PSCommandPath
+    if(-not $thisScript){ throw 'Неможливо визначити шлях до скрипта (PSCommandPath порожній). Збережи файл і запусти з нього.' }
+    $key = 'HKCU:Software\Classes\Directory\Background\shell\CheCha_FixToday'
+    $cmdKey = Join-Path $key 'command'
+    New-Item -Path $key -Force | Out-Null
+    New-Item -Path $cmdKey -Force | Out-Null
+    New-ItemProperty -Path $key -Name 'Icon' -Value (Join-Path $ChechaRoot 'C06_FOCUS\icons\checha_start.ico') -Force | Out-Null
+    $cmd = '"{0}" -NoProfile -ExecutionPolicy Bypass -File "{1}" -RunAll' -f $pwsh, $thisScript
+    New-ItemProperty -Path $cmdKey -Name '(Default)' -Value $cmd -Force | Out-Null
+    Write-Ok 'Installed context menu: CheCha: Fix Today'
+  } catch { Write-Err "Context menu failed: $($_.Exception.Message)" }
+}
+
+Write-Ok 'DONE Fix-Today'

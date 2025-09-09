@@ -1,5 +1,5 @@
-@echo off
-:: C12 Quick Actions — С.Ч.
+﻿@echo off
+:: C12 Quick Actions вЂ” РЎ.Р§.
 setlocal ENABLEDELAYEDEXPANSION
 
 :: === CONFIG ===
@@ -13,7 +13,7 @@ set "G23_SHEET_URL_LIVE=https://docs.google.com/spreadsheets/d/1oK8rIptL1Tj1R-Wd
 set "G23_FORM_URL_EDIT=https://docs.google.com/forms/d/1BOy2GNpEiMJpm-h_2IW1WyicFqQw8KZu1G5R469eGis/edit"
 set "G23_SHEET_URL_EDIT=https://docs.google.com/spreadsheets/d/1oK8rIptL1Tj1R-Wd59eEJCIZSWWGvxuPFcHkazYPOIg/edit?gid=1548703047#gid=1548703047"
 set "GITBOOK_URL=https://gogs-or-dao-systemtled-1.gitbook.io/dao-gogs-main/checha_core/c12_knowledge_vault/tematichna-navigaciya-v1.0/golovne-operativka"
-:: TODO: задай GITBOOK_URL на сторінку "C12 — Тематична Навігація"
+:: TODO: Р·Р°РґР°Р№ GITBOOK_URL РЅР° СЃС‚РѕСЂС–РЅРєСѓ "C12 вЂ” РўРµРјР°С‚РёС‡РЅР° РќР°РІС–РіР°С†С–СЏ"
 
 :menu
 cls

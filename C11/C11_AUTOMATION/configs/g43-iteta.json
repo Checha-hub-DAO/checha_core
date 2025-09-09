@@ -1,0 +1,12 @@
+﻿{
+    "Tag":  "g43-iteta-v1.0",
+    "GitCommitMessage":  "G43 ITETA: verify + sync + publish",
+    "GitBookSubPath":  "dao-g\\dao-g-mods\\g43-iteta",
+    "ModuleDir":  "C:\\CHECHA_CORE\\G\\G43\\ITETA",
+    "ExpectedSlug":  "g43-iteta",
+    "Name":  "G43 — ITETA",
+    "Repo":  "(local)",
+    "ZipName":  "g43-iteta_2025-09-07_build.zip",
+    "GitBookRepoRoot":  "C:\\CHECHA_CORE\\GitBook",
+    "LocalReleasesDir":  "C:\\CHECHA_CORE\\G\\RELEASES\\ARCHIVE"
+}

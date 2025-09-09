@@ -1,0 +1,163 @@
+﻿{
+    "ChechaRoot":  "C:\\CHECHA_CORE",
+    "C12":  {
+                "VaultRoot":  "C:\\CHECHA_CORE\\C12\\Vault",
+                "StrategicReportsRoot":  "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports",
+                "IndexDir":  "C:\\CHECHA_CORE\\C12\\_index",
+                "IsReadOnly":  false,
+                "IsFixedSize":  false,
+                "IsSynchronized":  false,
+                "Keys":  [
+                             "IndexDir",
+                             "VaultRoot",
+                             "StrategicReportsRoot"
+                         ],
+                "Values":  [
+                               "C:\\CHECHA_CORE\\C12\\_index",
+                               "C:\\CHECHA_CORE\\C12\\Vault",
+                               "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports"
+                           ],
+                "SyncRoot":  {
+
+                             },
+                "Count":  3
+            },
+    "G04":  {
+                "PanelDir":  "C:\\CHECHA_CORE\\G04\\PANEL",
+                "TasksJson":  "C:\\CHECHA_CORE\\G04\\PANEL\\tasks.json",
+                "IsReadOnly":  false,
+                "IsFixedSize":  false,
+                "IsSynchronized":  false,
+                "Keys":  [
+                             "PanelDir",
+                             "TasksJson"
+                         ],
+                "Values":  [
+                               "C:\\CHECHA_CORE\\G04\\PANEL",
+                               "C:\\CHECHA_CORE\\G04\\PANEL\\tasks.json"
+                           ],
+                "SyncRoot":  {
+
+                             },
+                "Count":  2
+            },
+    "Feeds":  {
+                  "Dir":  "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds",
+                  "G04Feed":  "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds\\g04_feed.json",
+                  "C12Feed":  "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds\\c12_feed.json",
+                  "IsReadOnly":  false,
+                  "IsFixedSize":  false,
+                  "IsSynchronized":  false,
+                  "Keys":  [
+                               "Dir",
+                               "C12Feed",
+                               "G04Feed"
+                           ],
+                  "Values":  [
+                                 "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds",
+                                 "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds\\c12_feed.json",
+                                 "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\matrix\\feeds\\g04_feed.json"
+                             ],
+                  "SyncRoot":  {
+
+                               },
+                  "Count":  3
+              },
+    "Git":  {
+                "EnablePush":  true,
+                "RepoDir":  "C:\\CHECHA_CORE",
+                "Branch":  "main",
+                "ReadmeStrategic":  "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\README.md",
+                "IsReadOnly":  false,
+                "IsFixedSize":  false,
+                "IsSynchronized":  false,
+                "Keys":  [
+                             "Branch",
+                             "EnablePush",
+                             "RepoDir",
+                             "ReadmeStrategic"
+                         ],
+                "Values":  [
+                               "main",
+                               true,
+                               "C:\\CHECHA_CORE",
+                               "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports\\README.md"
+                           ],
+                "SyncRoot":  {
+
+                             },
+                "Count":  4
+            },
+    "GitHub":  {
+                   "EnableRelease":  true,
+                   "RepoSlug":  "Checha-hub-DAO/ETHNO-releases",
+                   "ReleasePrefix":  "strateg-weekly",
+                   "Draft":  false,
+                   "Prerelease":  false,
+                   "IsReadOnly":  false,
+                   "IsFixedSize":  false,
+                   "IsSynchronized":  false,
+                   "Keys":  [
+                                "Prerelease",
+                                "RepoSlug",
+                                "ReleasePrefix",
+                                "Draft",
+                                "EnableRelease"
+                            ],
+                   "Values":  [
+                                  false,
+                                  "Checha-hub-DAO/ETHNO-releases",
+                                  "strateg-weekly",
+                                  false,
+                                  true
+                              ],
+                   "SyncRoot":  {
+
+                                },
+                   "Count":  5
+               },
+    "Checksums":  {
+                      "Enable":  true,
+                      "Algo":  "SHA256",
+                      "TargetDir":  "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports",
+                      "FileName":  "CHECKSUMS.txt",
+                      "IncludePatterns":  [
+                                              "Strateg_Report_*.md"
+                                          ],
+                      "ExcludePatterns":  [
+                                              "README.md",
+                                              "CHECKSUMS.txt"
+                                          ],
+                      "IsReadOnly":  false,
+                      "IsFixedSize":  false,
+                      "IsSynchronized":  false,
+                      "Keys":  [
+                                   "TargetDir",
+                                   "Algo",
+                                   "ExcludePatterns",
+                                   "FileName",
+                                   "IncludePatterns",
+                                   "Enable"
+                               ],
+                      "Values":  [
+                                     "C:\\CHECHA_CORE\\C12\\Vault\\StrategicReports",
+                                     "SHA256",
+                                     [
+                                         "README.md",
+                                         "CHECKSUMS.txt"
+                                     ],
+                                     "CHECKSUMS.txt",
+                                     [
+                                         "Strateg_Report_*.md"
+                                     ],
+                                     true
+                                 ],
+                      "SyncRoot":  {
+
+                                   },
+                      "Count":  6
+                  },
+    "RecentDays":  14,
+    "Author":  "С.Ч.",
+    "Encoding":  "utf8BOM"
+}

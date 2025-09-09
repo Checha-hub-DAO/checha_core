@@ -1,0 +1,26 @@
+[
+  {
+    "city": "Kyiv",
+    "type": "community",
+    "status": "active",
+    "count": "2"
+  },
+  {
+    "city": "Kyiv",
+    "type": "edu",
+    "status": "paused",
+    "count": "2"
+  },
+  {
+    "city": "Odesa",
+    "type": "support",
+    "status": "active",
+    "count": "2"
+  },
+  {
+    "city": "Odesa",
+    "type": "youth",
+    "status": "forming",
+    "count": "2"
+  }
+]

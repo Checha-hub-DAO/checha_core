@@ -1,53 +1,11 @@
-* [SESSION_STATS_WEEKLY_2025-09-06.md](SESSION_STATS_WEEKLY_2025-09-06.md) — згенеровано 2025-09-06
-* [SESSION_STATS_MONTHLY_2025-09.md](SESSION_STATS_MONTHLY_2025-09.md) — згенеровано 2025-09-06
-* [SESSION_STATS_MONTHLY_2025-09-06.md](SESSION_STATS_MONTHLY_2025-09-06.md) — згенеровано 2025-09-06
-* [SESSION_STATS_MONTHLY_2025-09.md](SESSION_STATS_MONTHLY_2025-09.md) — згенеровано 2025-09-06
-* [SESSION_STATS_WEEKLY_2025-09-06.md](SESSION_STATS_WEEKLY_2025-09-06.md) — згенеровано 2025-09-06
-* [SESSION_STATS_WEEKLY_2025-09-07.md](SESSION_STATS_WEEKLY_2025-09-07.md) — згенеровано 2025-09-07
+# 📚 Strategic Reports — Vault
+Останнє оновлення: 09.09.2025
+08.09.2025
+---
+## Останні звіти
+| Дата | Файл |
+|---|---|
+| 08.09.2025 | [Strategic_Template_2025-09-08.md](2025/Strategic_Template_2025-09-08.md) |
+| 09.09.2025 | [Strategic_Template_2025-09-09.md](2025/Strategic_Template_2025-09-09.md) |
 
-## Останні звіти (SHA)
-| Дата | Файл | SHA-256 (якщо є) |
-|---|---|---|
-| 2025-09-07 | [_index.md](_index.md) | 361CD82508D4C8A2ECE10991E0FD7374CB1558CA1FEBA4559DA02A01A5181425 |
-| 2025-09-07 | [Strategic_Template_Steps.md](Strategic_Template_Steps.md) | 65FD53C49B8DDA1487CEC0287FCD5ABE8ECE40EB7029438D60A736B13EE7158E |
-| 2025-09-07 | [README.md](README.md) | 64692AF29DD288264D9249DAFFB94020E10100DEBEC8A9C351EFD5FBD1C745A3 |
-| 2025-09-08 | [Strateg_Report_2025-09-08.md](2025/Strateg_Report_2025-09-08.md) | 60602BDB92D460CDC6DF12BE1A678E22081773F18D3209B037B2676C8595C831 |
-| 2025-09-01 | [Strateg_Report_2025-09-01.md](2025/Strateg_Report_2025-09-01.md) | A0956BA72FA7B98E34FD6D64D2E90C13D3CB02415F3421B460C8F56CDED9F7D1 |
-| 2025-09-07 | [Strateg_Report_2025-09-07.md](2025/Strateg_Report_2025-09-07.md) | E70FAD4A8E0D0B25B7DE603F64516D1388F42685F16BABBD58EF509F35412756 |
-| 2025-09 | [Strateg_Calendar_2025-09.md](2025/Strateg_Calendar_2025-09.md) | 7F31A0B88705BA8A253F83DA83BAF0EE61E7AB4F99CD7368C4916972C0E04CBA |
-
-## Останні матеріали
-| Дата | Файл | Опис |
-|---|---|---|
-| 2025-09-07 | [_index.md](_index.md) | Автододано |
-| 2025-09-07 | [Strategic_Template_Steps.md](Strategic_Template_Steps.md) | Автододано |
-| 2025-09-07 | [README.md](README.md) | Автододано |
-| 2025-09-08 | [Strateg_Report_2025-09-08.md](2025/Strateg_Report_2025-09-08.md) | Автододано |
-| 2025-09-01 | [Strateg_Report_2025-09-01.md](2025/Strateg_Report_2025-09-01.md) | Автододано |
-| 2025-09-07 | [Strateg_Report_2025-09-07.md](2025/Strateg_Report_2025-09-07.md) | Щотижневий стратегічний звіт |
-
-|---|---|---|
-| 2025-09 | [Strateg_Calendar_2025-09.md](2025/Strateg_Calendar_2025-09.md) | 📅 Календар вересня 2025 |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- CHECHA WRITE TEST 2025-09-08 15:44:30 -->

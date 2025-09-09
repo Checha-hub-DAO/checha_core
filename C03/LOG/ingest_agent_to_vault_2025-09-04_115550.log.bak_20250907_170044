@@ -1,0 +1,5 @@
+Р В Р’В Р РЋРІР‚вЂќР В РІР‚в„ўР вЂ™Р’В»Р В Р Р‹Р Р†Р вЂљРІР‚Сњ2025-09-04 11:55:50 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G43_DECISIONS\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\DecisionsJournal'; Pattern='Decision_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 11:55:51 Env: PS=7.5.2; Host=ConsoleHost; OS=Р В Р’В Р вЂ™Р’В Р В Р Р‹Р РЋРІвЂћСћР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В°Р В Р’В Р вЂ™Р’В Р В Р вЂ Р Р†Р вЂљРЎвЂєР Р†Р вЂљРІР‚СљР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎСљР В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р В Р вЂ№Р В Р’В Р РЋРІР‚СљР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р РЋРІР‚С”Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћ Windows 11 Pro
+2025-09-04 11:55:51 COPY: Decision_2025-09-04.md -> C:\CHECHA_CORE\C12\Vault\DecisionsJournal\_unsorted\Decision_2025-09-04.md
+2025-09-04 11:55:51 SUMMARY: copied=1; moved=0; overwritten=0; skippedSame=0; conflicts=0; errors=0
+2025-09-04 11:55:51 END Ingest

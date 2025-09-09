@@ -1,14 +1,14 @@
-# --- C12-Unify weekly wrapper (SYSTEM-safe v2.1) ---
+﻿# --- C12-Unify weekly wrapper (SYSTEM-safe v2.1) ---
 $Root   = "C:\CHECHA_CORE\C12"
 $Script = Join-Path $Root "C12-Unify.ps1"
 
-# 1) pwsh під SYSTEM: жорсткий шлях + fallback
+# 1) pwsh РїС–Рґ SYSTEM: Р¶РѕСЂСЃС‚РєРёР№ С€Р»СЏС… + fallback
 $Pwsh = $null
 try { $Pwsh = (Get-Command "C:\Program Files\PowerShell\7\pwsh.exe" -ErrorAction Stop).Source } catch {}
 if (-not $Pwsh) { try { $Pwsh = (Get-Command pwsh.exe -ErrorAction Stop).Source } catch {} }
 if (-not $Pwsh) { $Pwsh = (Get-Command powershell.exe -ErrorAction Stop).Source }
 
-# 2) Логи
+# 2) Р›РѕРіРё
 $LogDir  = Join-Path (Split-Path $Root -Parent) "C03\LOG"
 if (-not (Test-Path $LogDir)) { New-Item -ItemType Directory -Force -Path $LogDir | Out-Null }
 $Stamp   = Get-Date -Format "yyyyMMdd_HHmmss"
@@ -21,14 +21,14 @@ Write-Host ("[START] {0}" -f (Get-Date))
 Write-Host ("[i] Using engine: {0}" -f $Pwsh)
 Write-Host ("[i] Script: {0}" -f $Script)
 
-# 3) Аргументи (поки БЕЗ -CreateReadme, щоб виключити людський фактор)
+# 3) РђСЂРіСѓРјРµРЅС‚Рё (РїРѕРєРё Р‘Р•Р— -CreateReadme, С‰РѕР± РІРёРєР»СЋС‡РёС‚Рё Р»СЋРґСЃСЊРєРёР№ С„Р°РєС‚РѕСЂ)
 $args = @(
   "-NoProfile","-ExecutionPolicy","Bypass",
   "-File","`"$Script`"",
   "-Apply","-FixNested","-Categorize","-Report","-HashArchive"
 )
 
-# 4) Запуск з редиректом виводу
+# 4) Р—Р°РїСѓСЃРє Р· СЂРµРґРёСЂРµРєС‚РѕРј РІРёРІРѕРґСѓ
 $proc = Start-Process -FilePath $Pwsh -ArgumentList $args -PassThru -Wait -WindowStyle Hidden `
          -RedirectStandardOutput $OutFile -RedirectStandardError $ErrFile
 $code = if ($null -eq $proc) { -1 } else { $proc.ExitCode }

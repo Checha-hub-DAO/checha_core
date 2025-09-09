@@ -1,0 +1,5 @@
+﻿2025-09-04 12:11:30 BEGIN Ingest; AgentsDir='C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G42_RELEASES\reports'; VaultDir='C:\CHECHA_CORE\C12\Vault\Releases'; Pattern='Release_*.md'; Move=False; Force=False; DryRun=False
+2025-09-04 12:11:30 Env: PS=7.5.2; Host=ConsoleHost; OS=Майкрософт Windows 11 Pro
+2025-09-04 12:11:30 COPY: Release_2025-09-04.md -> C:\CHECHA_CORE\C12\Vault\Releases\2025\Release_2025-09-04.md
+2025-09-04 12:11:30 SUMMARY: copied=1; moved=0; overwritten=0; skippedSame=0; conflicts=0; errors=0
+2025-09-04 12:11:30 END Ingest

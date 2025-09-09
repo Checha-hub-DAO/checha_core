@@ -1,51 +1,51 @@
-{
+﻿{
   "updated_at": "2025-08-29T22:11:03+03:00",
   "protocols": [
     {
       "id": "C12-01",
-      "topic": "Knowledge Vault (перший реліз)",
+      "topic": "Knowledge Vault (РїРµСЂС€РёР№ СЂРµР»С–Р·)",
       "status": "active",
-      "owner": "С.Ч.",
+      "owner": "РЎ.Р§.",
       "version": "v1.0",
       "created_at": "2025-08-29T22:11:02+03:00",
       "updated_at": "2025-08-29T22:11:02+03:00",
       "tags": [
         "C12",
-        "банк знань"
+        "Р±Р°РЅРє Р·РЅР°РЅСЊ"
       ],
-      "path": "active/C12-01_Knowledge-Vault-перший-реліз.md",
+      "path": "active/C12-01_Knowledge-Vault-РїРµСЂС€РёР№-СЂРµР»С–Р·.md",
       "links": {}
     },
     {
       "id": "G23-01",
-      "topic": "Student Activation  Одеса",
+      "topic": "Student Activation  РћРґРµСЃР°",
       "status": "active",
-      "owner": "С.Ч.",
+      "owner": "РЎ.Р§.",
       "version": "v0.9",
       "created_at": "2025-08-29T22:11:03+03:00",
       "updated_at": "2025-08-29T22:11:03+03:00",
       "tags": [
         "G23",
-        "Одеса",
-        "студенти"
+        "РћРґРµСЃР°",
+        "СЃС‚СѓРґРµРЅС‚Рё"
       ],
-      "path": "active/G23-01_Student-Activation-Одеса.md",
+      "path": "active/G23-01_Student-Activation-РћРґРµСЃР°.md",
       "links": {}
     },
     {
       "id": "CU-01",
-      "topic": "CheCha University  айдентика",
+      "topic": "CheCha University  Р°Р№РґРµРЅС‚РёРєР°",
       "status": "active",
-      "owner": "С.Ч.",
+      "owner": "РЎ.Р§.",
       "version": "v1.1",
       "created_at": "2025-08-29T22:11:03+03:00",
       "updated_at": "2025-08-29T22:11:03+03:00",
       "tags": [
         "CheChaU",
-        "візуал",
+        "РІС–Р·СѓР°Р»",
         "GitBook"
       ],
-      "path": "active/CU-01_CheCha-University-айдентика.md",
+      "path": "active/CU-01_CheCha-University-Р°Р№РґРµРЅС‚РёРєР°.md",
       "links": {}
     }
   ]

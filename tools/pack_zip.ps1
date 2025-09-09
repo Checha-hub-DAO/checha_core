@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true)][string]$SourceDir,
     [Parameter(Mandatory=$true)][string]$OutZip
 )
@@ -10,4 +10,4 @@ if (Test-Path $OutZip) {
 }
 
 [System.IO.Compression.ZipFile]::CreateFromDirectory($SourceDir, $OutZip)
-Write-Host "✅ ZIP створено: $OutZip"
+Write-Host "вњ… ZIP СЃС‚РІРѕСЂРµРЅРѕ: $OutZip"

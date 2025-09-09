@@ -1,0 +1,48 @@
+**********************
+PowerShell transcript start
+Start time: 20250905001742
+Username: DESKTOP-2OLDAUU\serge
+RunAs User: DESKTOP-2OLDAUU\serge
+Configuration Name: 
+Machine: DESKTOP-2OLDAUU (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -NoProfile -ExecutionPolicy Bypass -File C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Checha-ControlPanel.ps1
+Process ID: 9764
+PSVersion: 7.5.2
+PSEdition: Core
+GitCommitId: 7.5.2
+OS: Microsoft Windows 10.0.22631
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+[OK] CHECHA_ROOT OK: C:\CHECHA_CORE
+
+==================== Р РЋР вЂљР РЋРЎСџР Р†Р вЂљРЎвЂќР вЂ™Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-05 00:17:42
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В Р’В Р РЋРІР‚вЂќР В Р’В Р вЂ™Р’В°Р В Р’В Р Р†РІР‚С›РІР‚вЂњР В Р’В Р РЋРІР‚вЂќР В Р’В Р вЂ™Р’В»Р В Р’В Р вЂ™Р’В°Р В Р’В Р Р†РІР‚С›РІР‚вЂњР В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚В)             7) Check Release
+3) Pipelines (Р В Р’В Р вЂ™Р’В·Р В Р’В Р вЂ™Р’В° Р В Р’В Р РЋРІР‚СњР В Р’В Р РЋРІР‚СћР В Р’В Р В РІР‚В¦Р В Р Р‹Р Р†Р вЂљРЎвЂєР В Р Р‹Р Р†Р вЂљРІР‚СљР В Р’В Р РЋРІР‚вЂњР В Р’В Р РЋРІР‚СћР В Р’В Р РЋР’В)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)      18) Shortcut Restore Log (view/tail/clear)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   V) View Shortcut Log   0) Exit
+
+[OK] Р В Р’В Р Р†Р вЂљРЎС›Р В Р Р‹Р Р†Р вЂљРЎв„ўР В Р’В Р вЂ™Р’В°Р В Р’В Р вЂ™Р’В»Р В Р’В Р РЋРІР‚СћР В Р’В Р В РІР‚В¦Р В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚ВР В Р’В Р Р†РІР‚С›РІР‚вЂњ Р В Р Р‹Р В Р РЏР В Р Р‹Р В РІР‚С™Р В Р’В Р вЂ™Р’В»Р В Р’В Р РЋРІР‚ВР В Р’В Р РЋРІР‚Сњ Р В Р Р‹Р В РЎвЂњР В Р Р‹Р Р†Р вЂљРЎв„ўР В Р’В Р В РІР‚В Р В Р’В Р РЋРІР‚СћР В Р Р‹Р В РІР‚С™Р В Р’В Р вЂ™Р’ВµР В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚Сћ: C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\CheCha CONTROL PANEL.master.lnk
+ERROR: Access is denied.
+
+[WARN] Task Scheduler: Р В Р’В Р РЋРІР‚СњР В Р’В Р РЋРІР‚СћР В Р’В Р СћРІР‚В 1 Р В Р вЂ Р В РІР‚С™Р Р†Р вЂљРЎСљ Р В Р’В Р В РІР‚В Р В Р’В Р РЋРІР‚ВР В Р’В Р РЋРІР‚СњР В Р’В Р РЋРІР‚СћР В Р Р‹Р В РІР‚С™Р В Р’В Р РЋРІР‚ВР В Р Р‹Р В РЎвЂњР В Р Р‹Р Р†Р вЂљРЎв„ўР В Р’В Р РЋРІР‚СћР В Р’В Р В РІР‚В Р В Р Р‹Р РЋРІР‚СљР В Р Р‹Р В РІР‚в„– Startup fallback. ERROR: Access is denied. System.Management.Automation.RemoteException
+[OK] Auto-restore Р В Р Р‹Р Р†Р вЂљР Р‹Р В Р’В Р вЂ™Р’ВµР В Р Р‹Р В РІР‚С™Р В Р’В Р вЂ™Р’ВµР В Р’В Р вЂ™Р’В· Startup Р В Р’В Р В РІР‚В¦Р В Р’В Р вЂ™Р’В°Р В Р’В Р вЂ™Р’В»Р В Р’В Р вЂ™Р’В°Р В Р Р‹Р Р†РІР‚С™Р’В¬Р В Р Р‹Р Р†Р вЂљРЎв„ўР В Р’В Р РЋРІР‚СћР В Р’В Р В РІР‚В Р В Р’В Р вЂ™Р’В°Р В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚Сћ: C:\Users\serge\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+[OK] Shortcut hardening Р В Р’В Р вЂ™Р’В·Р В Р’В Р вЂ™Р’В°Р В Р’В Р В РІР‚В Р В Р’В Р вЂ™Р’ВµР В Р Р‹Р В РІР‚С™Р В Р Р‹Р Р†РІР‚С™Р’В¬Р В Р’В Р вЂ™Р’ВµР В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚Сћ. Р В Р’В Р Р†Р вЂљРЎвЂќР В Р’В Р РЋРІР‚СћР В Р’В Р РЋРІР‚вЂњ: C:\CHECHA_CORE\C03\LOG\shortcut_restore.log
+[i] Р В Р’В Р В РІР‚РЋР В Р Р‹Р В РІР‚С™Р В Р’В Р вЂ™Р’В»Р В Р’В Р РЋРІР‚ВР В Р’В Р РЋРІР‚СњР В Р’В Р РЋРІР‚В: User Start Menu + Public Desktop (Р В Р Р‹Р В Р РЏР В Р’В Р РЋРІР‚СњР В Р Р‹Р Р†Р вЂљР’В°Р В Р’В Р РЋРІР‚Сћ Р В Р’В Р СћРІР‚ВР В Р’В Р РЋРІР‚СћР В Р Р‹Р В РЎвЂњР В Р Р‹Р Р†Р вЂљРЎв„ўР В Р Р‹Р РЋРІР‚СљР В Р’В Р РЋРІР‚вЂќР В Р’В Р В РІР‚В¦Р В Р’В Р РЋРІР‚Сћ).
+

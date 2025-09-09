@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Checha-Tech-Health-08",
+    "Script": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\TECHNIC\\Run-Technic.ps1",
+    "Args": "-Mode Health",
+    "Trigger": "DAILY@08:00",
+    "RunAs": "SYSTEM",
+    "Log": "C:\\CHECHA_CORE\\C03\\LOG\\technic.health.log"
+  },
+  {
+    "Name": "Checha-Tech-Maint-23",
+    "Script": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\TECHNIC\\Run-Technic.ps1",
+    "Args": "-Mode Maintenance",
+    "Trigger": "DAILY@23:00",
+    "RunAs": "SYSTEM",
+    "Log": "C:\\CHECHA_CORE\\C03\\LOG\\technic.maint.log"
+  },
+  {
+    "Name": "Checha-Tech-Repair-Now",
+    "Script": "C:\\CHECHA_CORE\\C11\\C11_AUTOMATION\\AGENTS\\TECHNIC\\Run-Technic.ps1",
+    "Args": "-Mode Repair",
+    "Trigger": "MANUAL",
+    "RunAs": "SYSTEM",
+    "Log": "C:\\CHECHA_CORE\\C03\\LOG\\technic.repair.log"
+  }
+]

@@ -1,8 +1,8 @@
-param(
+﻿param(
   [string]$Alias      = "checha",
   [string]$BucketPath = "checha-core/C12/Protocols",
   [string]$Root       = "C:\CHECHA_CORE\C12\Protocols",
-  [switch]$CleanupWrongKeys  # прибрати ключі з "C:\..." у бакеті
+  [switch]$CleanupWrongKeys  # РїСЂРёР±СЂР°С‚Рё РєР»СЋС‡С– Р· "C:\..." Сѓ Р±Р°РєРµС‚С–
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,11 +13,11 @@ if ($CleanupWrongKeys) {
   if ($bad) { $bad | ForEach-Object { mc --disable-pager rm --force $_ } }
 }
 
-# дзеркало з видаленням зайвого (виключення як у твоєму backup-скрипті)
+# РґР·РµСЂРєР°Р»Рѕ Р· РІРёРґР°Р»РµРЅРЅСЏРј Р·Р°Р№РІРѕРіРѕ (РІРёРєР»СЋС‡РµРЅРЅСЏ СЏРє Сѓ С‚РІРѕС”РјСѓ backup-СЃРєСЂРёРїС‚С–)
 pwsh -NoProfile -ExecutionPolicy Bypass -File "C:\CHECHA_CORE\C12\Protocols\_index\Backup-To-MinIO.ps1" `
   -BucketPath $BucketPath -RemoveExtra
 
-# локальні файли (без службових _index)
+# Р»РѕРєР°Р»СЊРЅС– С„Р°Р№Р»Рё (Р±РµР· СЃР»СѓР¶Р±РѕРІРёС… _index)
 $localList = @(
   Get-ChildItem $Root -Recurse -File | Where-Object {
     $_.FullName -notmatch '\\_index\\(protocols_index\.bak_.*\.json|.*\.tmp|Protocols(_Report)?\.md)$'
@@ -26,7 +26,7 @@ $localList = @(
   } | Sort-Object -Unique
 )
 
-# віддалені файли під тим самим префіксом (без «віконних» та службових)
+# РІС–РґРґР°Р»РµРЅС– С„Р°Р№Р»Рё РїС–Рґ С‚РёРј СЃР°РјРёРј РїСЂРµС„С–РєСЃРѕРј (Р±РµР· В«РІС–РєРѕРЅРЅРёС…В» С‚Р° СЃР»СѓР¶Р±РѕРІРёС…)
 $remoteRaw  = @( mc --disable-pager find "$Alias/$BucketPath" )
 $remoteList = @(
   $remoteRaw | ForEach-Object {
@@ -48,9 +48,9 @@ $onlyLocal  = $diff | Where-Object SideIndicator -eq '<='
 $onlyRemote = $diff | Where-Object SideIndicator -eq '=>'
 
 if ($onlyLocal -or $onlyRemote) {
-  Write-Warning "Є різниця:"
-  if ($onlyLocal)  { "`n-- ТІЛЬКИ ЛОКАЛЬНО --";  $onlyLocal  | Sort-Object | ForEach-Object { $_ } }
-  if ($onlyRemote) { "`n-- ТІЛЬКИ У БАКЕТІ --"; $onlyRemote | Sort-Object | ForEach-Object { $_ } }
+  Write-Warning "Р„ СЂС–Р·РЅРёС†СЏ:"
+  if ($onlyLocal)  { "`n-- РўР†Р›Р¬РљР Р›РћРљРђР›Р¬РќРћ --";  $onlyLocal  | Sort-Object | ForEach-Object { $_ } }
+  if ($onlyRemote) { "`n-- РўР†Р›Р¬РљР РЈ Р‘РђРљР•РўР† --"; $onlyRemote | Sort-Object | ForEach-Object { $_ } }
 } else {
-  Write-Host "🟢 Перевірка ок: $($localList.Count) = $($remoteList.Count)" -ForegroundColor Green
+  Write-Host "рџџў РџРµСЂРµРІС–СЂРєР° РѕРє: $($localList.Count) = $($remoteList.Count)" -ForegroundColor Green
 }

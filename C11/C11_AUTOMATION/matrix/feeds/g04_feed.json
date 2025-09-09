@@ -1,0 +1,38 @@
+﻿{
+  "items": {
+    "urgent_7d": [
+      {
+        "link": "",
+        "title": "Наповнити галереї ETHNO",
+        "due": "2025-09-12",
+        "owner": "media",
+        "id": "G04-2"
+      }
+    ],
+    "updated": "2025-09-07T20:01:56",
+    "planned_30d": [
+      {
+        "link": "",
+        "title": "Автоматизувати CHECKSUMS у C12",
+        "due": "2025-10-02",
+        "owner": "auto",
+        "id": "G04-3"
+      }
+    ],
+    "critical_48h": [
+      {
+        "link": "",
+        "title": "Підтвердити реліз C12 Docs",
+        "due": "2025-09-09",
+        "owner": "core",
+        "id": "G04-1"
+      }
+    ]
+  },
+  "ts": "2025-09-07T20:01:57",
+  "counts": {
+    "urgent_7d": 1,
+    "critical_48h": 1,
+    "planned_30d": 1
+  }
+}

@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $base = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 Set-Location -LiteralPath $base
 
@@ -16,7 +16,7 @@ $run = Join-Path $base 'Run-Daily.ps1'
 Add-Content -Path $from -Encoding ASCII -Value ('Exists Run-Daily.ps1: ' + (Test-Path $run))
 
 try {
-  & $run   # ВАЖЛИВО: без Tee-Object у $from
+  & $run   # Р’РђР–Р›РР’Рћ: Р±РµР· Tee-Object Сѓ $from
   Add-Content -Path $from -Encoding ASCII -Value ('End: ' + (Get-Date -Format s) + ' OK')
   Stop-Transcript | Out-Null
   exit 0

@@ -1,4 +1,4 @@
-\
+﻿\
     param(
       [Parameter(Mandatory=$true)][string]$Query,
       [string]$IndexPath = "C:\CHECHA_CORE\C12\Protocols\_index\protocols_index.json"
@@ -20,9 +20,9 @@
       }
     }
 
-    if (-not $p) { Write-Output "Нічого не знайдено по запиту: $Query"; exit 0 }
+    if (-not $p) { Write-Output "РќС–С‡РѕРіРѕ РЅРµ Р·РЅР°Р№РґРµРЅРѕ РїРѕ Р·Р°РїРёС‚Сѓ: $Query"; exit 0 }
 
     $p | Sort-Object updated_at -Descending | ForEach-Object {
-      Write-Output ("[{0}] {1} — статус: {2} | оновлено: {3} | файл: {4}" -f `
+      Write-Output ("[{0}] {1} вЂ” СЃС‚Р°С‚СѓСЃ: {2} | РѕРЅРѕРІР»РµРЅРѕ: {3} | С„Р°Р№Р»: {4}" -f `
         $_.id, $_.topic, $_.status, $_.updated_at, $_.path)
     }

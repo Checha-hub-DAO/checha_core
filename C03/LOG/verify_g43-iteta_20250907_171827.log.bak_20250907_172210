@@ -1,0 +1,4 @@
+BEGIN verify g43-iteta :: 20250907_171827
+2025-09-07 17:18:27 [INFO ] Start verify g43-iteta-v1.0 in (local)
+2025-09-07 17:18:27 [INFO ] Checksum OK (BB784D99E0A23B87FDCB716EC2357A0CD8725207E8A6AA9B4DD86AE4022070B6)
+2025-09-07 17:18:28 [ERROR] FAILED: Cannot find path 'C:\CHECHA_CORE\GitBook\dao-g\dao-g-mods\g43-iteta\readme.md' because it does not exist.

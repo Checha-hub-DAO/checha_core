@@ -1,0 +1,21 @@
+{
+  "week": "2025-Www",
+  "last_status": {
+    "time": "2025-09-09 17:28:36",
+    "mode": "End",
+    "color": "Green"
+  },
+  "schema": "trafficlight.v1",
+  "counters": {
+    "starts_green": 0,
+    "updates_red": 0,
+    "ended_red": 0,
+    "ended_yellow": 0,
+    "sessions": 1,
+    "updates_green": 0,
+    "updates_yellow": 0,
+    "starts_yellow": 0,
+    "ended_green": 1,
+    "starts_red": 0
+  }
+}

@@ -1,0 +1,211 @@
+﻿$canon = 'C:\CHECHA_CORE\C12\Protocols\_index\McHelpers.ps1'
+$backupDir = 'C:\CHECHA_CORE\C05_ARCHIVE\_backup_mchelpers'
+New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
+if (Test-Path $canon) {
+  Copy-Item -LiteralPath $canon -Destination (Join-Path $backupDir ("McHelpers_backup_{0:yyyyMMdd_HHmmss}.ps1" -f (Get-Date))) -Force
+}
+
+@'
+# McHelpers.ps1 — CheCha базові помічники v0.3.1
+# - WhatIf/Confirm у ключових утилітах
+# - Ретраї під час запису логів
+# - Контекст у логах (+ -NoConsole, -PassThru)
+# - Compress-McZip повертає об’єкт (ZipPath, Size, Elapsed, Created, Exists)
+# - Сумісність із Windows PowerShell 5.1 (без тернарного ?:)
+# - Умовний експорт (Variant C): працює і як .ps1 (dot-source), і як модуль
+
+function Get-McDate { Get-Date -Format "yyyy-MM-dd HH:mm:ss" }
+
+function Write-McInfo  { param([string]$Message) Write-Host "$(Get-McDate) [INFO ] $Message"  -ForegroundColor Cyan }
+function Write-McWarn  { param([string]$Message) Write-Host "$(Get-McDate) [WARN ] $Message"  -ForegroundColor Yellow }
+function Write-McError { param([string]$Message) Write-Host "$(Get-McDate) [ERROR] $Message" -ForegroundColor Red }
+
+function Start-McStopwatch { [Diagnostics.Stopwatch]::StartNew() }
+function Stop-McStopwatch  { param($sw) $sw.Stop(); "{0:n3}s" -f ($sw.Elapsed.TotalSeconds) }
+
+function Ensure-Dir {
+  [CmdletBinding(SupportsShouldProcess)]
+  param([Parameter(Mandatory)][string]$Path)
+  if (-not (Test-Path -LiteralPath $Path)) {
+    if ($PSCmdlet.ShouldProcess($Path, "Створити директорію")) {
+      New-Item -ItemType Directory -Path $Path -Force | Out-Null
+    } else {
+      Write-McWarn "Директорію буде створено (WhatIf): $Path"
+    }
+  }
+}
+
+function Get-McSha256 {
+  [CmdletBinding()]
+  param([Parameter(Mandatory)][string]$Path)
+  if (Test-Path -LiteralPath $Path) {
+    (Get-FileHash -Algorithm SHA256 -Path $Path).Hash
+  } else {
+    Write-McError "Файл не знайдено: $Path"
+  }
+}
+
+function Get-McSha256Dir {
+  [CmdletBinding()]
+  param(
+    [Parameter(Mandatory)][string]$Dir,
+    [string]$Pattern = '*',
+    [switch]$Recurse
+  )
+  if (-not (Test-Path -LiteralPath $Dir)) { Write-McError "Директорію не знайдено: $Dir"; return }
+  Get-ChildItem -LiteralPath $Dir -Filter $Pattern -File -Recurse:$Recurse | ForEach-Object {
+    $hash = (Get-FileHash -Algorithm SHA256 -Path $_.FullName).Hash
+    [pscustomobject]@{
+      File     = $_.Name
+      FullName = $_.FullName
+      Size     = $_.Length
+      SHA256   = $hash
+    }
+  }
+}
+
+function Test-McGh {
+  [CmdletBinding()]
+  param()
+  if (Get-Command gh -ErrorAction SilentlyContinue) { $true } else { Write-McWarn "gh CLI не знайдено у PATH"; $false }
+}
+
+function Write-McLog {
+  [CmdletBinding(SupportsShouldProcess)]
+  param(
+    [string]$LogPath,
+    [Parameter(Mandatory)][string]$Message,
+    [ValidateSet('INFO','WARN','ERROR')][string]$Level = 'INFO',
+    [hashtable]$Context,
+    [switch]$NoConsole,
+    [switch]$PassThru
+  )
+
+  $ctx  = if ($Context) { " " + (ConvertTo-Json $Context -Compress) } else { "" }
+  $line = "[{0}] {1}: {2}{3}" -f (Get-McDate), $Level.ToUpper(), $Message, $ctx
+
+  if ($LogPath) {
+    $dir = Split-Path -Parent $LogPath
+    if ($dir) { Ensure-Dir $dir }
+    if ($PSCmdlet.ShouldProcess($LogPath, "Append log line")) {
+      $attempts = 0
+      do {
+        try {
+          Add-Content -Path $LogPath -Value $line -Encoding UTF8
+          break
+        } catch {
+          $attempts++; Start-Sleep -Milliseconds 75
+          if ($attempts -ge 5) { throw }
+        }
+      } while ($true)
+    } else {
+      Write-McWarn "Лог не записано (WhatIf): $LogPath"
+    }
+  }
+
+  if (-not $NoConsole) {
+    switch ($Level) {
+      'INFO'  { Write-McInfo  $Message }
+      'WARN'  { Write-McWarn  $Message }
+      'ERROR' { Write-McError $Message }
+    }
+  }
+
+  if ($PassThru) { return $line }
+}
+
+function Compress-McZip {
+  [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Medium')]
+  param(
+    [Parameter(Mandatory)][string]$SourcePath,
+    [Parameter(Mandatory)][string]$ZipPath,
+    [switch]$Overwrite
+  )
+
+  # Перевірка джерела
+  if (-not (Test-Path -LiteralPath $SourcePath)) {
+    if ($WhatIfPreference) {
+      Write-McWarn "Каталог $SourcePath не існує (WhatIf-режим: архівація пропущена)"
+      return [pscustomobject]@{
+        SourcePath = $SourcePath
+        ZipPath    = $ZipPath
+        Exists     = $false
+        Created    = $false
+        Size       = 0
+        Elapsed    = $null
+      }
+    } else {
+      Write-McError "Немає каталогу: $SourcePath"
+      return
+    }
+  }
+
+  # Підготовка вихідної теки
+  $zipDir = Split-Path -Parent $ZipPath
+  if ($zipDir) { Ensure-Dir $zipDir }
+
+  if ((Test-Path -LiteralPath $ZipPath) -and (-not $Overwrite)) {
+    Write-McWarn "ZIP існує: $ZipPath (використай -Overwrite або -WhatIf/-Confirm)"
+    return [pscustomobject]@{
+      SourcePath = $SourcePath
+      ZipPath    = $ZipPath
+      Exists     = $true
+      Created    = $false
+      Size       = (Get-Item $ZipPath).Length
+      Elapsed    = $null
+    }
+  }
+
+  $sw = Start-McStopwatch
+
+  if ($PSCmdlet.ShouldProcess($ZipPath, "Створити ZIP з $SourcePath")) {
+    if (Test-Path -LiteralPath $ZipPath) { Remove-Item $ZipPath -Force -Confirm:$false }
+
+    if (-not ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GetName().Name -eq 'System.IO.Compression.FileSystem' })) {
+      Add-Type -AssemblyName 'System.IO.Compression.FileSystem'
+    }
+
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($SourcePath, $ZipPath, 'Optimal', $false)
+    Write-McInfo "Створено ZIP: $ZipPath"
+  } else {
+    Write-McWarn "Симуляція (WhatIf): створення ZIP $ZipPath з $SourcePath"
+  }
+
+  $elapsed = Stop-McStopwatch $sw
+
+  $exists = Test-Path -LiteralPath $ZipPath
+  if ($exists) {
+    $size = (Get-Item $ZipPath).Length
+  } else {
+    $size = 0
+  }
+
+  [pscustomobject]@{
+    SourcePath = $SourcePath
+    ZipPath    = $ZipPath
+    Exists     = $exists
+    Created    = ($size -gt 0)
+    Size       = $size
+    Elapsed    = $elapsed
+  }
+}
+
+# =========================
+# Умовний експорт (Variant C)
+# =========================
+
+if (-not $script:McHelpers_Initialized) {
+  $script:McHelpers_Initialized = $true
+}
+
+if ($ExecutionContext.SessionState.Module) {
+  Write-Verbose "[McHelpers] Loaded as MODULE: $($ExecutionContext.SessionState.Module.Name)" -Verbose
+  Export-ModuleMember -Function '*-Mc*'
+} else {
+  Write-Verbose "[McHelpers] Dot-sourced / run as SCRIPT" -Verbose
+}
+'@ | Set-Content -LiteralPath $canon -Encoding UTF8
+
+# Перезавантажити у сесію:
+. $canon -Verbose
+Get-Command '*-Mc*' -CommandType Function | Select-Object Name

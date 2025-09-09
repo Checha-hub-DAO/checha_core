@@ -1,0 +1,12 @@
+﻿{
+  "updated": "2025-09-05T00:00:00",
+  "critical_48h": [
+    { "id": "G04-1", "title": "Підтвердити реліз C12 Docs", "owner": "core", "due": "2025-09-07", "link": "" }
+  ],
+  "urgent_7d": [
+    { "id": "G04-2", "title": "Наповнити галереї ETHNO", "owner": "media", "due": "2025-09-10", "link": "" }
+  ],
+  "planned_30d": [
+    { "id": "G04-3", "title": "Автоматизувати CHECKSUMS у C12", "owner": "auto", "due": "2025-10-01", "link": "" }
+  ]
+}

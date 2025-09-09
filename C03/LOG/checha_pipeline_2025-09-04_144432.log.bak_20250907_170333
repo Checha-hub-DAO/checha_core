@@ -1,0 +1,8 @@
+Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р Р†Р вЂљРЎСљР В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС›Р В Р’В Р Р†Р вЂљРІвЂћСћР В РІР‚в„ўР вЂ™Р’В»Р В Р’В Р вЂ™Р’В Р В Р’В Р В РІР‚в„–Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р В РІР‚С™Р РЋРЎС™2025-09-04 14:44:32 BEGIN Run-ChechaPipelines; Config=C:\CHECHA_CORE\C11\C11_AUTOMATION\config\checha_shelves.json; DryRun=False; Force=False; Pwsh=C:\Program Files\PowerShell\7\pwsh.exe
+2025-09-04 14:44:32 LOCK acquired: Global\CHECHA_VaultPipeline
+2025-09-04 14:44:32 Targets: StrategicReports, DecisionsJournal, Releases
+2025-09-04 14:44:32 INGEST [StrategicReports]  C:\CHECHA_CORE\C11\C11_AUTOMATION\AGENTS\G44_STRATEG\reports -> C:\CHECHA_CORE\C12\Vault\StrategicReports  (Strateg_Report_*.md)
+2025-09-04 14:44:32 INGEST done [StrategicReports]
+2025-09-04 14:44:32 UPDATE [StrategicReports]  Title='Р В Р’В Р вЂ™Р’В Р В Р’В Р В РІР‚в„–Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р вЂ™Р’В Р В Р’В Р В РІР‚в„–Р В Р’В Р В Р вЂ№Р В Р Р‹Р РЋРЎСџР В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р В Р вЂ№Р В Р Р‹Р Р†РІР‚С›РЎС›Р В Р’В Р вЂ™Р’В Р В Р’В Р В РІР‚в„–Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р РЋРІР‚С”Р В Р Р‹Р РЋРІР‚С” Strategic Reports Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р Р‹Р Р†РІР‚С›РЎС›Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р В Р вЂ№Р В Р Р‹Р РЋРІвЂћСћ Vault'
+2025-09-04 14:44:33 ERR: Update failed (StrategicReports): exit 1
+2025-09-04 14:44:33 LOCK released: Global\CHECHA_VaultPipeline

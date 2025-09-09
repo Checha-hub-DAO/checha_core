@@ -1,0 +1,56 @@
+BEGIN verify g45-1-aot :: 20250907_150949
+2025-09-07 15:09:49 [INFO ] РџРѕС‡Р°С‚РѕРє РїРµСЂРµРІС–СЂРєРё g45-1-aot-v1.1 Сѓ Checha-hub-DAO/g45-kod-zakhystu
+2025-09-07 15:09:53 [INFO ] Checksum OK (8D597F4ED3C64772518C7AC33145FD05C54EB9A68C329791AFEBBE5EA17F55F7)
+2025-09-07 15:09:55 [INFO ] GitBook publish OK (g45-1-aot)
+2025-09-07 15:09:55 [INFO ] SYNC.md РѕРЅРѕРІР»РµРЅРѕ -> C:\CHECHA_CORE\G\G45\45.1_РђРћРў\SYNC.md
+2025-09-07 15:09:55 [ERROR] FAILED: At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ вЂ¦ rocess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){  вЂ¦
++                                                         ~~~~~~~
+Unexpected token '" + LF"' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ вЂ¦ ShouldProcess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF": вЂ¦
++                                                                ~
+Missing closing ')' in expression.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ вЂ¦ ShouldProcess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF": вЂ¦
++                                                                ~
+Missing ')' in method call.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ вЂ¦ rocess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){  вЂ¦
++                                                         ~~~~~~~
+Missing closing ')' after expression in 'if' statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:281
++ вЂ¦ ess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){ if( вЂ¦
++                                                             ~~~
+Unexpected token ':""' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:59
++ [int]$changed=0;[int]$skipped=0; foreach($f in $files){try{$text=Read вЂ¦
++                                                           ~
+Missing closing '}' in statement block or type definition.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:284
++ вЂ¦ ess($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){ if( вЂ¦
++                                                                ~
+The Try statement is missing its Catch or Finally block.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:55
++ [int]$changed=0;[int]$skipped=0; foreach($f in $files){try{$text=Read вЂ¦
++                                                       ~
+Missing closing '}' in statement block or type definition.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:284
++ вЂ¦ ss($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){ if($ вЂ¦
++                                                               ~
+Unexpected token ')' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:285
++ вЂ¦ s($f.FullName,"Re-encode в†’ UTF-8"+($NormalizeEol?" + LF":""))){ if($B вЂ¦
++                                                               ~
+Unexpected token ')' in expression or statement.
+
+Not all parse errors were reported.  Correct the reported errors and try again.

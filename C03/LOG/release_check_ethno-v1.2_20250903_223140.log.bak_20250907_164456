@@ -1,0 +1,6 @@
+﻿[2025-09-03 22:31:41] INFO: Знайдено ассетів: 4
+[2025-09-03 22:31:41] INFO: OK ассет: CHECKSUMS.txt
+[2025-09-03 22:31:42] INFO: CHECKSUMS.txt завантажено: C:\Users\serge\AppData\Local\Temp\checks_Checha-hub-DAO_checha_core_ethno-v1.2\CHECKSUMS.txt
+[2025-09-03 22:31:42] ERROR: Локальний ZIP не знайдено: C:\Users\serge\AppData\Local\Temp\ETHNO_Block_v1.2.zip
+[2025-09-03 22:31:42] ERROR: У CHECKSUMS.txt немає рядка для 'ETHNO_Block_v1.2.zip'.
+[2025-09-03 22:31:42] ERROR: Перевірка релізу НЕ пройдена.

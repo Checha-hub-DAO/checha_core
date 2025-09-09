@@ -1,0 +1,10 @@
+﻿[2025-09-03 22:39:02] INFO: Знайдено ассетів: 4
+[2025-09-03 22:39:02] INFO: OK ассет: CHECKSUMS.txt
+[2025-09-03 22:39:03] INFO: CHECKSUMS.txt завантажено: C:\Users\serge\AppData\Local\Temp\checks_Checha-hub-DAO_checha_core_ethno-v1.2\CHECKSUMS.txt
+[2025-09-03 22:39:03] INFO: Імена, знайдені у CHECKSUMS: GALLERY_ETHNO_v1.2_20250902_151318.zip
+[2025-09-03 22:39:03] INFO: Визначено ZIP: G
+[2025-09-03 22:39:04] INFO: Завантажено ZIP: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\G
+[2025-09-03 22:39:04] ERROR: Локальний ZIP не знайдено: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\G
+[2025-09-03 22:39:04] INFO: Checksum для 'GALLERY_ETHNO_v1.2_20250902_151318.zip' знайдено (mode: SingleZipInChecks).
+[2025-09-03 22:39:04] ERROR: Помилка обчислення SHA256 для 'C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\G'. You cannot call a method on a null-valued expression.
+[2025-09-03 22:39:04] ERROR: Перевірка релізу НЕ пройдена.

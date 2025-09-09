@@ -1,0 +1,145 @@
+**********************
+PowerShell transcript start
+Start time: 20250904233942
+Username: DESKTOP-2OLDAUU\serge
+RunAs User: DESKTOP-2OLDAUU\serge
+Configuration Name: 
+Machine: DESKTOP-2OLDAUU (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -NoProfile -ExecutionPolicy Bypass -File C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Checha-ControlPanel.ps1
+Process ID: 22560
+PSVersion: 7.5.2
+PSEdition: Core
+GitCommitId: 7.5.2
+OS: Microsoft Windows 10.0.22631
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+[OK] CHECHA_ROOT OK: C:\CHECHA_CORE
+
+==================== РЎР‚РЎСџРІР‚С”Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-04 23:39:42
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В РЎвЂ”Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В РЎвЂ)             7) Check Release
+3) Pipelines (Р В Р’В·Р В Р’В° Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂ“Р В РЎвЂўР В РЎВ)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   0) Exit
+
+[WARN] Р В РЎСљР В Р’ВµР В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В РЎвЂўР В РЎВР В РЎвЂР В РІвЂћвЂ“ Р В Р вЂ Р В РЎвЂР В Р’В±Р РЋРІР‚вЂњР РЋР вЂљ: Р В РЎвЂ™
+
+
+==================== РЎР‚РЎСџРІР‚С”Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-04 23:41:29
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В РЎвЂ”Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В РЎвЂ)             7) Check Release
+3) Pipelines (Р В Р’В·Р В Р’В° Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂ“Р В РЎвЂўР В РЎВ)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   0) Exit
+
+[OK] Р В РІР‚СћР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂР В РІвЂћвЂ“ Р РЋР РЏР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќ Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂўР РЋР вЂљР В Р’ВµР В Р вЂ¦Р В РЎвЂў: C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\CheCha CONTROL PANEL.master.lnk
+ERROR: Access is denied.
+
+
+[OK] Shortcut hardening: Р В Р’В»Р В Р’В°Р В Р вЂ¦Р РЋРІР‚РЋР В Р’ВµР РЋР вЂљ, Р В Р’ВµР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦, Р В Р’В°Р В Р вЂ Р РЋРІР‚С™Р В РЎвЂў-Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В Р’В»Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ Р Р†Р вЂљРІР‚Сњ Р В РЎвЂ“Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў.
+[i] Р В Р вЂЎР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂ: User Start Menu + Public Desktop (Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РўвЂР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂ”Р В Р вЂ¦Р В РЎвЂў).
+
+
+==================== РЎР‚РЎСџРІР‚С”Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-04 23:44:34
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В РЎвЂ”Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В РЎвЂ)             7) Check Release
+3) Pipelines (Р В Р’В·Р В Р’В° Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂ“Р В РЎвЂўР В РЎВ)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   0) Exit
+
+[OK] Р В РІР‚СћР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂР В РІвЂћвЂ“ Р РЋР РЏР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќ Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂўР РЋР вЂљР В Р’ВµР В Р вЂ¦Р В РЎвЂў: C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\CheCha CONTROL PANEL.master.lnk
+ERROR: Access is denied.
+
+
+[OK] Shortcut hardening: Р В Р’В»Р В Р’В°Р В Р вЂ¦Р РЋРІР‚РЋР В Р’ВµР РЋР вЂљ, Р В Р’ВµР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦, Р В Р’В°Р В Р вЂ Р РЋРІР‚С™Р В РЎвЂў-Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В Р’В»Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ Р Р†Р вЂљРІР‚Сњ Р В РЎвЂ“Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў.
+[i] Р В Р вЂЎР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂ: User Start Menu + Public Desktop (Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РўвЂР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂ”Р В Р вЂ¦Р В РЎвЂў).
+
+
+==================== РЎР‚РЎСџРІР‚С”Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-04 23:44:55
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В РЎвЂ”Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В РЎвЂ)             7) Check Release
+3) Pipelines (Р В Р’В·Р В Р’В° Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂ“Р В РЎвЂўР В РЎВ)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   0) Exit
+
+[OK] Р В РІР‚СћР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂР В РІвЂћвЂ“ Р РЋР РЏР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќ Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂўР РЋР вЂљР В Р’ВµР В Р вЂ¦Р В РЎвЂў: C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\CheCha CONTROL PANEL.master.lnk
+ERROR: Access is denied.
+
+
+[OK] Shortcut hardening: Р В Р’В»Р В Р’В°Р В Р вЂ¦Р РЋРІР‚РЋР В Р’ВµР РЋР вЂљ, Р В Р’ВµР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦, Р В Р’В°Р В Р вЂ Р РЋРІР‚С™Р В РЎвЂў-Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В Р’В»Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ Р Р†Р вЂљРІР‚Сњ Р В РЎвЂ“Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў.
+[i] Р В Р вЂЎР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂ: User Start Menu + Public Desktop (Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РўвЂР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂ”Р В Р вЂ¦Р В РЎвЂў).
+
+
+==================== РЎР‚РЎСџРІР‚С”Р’В° CheCha CONTROL PANEL ====================
+  Root: C:\CHECHA_CORE
+  Time: 2025-09-04 23:45:10
+  Force: off
+=================================================================
+
+1) Dashboards                     6) Verify Release
+2) RunAll (Р В РЎвЂ”Р В Р’В°Р В РІвЂћвЂ“Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В РЎвЂ)             7) Check Release
+3) Pipelines (Р В Р’В·Р В Р’В° Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂ“Р В РЎвЂўР В РЎВ)        8) Vault / Protocols
+4) GitSync (Scheduled Task)       9) Logs / Tail last
+5) Strategic Agent (G44)         10) Install/Update Context Menu
+-----------------------------------------------------------------
+11) Update CONTROL_PANEL.md date  12) Open Last Strategic Report
+13) G04 Escalation                14) Create Incident Note
+15) Rebuild Strategic Index (_index.md)   16) Shortcut Hardening / Auto-Restore
+17) Set Shortcut Icon (.ico)
+A) Agents quick menu   D) Dashboards   L) Tail last log   F) Toggle Force   E) G04 Escalation   I) Incident Note   T) Rebuild Index   Y) Shortcut Hardening   O) Set Icon   0) Exit
+
+[OK] Р В РІР‚СћР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂР В РІвЂћвЂ“ Р РЋР РЏР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќ Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂўР РЋР вЂљР В Р’ВµР В Р вЂ¦Р В РЎвЂў: C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\CheCha CONTROL PANEL.master.lnk
+ERROR: Access is denied.
+
+
+[OK] Shortcut hardening: Р В Р’В»Р В Р’В°Р В Р вЂ¦Р РЋРІР‚РЋР В Р’ВµР РЋР вЂљ, Р В Р’ВµР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР В Р вЂ¦, Р В Р’В°Р В Р вЂ Р РЋРІР‚С™Р В РЎвЂў-Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В Р’В»Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ Р Р†Р вЂљРІР‚Сњ Р В РЎвЂ“Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў.
+[i] Р В Р вЂЎР РЋР вЂљР В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂ: User Start Menu + Public Desktop (Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РўвЂР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂ”Р В Р вЂ¦Р В РЎвЂў).
+

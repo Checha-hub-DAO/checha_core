@@ -1,0 +1,3 @@
+﻿# CITY TEMPLATE
+City: <name>
+Notes: ...

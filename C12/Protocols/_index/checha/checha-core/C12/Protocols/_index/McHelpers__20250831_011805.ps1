@@ -1,4 +1,4 @@
-function Invoke-Mc {
+﻿function Invoke-Mc {
   [CmdletBinding()]
   param(
     [string[]]$Args,
@@ -13,7 +13,7 @@ function Invoke-Mc {
   if (-not (Test-Path $McExe)) { $McExe = 'mc' }
 
   if ($UseDocker) {
-    # ГОЛОВНЕ ВИПРАВЛЕННЯ: ${Repo} замість $Repo
+    # Р“РћР›РћР’РќР• Р’РРџР РђР’Р›Р•РќРќРЇ: ${Repo} Р·Р°РјС–СЃС‚СЊ $Repo
     $argList = @(
       'run','--rm',
       '--network', $DockerNetwork,

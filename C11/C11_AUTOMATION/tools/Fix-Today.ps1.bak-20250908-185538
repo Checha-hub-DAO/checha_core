@@ -1,0 +1,136 @@
+﻿[CmdletBinding()]
+param(
+  [switch] \,
+  [switch] \
+)
+
+# ── Логи ────────────────────────────────────────────────────────────────────
+function Write-Info(\){ Write-Host ("{0} [INFO ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), \) -Fore Cyan }
+function Write-Ok  (\){ Write-Host ("{0} [ OK  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), \) -Fore Green }
+function Write-Warn(\){ Write-Host ("{0} [WARN ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), \) -Fore Yellow }
+function Write-Err (\){ Write-Host ("{0} [ERR  ] {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), \) -Fore Red }
+
+# ── Утиліти ────────────────────────────────────────────────────────────────
+function Ensure-Path([string]\){
+  if(-not (Test-Path \)){ throw "Not found: \" }
+}
+
+function Is-Admin{
+  (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+  ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+# ── Реєстрація задач ────────────────────────────────────────────────────────
+function New-OrUpdateTask(
+  [string]\,
+  [ValidateSet('DAILY','WEEKLY','ONCE')][string]\,
+  [string]\,
+  [string]\C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1,
+  [string]\
+){
+  Ensure-Path \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1
+  \ = Is-Admin
+
+  # 1) Надійний шлях: модуль ScheduledTasks
+  try {
+    if(\){ Unregister-ScheduledTask -TaskName \ -Confirm:\False -ErrorAction SilentlyContinue | Out-Null }
+
+    \ = if (\) { [DateTime]::ParseExact(\,'HH:mm',\) } else { (Get-Date).Date.AddHours(9) }
+    switch (\) {
+      'DAILY'  { \ = New-ScheduledTaskTrigger -Daily  -At \.TimeOfDay }
+      'WEEKLY' { \ = New-ScheduledTaskTrigger -Weekly -At \.TimeOfDay }
+      'ONCE'   { \ = New-ScheduledTaskTrigger -Once   -At (Get-Date).AddMinutes(1) }
+    }
+
+    \ = ('-NoProfile -File "{0}" {1}' -f \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1, \).Trim()
+    \ = New-ScheduledTaskAction -Execute 'C:\Program Files\PowerShell\7\pwsh.exe' -Argument \
+    \ = @{ TaskName = \; Action = \; Trigger = \; Force = \True }
+    if(\){ \.RunLevel = 'Highest' }
+
+    Register-ScheduledTask @args | Out-Null
+    Write-Ok "Task ensured: \"
+    return
+  } catch {
+    Write-Warn ("Register-ScheduledTask failed for {0}: {1}. Fallback to schtasks..." -f \, \.Exception.Message)
+  }
+
+  # 2) Фолбек: schtasks (коректний /TR)
+  \ = ('""{0}"" -NoProfile -File ""{1}"" {2}' -f 'C:\Program Files\PowerShell\7\pwsh.exe', \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1, \).Trim()
+  \ = @('/Create','/F','/TN',\,'/SC',\)
+  if(\ -ne 'ONCE' -and \){ \ += @('/ST',\) }
+  if(\){ \ += @('/RL','HIGHEST') }
+  \ += @('/TR',\)
+
+  \ = Start-Process -FilePath 'schtasks.exe' -ArgumentList \ -NoNewWindow -Wait -PassThru
+  if(\.ExitCode -ne 0){ throw "schtasks failed: code \" }
+  Write-Ok "Task ensured: \"
+}
+
+function Ensure-ChechaTasks {
+  Write-Info "Ensuring scheduled tasks…"
+  \ = 'C:\CHECHA_CORE\C11\C11_AUTOMATION\tools'
+
+  New-OrUpdateTask -Name 'Checha-Daily-StrategicTemplate' -Schedule DAILY -TimeHHmm '09:00' 
+    -ScriptPath (Join-Path \ 'Create-StrategicTemplate.ps1') -ScriptArgs ''
+
+  New-OrUpdateTask -Name 'Checha-Monthly-StrategicReport' -Schedule DAILY -TimeHHmm '21:00' 
+    -ScriptPath (Join-Path \ 'Checha-SessionMonthlyReport.ps1') -ScriptArgs '-Mode Calendar'
+}
+
+# ── Vault YAML крок ─────────────────────────────────────────────────────────
+function Ensure-VaultYaml([string]\ = 'CheCha Vault', [string]\ = 'Швидко. Чітко. Щодня.') {
+  try {
+    \C:\CHECHA_CORE\C12\Vault\_index.md    = 'C:\CHECHA_CORE\C12\Vault\_index.md'
+    \C:\CHECHA_CORE\C12\Vault\README.md = 'C:\CHECHA_CORE\C12\Vault\README.md'
+    \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1   = 'C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1'
+    \    = 'C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Set-TitleSlogan.ps1'
+
+    if (!(Test-Path \C:\CHECHA_CORE\C12\Vault\README.md) -and (Test-Path \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1)) {
+      Write-Info ("Run: {0}" -f \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1)
+      & 'C:\Program Files\PowerShell\7\pwsh.exe' -NoProfile -File \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1 | Out-Null
+    }
+
+    \Назва вашого проєкту  = \
+    \Короткий слоган = \
+    if (Test-Path \C:\CHECHA_CORE\C12\Vault\README.md) {
+      \ = Get-Content -Raw -LiteralPath \C:\CHECHA_CORE\C12\Vault\README.md
+      \  = [regex]::Match(\, '^\s*---\r?\n(.*?)\r?\n---\s*\r?\n', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+      if (\.Success) {
+        \ = \.Groups[1].Value
+        \ = [regex]::Match(\, '(?im)^\s*title\s*:\s*["'']?(?<t>.+?)["'']?\s*$'); if (\.Success) { \Назва вашого проєкту = \.Groups['t'].Value.Trim() }
+        \ = [regex]::Match(\, '(?im)^\s*(description|slogan)\s*:\s*["'']?(?<d>.+?)["'']?\s*$'); if (\.Success) { \Короткий слоган = \.Groups['d'].Value.Trim() }
+      }
+    }
+
+    if (Test-Path \) {
+      & \ -Title \Назва вашого проєкту -Slogan \Короткий слоган -Targets @(\C:\CHECHA_CORE\C12\Vault\_index.md,\C:\CHECHA_CORE\C12\Vault\README.md) -YamlOnly | Out-Host
+    }
+  } catch {
+    Write-Warn ("Vault YAML step skipped: {0}" -f \.Exception.Message)
+  }
+}
+
+# ── Основний сценарій ───────────────────────────────────────────────────────
+if(\){
+  Write-Info ("BEGIN Fix-Today for C:\CHECHA_CORE")
+
+  try { Ensure-ChechaTasks } catch { Write-Err (\.Exception.Message) }
+
+  # Показати ключові задачі
+  try {
+    \Checha-Daily-StrategicTemplate Checha-Monthly-StrategicReport = 'Checha-Daily-StrategicTemplate','Checha-Monthly-StrategicReport'
+    Get-ScheduledTask -TaskName \Checha-Daily-StrategicTemplate Checha-Monthly-StrategicReport | Select TaskName,State | Format-Table -Auto | Out-Host
+  } catch { }
+
+  # Дашборд
+  \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1 = 'C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1'
+  if(Test-Path \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1){
+    Write-Info ("Run: {0}" -f \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1)
+    & 'C:\Program Files\PowerShell\7\pwsh.exe' -NoProfile -File \C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Update-VaultDashboard.ps1 | Out-Host
+  }
+
+  # Vault YAML
+  Ensure-VaultYaml -DefaultTitle 'CheCha Vault' -DefaultSlogan 'Швидко. Чітко. Щодня.'
+
+  Write-Ok "DONE Fix-Today"
+}

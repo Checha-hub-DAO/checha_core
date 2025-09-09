@@ -1,0 +1,56 @@
+BEGIN verify g45-1-aot :: 20250907_150949
+2025-09-07 15:09:49 [INFO ] Р В Р’В Р вЂ™Р’В Р В Р Р‹Р РЋРЎСџР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р В Р вЂ№Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В°Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎСљ Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРІР‚СњР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’ВµР В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’ВµР В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р В Р вЂ№Р В Р вЂ Р В РІР‚С™Р Р†Р вЂљРЎС™Р В Р’В Р В Р вЂ№Р В Р’В Р Р†Р вЂљРЎв„ўР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎСљР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљР’В g45-1-aot-v1.1 Р В Р’В Р В Р вЂ№Р В Р Р‹Р Р†Р вЂљРЎС™ Checha-hub-DAO/g45-kod-zakhystu
+2025-09-07 15:09:53 [INFO ] Checksum OK (8D597F4ED3C64772518C7AC33145FD05C54EB9A68C329791AFEBBE5EA17F55F7)
+2025-09-07 15:09:55 [INFO ] GitBook publish OK (g45-1-aot)
+2025-09-07 15:09:55 [INFO ] SYNC.md Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В¦Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС›Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В»Р В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’ВµР В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В¦Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎС› -> C:\CHECHA_CORE\G\G45\45.1_Р В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРІвЂћСћР В Р’В Р вЂ™Р’В Р В Р Р‹Р Р†Р вЂљРЎвЂќР В Р’В Р вЂ™Р’В Р В Р Р‹Р РЋРІР‚С”\SYNC.md
+2025-09-07 15:09:55 [ERROR] FAILED: At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ rocess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){  Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                         ~~~~~~~
+Unexpected token '" + LF"' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ ShouldProcess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF": Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                                ~
+Missing closing ')' in expression.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ ShouldProcess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF": Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                                ~
+Missing ')' in method call.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:274
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ rocess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){  Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                         ~~~~~~~
+Missing closing ')' after expression in 'if' statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:281
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ ess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){ if( Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                             ~~~
+Unexpected token ':""' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:59
++ [int]$changed=0;[int]$skipped=0; foreach($f in $files){try{$text=Read Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                           ~
+Missing closing '}' in statement block or type definition.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:284
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ ess($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){ if( Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                                ~
+The Try statement is missing its Catch or Finally block.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:55
++ [int]$changed=0;[int]$skipped=0; foreach($f in $files){try{$text=Read Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                       ~
+Missing closing '}' in statement block or type definition.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:284
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ ss($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){ if($ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                               ~
+Unexpected token ')' in expression or statement.
+
+At C:\CHECHA_CORE\C11\C11_AUTOMATION\tools\Convert-ToUtf8.ps1:14 char:285
++ Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦ s($f.FullName,"Re-encode Р В Р’В Р В РІР‚В Р В Р вЂ Р В РІР‚С™Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р Р†РІР‚С›РЎС› UTF-8"+($NormalizeEol?" + LF":""))){ if($B Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В¦
++                                                               ~
+Unexpected token ')' in expression or statement.
+
+Not all parse errors were reported.  Correct the reported errors and try again.

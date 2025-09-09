@@ -1,0 +1,10 @@
+РїВ»С—[2025-09-03 22:39:12] INFO: Р вЂ”Р Р…Р В°Р в„–Р Т‘Р ВµР Р…Р С• Р В°РЎРѓРЎРѓР ВµРЎвЂљРЎвЂ“Р Р†: 4
+[2025-09-03 22:39:12] INFO: OK Р В°РЎРѓРЎРѓР ВµРЎвЂљ: CHECKSUMS.txt
+[2025-09-03 22:39:14] INFO: CHECKSUMS.txt Р В·Р В°Р Р†Р В°Р Р…РЎвЂљР В°Р В¶Р ВµР Р…Р С•: C:\Users\serge\AppData\Local\Temp\checks_Checha-hub-DAO_checha_core_ethno-v1.2\CHECKSUMS.txt
+[2025-09-03 22:39:14] INFO: Р вЂ Р СР ВµР Р…Р В°, Р В·Р Р…Р В°Р в„–Р Т‘Р ВµР Р…РЎвЂ“ РЎС“ CHECKSUMS: GALLERY_ETHNO_v1.2_20250902_151318.zip
+[2025-09-03 22:39:14] INFO: Р вЂ™Р С‘Р В·Р Р…Р В°РЎвЂЎР ВµР Р…Р С• ZIP: E
+[2025-09-03 22:39:15] INFO: Р вЂ”Р В°Р Р†Р В°Р Р…РЎвЂљР В°Р В¶Р ВµР Р…Р С• ZIP: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\E
+[2025-09-03 22:39:15] ERROR: Р вЂєР С•Р С”Р В°Р В»РЎРЉР Р…Р С‘Р в„– ZIP Р Р…Р Вµ Р В·Р Р…Р В°Р в„–Р Т‘Р ВµР Р…Р С•: C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\E
+[2025-09-03 22:39:15] INFO: Checksum Р Т‘Р В»РЎРЏ 'GALLERY_ETHNO_v1.2_20250902_151318.zip' Р В·Р Р…Р В°Р в„–Р Т‘Р ВµР Р…Р С• (mode: SingleZipInChecks).
+[2025-09-03 22:39:15] ERROR: Р СџР С•Р СР С‘Р В»Р С”Р В° Р С•Р В±РЎвЂЎР С‘РЎРѓР В»Р ВµР Р…Р Р…РЎРЏ SHA256 Р Т‘Р В»РЎРЏ 'C:\Users\serge\AppData\Local\Temp\zip_Checha-hub-DAO_checha_core_ethno-v1.2\E'. You cannot call a method on a null-valued expression.
+[2025-09-03 22:39:15] ERROR: Р СџР ВµРЎР‚Р ВµР Р†РЎвЂ“РЎР‚Р С”Р В° РЎР‚Р ВµР В»РЎвЂ“Р В·РЎС“ Р СњР вЂў Р С—РЎР‚Р С•Р в„–Р Т‘Р ВµР Р…Р В°.
