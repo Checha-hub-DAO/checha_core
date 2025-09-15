@@ -1,0 +1,12 @@
+{
+  "automation": "⚠ (Digest G35: помилка GitHub Actions #20)",
+  "vault_target": 25,
+  "dao_active": ["G35 — Медіа", "G43 — ITETA", "G11 — Лідерство"],
+  "dao_in_progress": ["G23 — Молодь", "G37 — Віднови Життя"],
+  "dao_paused": ["G28 — Інклюзія", "G09 — Медіа-Альянс"],
+  "next3days": [
+    "C12: довести 5 карт (Франкл, Бостром, Берн, Мурті, Рослінг)",
+    "G35: полагодити weekly digest (.github#20)",
+    "University: головний візуал"
+  ]
+}
