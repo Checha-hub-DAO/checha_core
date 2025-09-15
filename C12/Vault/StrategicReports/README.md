@@ -7,6 +7,7 @@
 ## Останні звіти (2)
 | Дата | Файл | SHA-256 (Vault) | SHA-256 (Agent) | Дзеркало |
 |---|---|---|---|---|
+| 2025-09-14 | [Strateg_Report_2025-09-14.md](./2025/Strateg_Report_2025-09-14.md) |
 | 2025-09-07 | [Strateg_Report_2025-09-07.md](./2025/Strateg_Report_2025-09-07.md) |
 | 2025-09-05 | [Strateg_Report_2025-09-05.md](./2025/Strateg_Report_2025-09-05.md) |
 | 2025-09-05 | [Strateg_Report_2025-09-05.md](./2025/Strateg_Report_2025-09-05.md) |
